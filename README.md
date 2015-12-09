@@ -1,2 +1,2 @@
-# Galllery
+# Gallery
 MySmallGallery
