@@ -8,8 +8,12 @@
 
 namespace Core\Controller;
 
+use Core\Interfaces\ControllerInterface;
 
-class SettingsController
+class SettingsController implements ControllerInterface
 {
+    public function DefaultAction($param)
+    {
 
+    }
 }

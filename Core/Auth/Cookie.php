@@ -12,4 +12,17 @@ namespace Core\Auth;
 class Cookie
 {
 
+    public function setCookie($name, $value){
+        setcookie($name, $value, time()+36000);
+    }
+
+    public function getCookie($name){
+        echo BR;
+        var_dump($name);
+        echo BR;
+        var_dump($_COOKIE);
+        return $_COOKIE[$name];
+    }
+
+
 }

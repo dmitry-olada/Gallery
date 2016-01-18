@@ -6,10 +6,10 @@
  * Time: 18:16
  */
 
-namespace Core\Model\Grammar;
+namespace Core\Model\QueryBuilder\Grammar;
 
 
-use Core\Model\Grammar;
+use Core\Model\QueryBuilder\Grammar;
 
 class Mysql extends Grammar
 {

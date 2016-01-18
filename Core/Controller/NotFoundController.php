@@ -9,7 +9,11 @@
 namespace Core\Controller;
 
 
-class NotFoundController
-{
+use Core\Controller;
 
+class NotFoundController extends Controller
+{
+    public function defaultAction($param){
+        return $this->di->get('view')->setData('subject', $param)->render(ROOT . 'Web/views/404.html.php');
+    }
 }

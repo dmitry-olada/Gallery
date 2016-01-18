@@ -6,8 +6,7 @@
  * Time: 18:15
  */
 
-namespace Core\Model;
-
+namespace Core\Model\QueryBuilder;
 
 class Grammar
 {
@@ -106,7 +105,8 @@ class Grammar
                 return $this->buildAggregate($field);
                 break;
             case 'array':
-                return $this->buildAlias($this->buildField($field[0]), $this->quote($field[1]));
+                return $this->buildAggregate($field); //HOTFIX.
+                //return $this->buildAlias($this->buildField($field[0]), $this->quote($field[1]));
                 break;
             case 'object':
                 return $this->buildSelect($field->getParts());
@@ -219,6 +219,14 @@ class Grammar
     }
     protected function buildAggregate($string)
     {
+        // Сорян, без этого никак((
+        if(is_array($string)){
+            $tmp = '';
+            foreach($string as $var){
+                $tmp = $tmp.$this->quoteField($var).',';
+            }
+            return rtrim($tmp, ',');
+        }
         $pattern = "#(\w+)\(([\(\)\w\*\s,]+)\)$#i";
         $match   = [];
         if (preg_match($pattern, $string, $match)) {

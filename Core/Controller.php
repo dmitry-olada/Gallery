@@ -8,8 +8,17 @@
 
 namespace Core;
 
+use Lebran\Container;
+use Lebran\Container\InjectableInterface;
+use Lebran\Container\InjectableTrait;
 
-class Controller
+class Controller implements InjectableInterface
 {
+    use InjectableTrait;
+
+    public function __construct($di)
+    {
+        $this->di = $di;
+    }
 
 }

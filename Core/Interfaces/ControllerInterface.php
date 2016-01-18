@@ -9,7 +9,7 @@
 namespace Core\Interfaces;
 
 
-class ControllerInterface
+interface ControllerInterface
 {
-
+    public function DefaultAction($param);
 }

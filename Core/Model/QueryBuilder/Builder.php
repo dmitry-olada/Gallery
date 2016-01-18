@@ -6,7 +6,7 @@
  * Time: 18:15
  */
 
-namespace Core\Model;
+namespace Core\Model\QueryBuilder;
 
 use PDO;
 use Closure;
@@ -78,10 +78,12 @@ class Builder
         $this->wheres[] = compact('field', 'operator', 'data', 'boolean');
         return $this;
     }
+
     public function orWhere($field, $operator = null, $data = null)
     {
         return $this->where($field, $operator, $data, 'OR');
     }
+
     public function groupBy($groups)
     {
         $this->groups = func_get_args();
@@ -125,6 +127,10 @@ class Builder
     public function get()
     {
         $sql = $this->grammar->buildSelect($this->getParts());
+        //echo BR;
+        //var_dump($sql); //Запрос
+        //echo BR;
+        unset($this->tables, $this->wheres);
         return $this->db->query($sql);
     }
     public function select(){
@@ -154,6 +160,8 @@ class Builder
             return ($value instanceof Closure)?$this->subQuery($value):$value;
         }, $values);
         $sql = $this->grammar->buildUpdate(array_merge($this->getParts(), ['sets' => $values]));
+        echo BR;
+        var_dump($sql);
         return $this->db->query($sql);
     }
     protected function subQuery(Closure $closure)

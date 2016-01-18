@@ -8,8 +8,29 @@
 
 namespace Core\Model\Models;
 
+use Core\Model\Model;
+use Core\Model\ModelsInterface;
 
-class Friends
+class Friends extends Model implements ModelsInterface
 {
+    protected $id;
+    protected $user_iden;
+    protected $friend_iden;
+
+    public function getId()
+    {
+        return "id";
+    }
+
+    public function getTable()
+    {
+        return "Friends";
+    }
+
+    public function getColumns()
+    {
+        return array('id', 'user_iden', 'friend_iden');
+    }
+
 
 }

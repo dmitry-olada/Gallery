@@ -8,12 +8,26 @@
 
 namespace Core;
 
+use Lebran\Container;
+use Lebran\Container\InjectableInterface;
 
-class Router
+class Router implements InjectableInterface
 {
-    public function __construct()
-    {
-        echo 'xx';
+    use Container\InjectableTrait;
+
+    protected $uri;
+
+    public function execute($uri = null){
+        $this->uri = $uri ? $uri : $this->di->get('request')->getUri();
+        return explode('/', $this->uri);
+    }
+
+    public function returnUrl(){
+        return $this->uri;
+    }
+
+    public function getUserUri(){
+        return $_SERVER['REQUEST_URI'];
     }
 
 }

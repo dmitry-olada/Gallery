@@ -8,8 +8,9 @@
 
 namespace Core\Model;
 
-
-class ModelsInterface
+interface ModelsInterface
 {
-
+    public function getId();
+    public function getTable();
+    public function getColumns();
 }

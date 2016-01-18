@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Auth</title>
-	<link rel="stylesheet" href='bootstrap.min.css' type='text/css' media='all'>
-	<link rel="stylesheet" href='../../Views/css/style.css' type='text/css' media='all'>
+	<link rel="stylesheet" href='../styles/bootstrap.min.css' type='text/css' media='all'>
+	<link rel="stylesheet" href='../styles/style.css' type='text/css' media='all'>
 </head>
 <body>
 
@@ -27,14 +27,14 @@
  					<h2>Login</h2>
  				</div>
 
- 				<form role="form">
+ 				<form role="form" action="/profile/1" method="POST">
 				 <div class="form-group">
 				  <label for="email">Email</label>
-				  <input type="email" class="form-control" id="email" placeholder="Enter an email">
+				  <input type="email" class="form-control" name="email" placeholder="Enter an email" required>
 				 </div>
 				 <div class="form-group">
 				  <label for="pass">Password</label>
-				  <input type="password" class="form-control" id="pass" placeholder="Enter a password">
+				  <input type="password" class="form-control" name="password" placeholder="Enter a password" required>
 				 </div>
 				 <div class="checkbox">
 				  <label><input type="checkbox" value="yes"> Remember me</label>
@@ -58,14 +58,14 @@
  				</div>
 
 
- 				<form role="form">
+ 				<form role="form" action="/" method="post">
 				 <div class="form-group">
 				  <label for="email">Email</label>
-				  <input type="email" class="form-control test" name="" ="email" placeholder="Enter an email">
+				  <input type="email" class="form-control" name="email" placeholder="Enter an email" required>
 				  <label for="pass">Password</label>
-				  <input type="password" class="form-control test" name="pass" placeholder="Make up your password">
+				  <input type="password" class="form-control" name="password" placeholder="Make up your password" required>
 				  <label for="pass">Nick</label>
-				  <input type="text" class="form-control" name="nick" placeholder="Select a nick">
+				  <input type="text" class="form-control" name="nick" placeholder="Select a nick" required>
 				 </div>
 				 <button type="submit" class="btn btn-success">Sing Up</button>
 				</form>

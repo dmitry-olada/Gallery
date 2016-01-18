@@ -11,5 +11,13 @@ namespace Core\Controller;
 
 class PhotosController
 {
+    public function DefaultAction($id, $number)
+    {
 
+    }
+
+    public function Edit($id, $number)
+    {
+
+    }
 }
