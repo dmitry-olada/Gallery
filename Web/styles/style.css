@@ -1,0 +1,40 @@
+#border{
+	border-left: 2px solid black;
+}
+
+.head_login{
+	height: 50px;
+	border-bottom: 1px solid blue;
+	margin-bottom: 10px; 
+}
+
+.head_reg{
+	height: 50px;
+	border-bottom: 1px solid green;
+	margin-bottom: 10px; 
+}
+
+.reg_ot{
+	margin-bottom: 5px;
+}
+
+.photo{
+	height: 135px;
+	width: 135px;
+	margin: 10px 0px 0px 10px;
+	border: 1px solid #808080;
+}
+
+.info{
+	margin: 1px;
+}
+
+.line{
+	border-top: 2px solid #808080;
+}
+
+.a{
+	border: 1px solid red;
+}
+
+

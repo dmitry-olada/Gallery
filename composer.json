@@ -1,0 +1,17 @@
+{
+    "name": "cheebam/gallery",
+    "description": "none",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cheebam",
+            "email": "qqaassdd@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+        "php": ">=5.5",
+        "lebran/container":"dev-master"
+
+    }
+}
