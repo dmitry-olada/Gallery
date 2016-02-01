@@ -36,4 +36,8 @@ class Auth implements InjectableInterface
     {
         $this->di->get('session')->remove(self::SESSION_USER_NAME);
     }
+
+    public function hash($password){
+        return hash('sha256', $password);
+    }
 }

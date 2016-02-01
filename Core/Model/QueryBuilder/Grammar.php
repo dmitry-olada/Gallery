@@ -356,6 +356,7 @@ class Grammar
             $query = $this->quoteField($key);
         }
         $query .= ' = ';
+
         switch (gettype($value)) {
             case 'string':
                 return $query.$this->quote($value);

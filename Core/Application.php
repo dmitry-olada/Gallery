@@ -17,6 +17,7 @@ use Core\Controller\ProfileController;
 use Core\Http\Request;
 use Core\Http\Response;
 use Lebran\Container\InjectableTrait;
+use Lebran\Mvc\View;
 
 class Application
 {
@@ -25,10 +26,10 @@ class Application
     public function __construct($di)
     {
         $this->di = $di;
+        $this->di->set('view', new View(array(new View\Extension\Blocks())), true);
         $this->di->set('router', new Router());
         $this->di->set('request', new Request());
         $this->di->set('response', new Response());
-        $this->di->set('view', new View());
         $this->di->set('auth', new Auth());
         $this->di->set('session', new Session());
         $this->di->set('cookie', new Cookie());
@@ -36,62 +37,47 @@ class Application
 
     public function handle()
     {
-        var_dump($_SERVER['REQUEST_METHOD']);
-        echo BR;
-        var_dump($_POST);
-        echo BR;
-        //die;
-        //var_dump($_SESSION);
+        // Ромка. В бд нельзя добавлять значение null через queryBuilder!
+
+        //TODO: Если после числа еще / и числа, то выкидывать notFound.
+
+        //TODO: Переформатировать дату в бд.
+
+        $response = $this->di->get('response');
+
         $components = $this->di->get('router')->execute();
-        $controller = 'Core\\Controller\\'.ucfirst(strtolower($components[0])).'Controller';
-        //$controller = 'Web\\Controller\\'.ucfirst(strtolower($components[0])).'Controller';
-        //var_dump($controller);
-            if(class_exists($controller)){
-                $controller = new $controller($this->di);
-                if(preg_match("/[a-z,A-z]+/", $components[1])){
-                    $action = (strtolower($components[1])).'Action';
-                    if(method_exists($controller, $action)) {
-                        unset($components[0], $components[1]);
-                        $components = implode(',', $components);
-                        if($this->di->get('auth')->isAuthenticated()) {
-                            $response = $controller->{$action}($components);
-                            return $this->di->get('response')->setContent($response)->send();
-                        }else{
-                            $auth = new AuthController($this->di);
-                            return $this->di->get('response')->setContent($auth->authAction())->send();
-                        }
-                    }else{
-                        $this->notFound('Action');
-                    }
-                }elseif(preg_match("/\\d+/", $components[1])){
-                    $action = 'DefaultAction';
-                    unset($components[0]);
-                    implode(',', $components);
-                    if($this->di->get('auth')->isAuthenticated()) {
-                        $response = $controller->{$action}($components);
-                        return $this->di->get('response')->setContent($response)->send();
-                    }else{
-                        $auth = new AuthController($this->di);
-                        return $this->di->get('response')->setContent($auth->authAction())->send();
-                    }
-
-                }else{
-                    $this->notFound('Action');
-                }
-
-            }else if($this->di->get('router')->getUserUri() == '/'){
-                if($this->di->get('auth')->isAuthenticated()) {
-                    $controller = new ProfileController($this->di);
-                    $action = 'DefaultAction';
-                    $response = $controller->{$action}();
-                    return $this->di->get('response')->setContent($response)->send();
-                }else{
-                    $auth = new AuthController($this->di);
-                    return $this->di->get('response')->setContent($auth->authAction())->send();
-                }
-            }else{
-                $this->notFound('Controller');
+        $components[0] = ($components[0] === '')?'Profile':$components[0];
+        $controller = 'Core\\Controller\\' . ucfirst(strtolower($components[0])) . 'Controller';
+        if (class_exists($controller)) {
+            $controller = new $controller($this->di);
+            unset($components[0]);
+            if (empty($components[1])){
+                $action = 'DefaultAction';
+                $components = !empty($components[1]) ? $components[1] : '';
+            }elseif(preg_match("/\\d+/", $components[1])) {                   //Пушо пхп ругается, на $components[1];
+                $action = 'DefaultAction';
+                $components = !empty($components[1]) ? $components[1] : '';
+            }elseif(preg_match("/[a-z,A-z]+/", $components[1])) {
+                $action = (strtolower($components[1])) . 'Action';
+                unset($components[1]);
+                $components = !empty($components[2]) ? $components[2] : '';
+            }else {
+                $this->notFound('Action');
             }
+            if (method_exists($controller, $action)) {
+                if ($this->di->get('auth')->isAuthenticated()) {
+                    $content = $controller->{$action}($components);
+                    return $response->setContent($content)->send();
+                } else {
+                    $auth = new AuthController($this->di);
+                    return $response->setContent($auth->authAction())->send();
+                }
+            } else {
+                $this->notFound('Action');
+            }
+        } else {
+            $this->notFound('Controller');
+        }
     }
 
     private function notFound($subject){
@@ -100,11 +86,6 @@ class Application
         $response = $controller->{$action}($subject);
         return $this->di->get('response')->setStatus(404)->setContent($response)->send();
     }
-
-    //TODO: сделать с файлом routes
-
-
-
 
 
 }

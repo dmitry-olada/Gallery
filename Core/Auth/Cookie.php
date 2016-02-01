@@ -13,15 +13,25 @@ class Cookie
 {
 
     public function setCookie($name, $value){
-        setcookie($name, $value, time()+36000);
+        setcookie($name, $value, time()+60*60*24*30, '/', 'gallery.hz');
     }
 
     public function getCookie($name){
-        echo BR;
-        var_dump($name);
-        echo BR;
-        var_dump($_COOKIE);
         return $_COOKIE[$name];
+    }
+
+    public function hasCookie($name){
+        return !empty($_COOKIE[$name])?true:false;
+    }
+
+    public function deleteCookie($name = null){
+        if($name == null){
+           foreach ($_COOKIE as $key => $value){
+               setCookie($key, '', time(), '/', 'gallery.hz');
+           }
+        }else{
+            setCookie($name, '', time(), '/', 'gallery.hz');
+        }
     }
 
 

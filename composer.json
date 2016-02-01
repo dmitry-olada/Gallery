@@ -11,7 +11,8 @@
     "minimum-stability": "beta",
     "require": {
         "php": ">=5.5",
-        "lebran/container":"dev-master"
-
+        "lebran/container":"dev-master",
+        "lebran/utils":"dev-master",
+        "lebran/framework":"dev-2.0.0/master"
     }
 }

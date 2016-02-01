@@ -11,9 +11,10 @@ namespace Core\Controller;
 
 use Core\Controller;
 
-class NotFoundController extends Controller
+class NotFoundController extends Controller implements _ControllerInterface
 {
-    public function defaultAction($param){
-        return $this->di->get('view')->setData('subject', $param)->render(ROOT . 'Web/views/404.html.php');
+    //TODO: if param isNull
+    public function defaultAction($param = null){
+        return $this->view->render('views::404.html', array('subject' => $param));
     }
 }

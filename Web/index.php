@@ -8,8 +8,9 @@
 
 define('CORE', __DIR__.'/../Core/');
 define('ROOT', __DIR__.'/../');
+define('DOC_ROOT', __DIR__);
 define('BR', '<Br/>');
-//var_dump($_SERVER['REQUEST_METHOD']);DIE;
+define('PRE', '<pre>');
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);

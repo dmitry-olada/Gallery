@@ -13,7 +13,7 @@ class View
 {
     protected $path;
 
-    protected $data = array();
+    public $data = array();
 
     public function setData($key, $value)
     {

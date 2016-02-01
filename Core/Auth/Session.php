@@ -35,4 +35,18 @@ class Session
     {
         unset($_SESSION[$name]);
     }
+
+    public function setFlash($value, $type){
+        $_SESSION['flash'][$type] = $value;
+    }
+
+    public function getFlash(){
+        if (array_key_exists('flash', $_SESSION)) {
+            $tmp = $_SESSION['flash'];
+            unset($_SESSION['flash']);
+            return $tmp;
+        } else {
+            return null;
+        }
+    }
 }

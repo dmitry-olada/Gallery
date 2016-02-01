@@ -9,6 +9,7 @@
 namespace Core\Model;
 
 use ArrayAccess;
+use Core\Controller;
 use Core\Model\QueryBuilder\Builder;
 use Core\Model\QueryBuilder\Grammar\Mysql;
 
@@ -43,20 +44,30 @@ class Model implements ModelsInterface
     {
         $opt = array(
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
+            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
         );
-        $this->pdo = $pdo ? $pdo : new \PDO('mysql:dbname=gallery;host=127.0.0.1', 'root', '123', $opt);
+        $this->pdo = $pdo ? $pdo : new \PDO('mysql:dbname=new_gallery;host=127.0.0.1', 'root', '', $opt);
         $this->builder = new Builder($this->pdo, new Mysql());
     }
 
-    public function selectAll($key, $value)
-    {
-        return $this->builder->table($this->getTable())->where($key, '=', $value)->get()->fetch();
+    public function selectAll($fields, $where = array(), $opt = null){
+        if(empty($where)){
+            return $this->builder->table($this->getTable())->fields($fields)->get()->fetchAll($opt);
+        }else{
+            return $this->builder->table($this->getTable())->fields($fields)->where($where[0], '=', $where[1])->get()->fetchAll($opt);
+        }
     }
 
-    public function select($fields, $key, $value, $opt = null)
+    public function select($fields, $where = array(), $opt = null)
     {
-        return $this->builder->table($this->getTable())->fields($fields)->where($key, '=', $value)->get()->fetch($opt);
+        return $this->builder->table($this->getTable())->fields($fields)->where($where[0], '=', $where[1])->get()->fetch($opt);
+    }
+
+    public function selectObj($where = array(), $opt = null, $auth = false)
+    {
+        $sql = $this->builder->table($this->getTable())->where($where[0], '=', $where[1])->get();
+        return $auth ? $sql->fetch($opt) : $sql->fetchObject(static::class);
     }
 
     public function insert(){
@@ -72,7 +83,7 @@ class Model implements ModelsInterface
             $values[] = $this->$key;
         }
         $data = array_combine($this->getColumns(), $values);
-        //var_dump($data);
+
         $this->builder->table($this->getTable())->where($field, '=', $value)->update($data);
     }
 

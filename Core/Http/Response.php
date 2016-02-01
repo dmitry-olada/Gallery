@@ -127,11 +127,17 @@ class Response
         return $key?$this->headers[$key]:$this->headers;
     }
 
-    public function redirect($url, $status = 302)
+    /*public function redirect($url, $status = 302)
     {
         $this->setHeaders(['Location' => trim($url)]);
         $this->setStatus($status);
         return $this;
+    }*/
+
+    public function redirect($url = null){
+        $url = $url?$url:'/';
+        header('Location: '.$url, true, 302);
+        die;
     }
 
     public function setHttpVersion($version)

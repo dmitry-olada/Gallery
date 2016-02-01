@@ -1,3 +1,17 @@
+/*.layout_footer{
+	position: inherit;
+	min-height: calc(100vh - 80px);
+}*/
+
+.ccenter{
+	margin: auto;
+}
+
+.div_center{
+	display: block;
+	margin: auto;
+}
+
 #border{
 	border-left: 2px solid black;
 }
@@ -21,7 +35,7 @@
 .photo{
 	height: 135px;
 	width: 135px;
-	margin: 10px 0px 0px 10px;
+	margin: 10px 0 0 10px;
 	border: 1px solid #808080;
 }
 
@@ -36,5 +50,160 @@
 .a{
 	border: 1px solid red;
 }
+
+.photo_profile{
+	margin-top: 30px;
+	margin-left: 49px;
+	margin-bottom: 42px;
+}
+
+.nick{
+	margin-top: 30px;
+}
+
+.dir{
+	margin-bottom: 30px;
+	margin-left: 15px;
+}
+
+.dir h3{
+	text-align: center;
+	margin-top: -10px;
+	margin-bottom: 5px;
+}
+
+.descr{
+	margin-top: -10px;
+}
+
+.descr p{
+	margin-top: -10px;
+}
+
+.descr_1{
+	margin-left: 20px;
+}
+
+.comments{
+	height: 280px;
+}
+
+.textarea{
+	resize: none;
+	border: none;
+	width: 435px;
+	height: 150px;
+}
+
+
+.gal_desc{
+	margin-top: -20px;
+	background-color: #908d8d;
+	height: 150px;
+	width: auto;
+	color: white;
+
+}
+
+.gal_desc h3{
+	margin-top: 10px;
+}
+
+.gal_p{
+	margin-left: 40px;
+}
+
+.gal_buh{
+	margin: auto;
+}
+
+.container{
+	background-color: #bababa;
+	height: 350px;
+	width: auto;
+	border: 1px solid black;
+}
+
+.coment{
+	background-color: #908d8d;
+	height: 130px;
+	color: white;
+}
+
+.allusers_table{
+	text-align: center;
+	width: 300px;
+	margin: auto;
+}
+.allusers_table th {
+	text-align: center;
+}
+.settings_delimiter{
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #dddddd;
+}
+
+.settings_button{
+	width: 100px;
+	float: right;
+}
+
+.settings_changer{
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+#ds{
+	margin-left: 30px;
+}
+
+#album_description{
+	resize: none;
+	margin-bottom: 10px;
+}
+
+.album_photos_show{
+	height: 80px;
+	width: 70px;
+	float: right;
+}
+
+.photos_changer{
+	padding: 5px;
+	height: 400px;
+	width: auto;
+	overflow: auto;
+	border-bottom: 1px solid #dddddd;
+}
+
+.album_upload{
+	float: right;
+	margin-right: 5px;
+}
+
+.albums_ph_delimiter{
+	border-bottom: 1px solid #dddddd;
+}
+
+.albums_counter{
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.hov_block{
+	display: none;
+	text-align: left;
+}
+.album_img:hover .hov_block{
+	display: block;
+}
+
+.form_indent{
+	margin-bottom: 5px;
+}
+
+
+
 
 

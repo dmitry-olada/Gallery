@@ -11,11 +11,15 @@ namespace Core\Model\Models;
 use Core\Model\Model;
 use Core\Model\ModelsInterface;
 
-class Photos extends Model implements ModelsInterface
+class Albums extends Model implements ModelsInterface
 {
     public $id;
-    public $link;
-    public $albums_id;
+    public $name;
+    public $description;
+    public $date;
+    public $buhlikes;
+    public $comments;
+    public $owner;
 
     public function getId()
     {
@@ -24,12 +28,13 @@ class Photos extends Model implements ModelsInterface
 
     public function getTable()
     {
-        return 'photos';
+        return 'albums';
     }
 
     public function getColumns()
     {
-        return array('id', 'link', 'albums_id', 'name');
+        return array('id', 'name', 'description', 'comments', 'date', 'buhlikes', 'owner');
     }
+
 
 }

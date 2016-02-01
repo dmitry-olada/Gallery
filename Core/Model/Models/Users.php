@@ -13,26 +13,26 @@ use Core\Model\ModelsInterface;
 
 class Users extends Model implements ModelsInterface
 {
-    public $user_id;
+    public $id;
+    public $email;
+    public $password;
     public $nick;
     public $avatar;
     public $reg_date;
-    public $email;
-    public $password;
-
+    public $bookmarks;
 
     public function getId()
     {
-        return "user_id";
+        return 'id';
     }
 
     public function getTable()
     {
-        return "Users";
+        return 'users';
     }
 
     public function getColumns()
     {
-        return array('user_id', 'nick', 'avatar', 'reg_date', 'email', 'password');
+        return array('id', 'email', 'password', 'nick', 'avatar', 'reg_date', 'bookmarks');
     }
 }

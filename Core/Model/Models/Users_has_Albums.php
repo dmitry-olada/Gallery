@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: dmitry
- * Date: 09.01.16
- * Time: 18:48
+ * Date: 26.01.16
+ * Time: 17:31
  */
 
 namespace Core\Model\Models;
@@ -11,25 +11,24 @@ namespace Core\Model\Models;
 use Core\Model\Model;
 use Core\Model\ModelsInterface;
 
-class Photos extends Model implements ModelsInterface
+class Users_has_Albums extends Model implements ModelsInterface
 {
-    public $id;
-    public $link;
+    public $users_id;
     public $albums_id;
 
     public function getId()
     {
-        return 'id';
+        return 'users_id';
     }
 
     public function getTable()
     {
-        return 'photos';
+        return 'users_has_albums';
     }
 
     public function getColumns()
     {
-        return array('id', 'link', 'albums_id', 'name');
+        return array('id', 'email', 'password', 'nick', 'avatar', 'reg_date', 'friends');
     }
 
 }

@@ -30,6 +30,10 @@ class Request
         return $key?$this->global[$key]:$this->global;
     }
 
+    public function has($key){
+        return !empty($this->global[$key])?true:false;
+    }
+
     public function getMethod()
     {
         return $_SERVER['REQUEST_METHOD'];

@@ -9,42 +9,32 @@
 namespace Core\Controller;
 
 use Core\Controller;
-use Core\Interfaces\ControllerInterface;
-use Core\Model\Models\Friends;
-use Core\Model\Models\Photos;
-use Core\Model\Models\Users;
+use Core\Model\Models\Albums;
+use Core\Model\Models\Users_has_Albums;
 
-class ProfileController extends Controller implements ControllerInterface
+class ProfileController extends Controller implements _ControllerInterface
 {
     public function __construct($di)
     {
         parent::__construct($di);
     }
 
-    public function defaultAction($param = null)
+    public function defaultAction($data = null)
     {
-        $owner = true;
-        $user = $this->di->get('auth')->getUser();
-        !($user->user_id == $param[1]) ?: $param = null;
-        if($param != null) {
-            $owner = false;
-            $user = new Users();
-            $user = $user->selectAll('user_id', $param);
+        $layout = $this->makeLayout($data);
+        $album = new Albums();
+        $user_albums = new Users_has_Albums();
+        $user_albums = $user_albums->selectAll('albums_id', array('users_id', $layout['id']), \PDO::FETCH_NUM);
+        $albums = array();
+        foreach ($user_albums as $item){
+            $albums = array_merge($albums, $album->selectAll($album->getColumns(), array('id', $item[0])));
+            // albums[] создает в 2 вложенных массива, почему и нахуя - хз.
         }
-        $keys = ['nick', 'id', 'email', 'avatar', 'date', 'friends', 'photos', 'videos', 'owner'];
-        $photo = new Photos();
-        $friend = new Friends();
-        $user_photos = $photo->select('count(photo_id)', 'owner', $user->user_id, \PDO::FETCH_ASSOC);
-        $user_friends = $friend->select('count(friend_iden)', 'user_iden', $user->user_id, \PDO::FETCH_ASSOC);
-        $values = [ucfirst($user->nick), $user->user_id, $user->email, $user->avatar, $user->reg_date,
-            $user_friends['count(friend_iden)'], $user_photos['count(photo_id)'], 0, $owner];
-        return $this->di->get('view')->setData($keys, $values)->render(ROOT.'Web/views/profile.html.php');
+
+        $albums = array('user_albums' => $albums);
+        $data = array_merge_recursive($layout, $albums);
+
+        return $this->view->render('views::profile.html', $data);
     }
 
-    //TODO: СДЕЛАТЬ ОШИБКУ ЕСЛИ НЕПРАВИЛЬНЫЙ ПАРОЛЬ + РЕГИСТРАЦИЯ
-
-    public function showUsers()
-    {
-
-    }
 }
