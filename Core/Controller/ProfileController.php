@@ -12,7 +12,7 @@ use Core\Controller;
 use Core\Model\Models\Albums;
 use Core\Model\Models\Users_has_Albums;
 
-class ProfileController extends Controller implements _ControllerInterface
+class ProfileController extends Controller
 {
     public function __construct($di)
     {

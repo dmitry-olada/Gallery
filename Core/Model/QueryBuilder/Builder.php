@@ -130,7 +130,6 @@ class Builder
         //echo BR;
         //var_dump($sql); //Запрос
         //echo BR;
-        unset($this->tables, $this->wheres);
         return $this->db->query($sql);
     }
     public function select(){

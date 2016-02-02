@@ -8,14 +8,10 @@
 
 namespace Core;
 
-use Core\Auth\Auth;
-use Core\Auth\Cookie;
-use Core\Auth\Session;
+
 use Core\Controller\AuthController;
 use Core\Controller\NotFoundController;
-use Core\Controller\ProfileController;
-use Core\Http\Request;
-use Core\Http\Response;
+
 use Lebran\Container\InjectableTrait;
 use Lebran\Mvc\View;
 
@@ -26,20 +22,15 @@ class Application
     public function __construct($di)
     {
         $this->di = $di;
-        $this->di->set('view', new View(array(new View\Extension\Blocks())), true);
-        $this->di->set('router', new Router());
-        $this->di->set('request', new Request());
-        $this->di->set('response', new Response());
-        $this->di->set('auth', new Auth());
-        $this->di->set('session', new Session());
-        $this->di->set('cookie', new Cookie());
     }
 
     public function handle()
     {
-        // Ромка. В бд нельзя добавлять значение null через queryBuilder!
+        //TODO: Добавить
 
-        //TODO: Если после числа еще / и числа, то выкидывать notFound.
+        //TODO: Если после числа еще / и числа, то выкидывать notFound. Неправильные photos - тоже
+
+        //TODO: Переписать вьюхи - убрать слеши и идшники. Сделать collapse in
 
         //TODO: Переформатировать дату в бд.
 
@@ -52,10 +43,10 @@ class Application
             $controller = new $controller($this->di);
             unset($components[0]);
             if (empty($components[1])){
-                $action = 'DefaultAction';
+                $action = 'defaultAction';
                 $components = !empty($components[1]) ? $components[1] : '';
             }elseif(preg_match("/\\d+/", $components[1])) {                   //Пушо пхп ругается, на $components[1];
-                $action = 'DefaultAction';
+                $action = 'defaultAction';
                 $components = !empty($components[1]) ? $components[1] : '';
             }elseif(preg_match("/[a-z,A-z]+/", $components[1])) {
                 $action = (strtolower($components[1])) . 'Action';
@@ -82,7 +73,7 @@ class Application
 
     private function notFound($subject){
         $controller = new NotFoundController($this->di);
-        $action = 'DefaultAction';
+        $action = 'defaultAction';
         $response = $controller->{$action}($subject);
         return $this->di->get('response')->setStatus(404)->setContent($response)->send();
     }

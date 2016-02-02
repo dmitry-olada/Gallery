@@ -4,7 +4,7 @@
 
     <script type="text/javascript">
         jQuery(function($){
-            $("#change_album_date").mask("9999-99-99",{placeholder:"yyyy-mm-dd"});
+            $(".change_album_date").mask("9999-99-99",{placeholder:"yyyy-mm-dd"});
         });
     </script>
 
@@ -26,7 +26,7 @@
                             <h4>Create new album<button class="close" type="button" data-dismiss="modal">×</button></h4>
                         </div>
                         <div class="modal-body">
-                            <form action="/albums/create/1" method="post">
+                            <form action="/albums/create" method="post">
                                 <div class="row">
                                     <div class="col-lg-2">
                                         <p>Name:</p>
@@ -38,7 +38,7 @@
                                     <div class="col-lg-8">
                                         <input type="text" required name="create_album_name">
                                         <div class="form_indent"></div>
-                                        <input id="change_album_date" type="text" required name="create_album_date">
+                                        <input class="change_album_date" type="text" required name="create_album_date">
                                         <div class="form_indent"></div>
                                         <textarea style="resize: none" cols="45" rows="6" name="change_album_description"></textarea>
                                     </div>
@@ -71,14 +71,14 @@
                         <div class="col-lg-1"></div>
                         <div class="col-lg-10">
 
-                            <div id="change_album_<?=$count?>" class="collapse">
+                            <div id="change_album_<?=$count?>" class="collapse <?php if((integer)$collapse === $count){echo 'in'; }?>">
                              <!--<h4 class="text-center"><?=$item['name']?></h4>-->
                             <br>
                                 <div class="row">
                                     <div class="col-lg-5">
-                                        <form role="form" action="/albums/change/<?=$item['id']?>" method="POST">
+                                        <form role="form" action="/albums/change/<?=$item['id'].'.'.$count?>" method="POST">
                                             <p>Name: <input style="width:250px" type="text" name="new_name" value="<?=$item['name']?>"></p>
-                                            <p>Date: &nbsp <input id="change_album_date" style="width:249px" type="text" name="new_date" value="<?=$item['date']?>"> </p>
+                                            <p>Date: &nbsp <input class="change_album_date" style="width:249px" type="text" name="new_date" value="<?=$item['date']?>"> </p>
                                             <p>Description: </p><p><textarea id="album_description" cols="45" rows="6" name="new_description"
                                                 <?php
                                                     if($item['description'] !== ''){
@@ -97,13 +97,13 @@
                                                         <div class="album_img">
                                                             <img src="<?=$new_item['link']?>" height="52px">
                                                             <div class="hov_block">
-                                                                <form action="/albums/photo_delete/<?=$new_item['id']?>" method="post">
+                                                                <form action="/albums/photo_delete/<?=$new_item['id'].'.'.$count?>" method="post">
                                                                     <input type="submit" value="Delete">
                                                                 </form>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td><form role="form" action="/albums/photo_change/<?=$new_item['id']?>" method="POST">
+                                                    <td><form role="form" action="/albums/photo_change/<?=$new_item['id'].'.'.$count?>" method="POST">
                                                             <input type="text" name="new_photo_name" value="<?php echo (null !== $new_item['name'])?$new_item['name']:''?>">
                                                             <div><input type="submit" value="Change Name"></div>
                                                         </form></td>

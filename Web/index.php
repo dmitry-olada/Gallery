@@ -16,17 +16,14 @@ ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require_once(CORE . 'Loader.php');
 require_once(ROOT . '/vendor/autoload.php');
 require_once(CORE . 'Application.php');
 
-use \Core\Loader;
 use \Core\Application;
 
-Loader::register();
-Loader::addNamespacePath('Core\\', CORE);
-
-$app = new Application(new Lebran\Container());
+$di = new Lebran\Container();
+$di->register(new \Core\ServiceProvider());
+$app = new Application($di);
 $app->handle();
 
 

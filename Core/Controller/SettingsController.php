@@ -11,7 +11,7 @@ namespace Core\Controller;
 use Core\Controller;
 use Core\Model\Models\Users;
 
-class SettingsController extends Controller implements _ControllerInterface
+class SettingsController extends Controller
 {
 
     public function __construct($di)
@@ -19,7 +19,7 @@ class SettingsController extends Controller implements _ControllerInterface
         parent::__construct($di);
     }
 
-    public function DefaultAction($data = null)
+    public function defaultAction()
     {
         $user = $this->auth->getUser();
         $layout = $this->makeLayout($user->id);
@@ -27,7 +27,7 @@ class SettingsController extends Controller implements _ControllerInterface
         return $this->view->render('views::settings.html', $layout);
     }
 
-    public function AllAction()
+    public function allAction()
     {
         $user = new Users();
         $user = $user->selectAll(array('id', 'nick', 'reg_date'));
@@ -35,7 +35,7 @@ class SettingsController extends Controller implements _ControllerInterface
         return $this->view->set('info', $user)->render('views::all_users.html', $layout);
     }
 
-    public function ChangeAction($param){
+    public function changeAction($param){
 
         $curr_user = $this->auth->getUser();
 

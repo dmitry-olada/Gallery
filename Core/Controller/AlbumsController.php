@@ -13,23 +13,23 @@ use Core\Controller;
 use Core\Model\Models\Albums;
 use Core\Model\Models\Photos;
 
-class AlbumsController extends Controller implements _ControllerInterface
+class AlbumsController extends Controller
 {
     public function __construct($di)
     {
         parent::__construct($di);
     }
 
-    private function redirectGet($id){
-        if($this->request->isGet()){
-            $this->response->redirect('/albums/'.$id);
+    private function redirectPost(){
+        if(!$this->request->isPost()){
+            $this->response->redirect('/albums');
         }
     }
 
     //TODO: СДЕЛАТЬ СКРЫТИЕ ВСЕХ ЭЛЕМЕНТОВ ПР ОТКРЫТИИ ЛЮБОЙ ВКЛАДКИ НА ФОТКАХ. Album/changeAction().
     //TODO: Удалить audacious если не загрузиться.
 
-    public function defaultAction($data = null)
+    public function defaultAction()
     {
         $user = $this->auth->getUser();
         $layout = $this->makeLayout($user->id);
@@ -44,22 +44,29 @@ class AlbumsController extends Controller implements _ControllerInterface
             $arr_photos[] = $photos->selectAll($photos->getColumns(), array('albums_id', $item['id']));
         }
 
+        if($this->session->has('collapse')){
+            $collapse = $this->session->get('collapse');
+            $this->session->remove('collapse');
+            $this->view->set('collapse', $collapse);
+        }else{
+            $this->view->set('collapse', null);
+        }
+
         return $this->view->set('all_albums', $albums)->set('all_photos', $arr_photos)->render('views::albums.html', $layout);
     }
 
     public function changeAction($data)
     {
-        $user = $this->auth->getUser();
-        $this->redirectGet($user->id);
+        $this->redirectPost();
 
-        //Писать ли isPost() или и так нормально?
+        $data = explode('.', $data);
 
         //Возможно ли подделать POST запрос, чтоб изменить не свои фотки?
 
         //TODO: Сделать редактирование инфы без перезагрузки страницы.
 
         $album = new Albums();
-        $album = $album->selectObj(array('id', $data));
+        $album = $album->selectObj(array('id', $data[0]));
 
         $album->name = $this->request->get('new_name');
         $album->date = $this->request->get('new_date');
@@ -67,43 +74,50 @@ class AlbumsController extends Controller implements _ControllerInterface
         (null !== $album->comments)?:$album->comments = '';
         (null !== $album->buhlikes)?:$album->buhlikes = '';
 
-        $album->update('id', $data);
+        $album->update('id', $data[0]);
+
+        $this->session->set('collapse', $data[1]);
         $this->session->setFlash('Album data has been updated successfully', 'success');
 
-        $this->response->redirect('/albums/'.$user->id);
+        $this->response->redirect('/albums');
     }
 
     public function photo_changeAction($data)
     {
-        $user = $this->auth->getUser();
-        $this->redirectGet($user->id);
+        $this->redirectPost();
+
+        $data = explode('.', $data);
 
         $photo = new Photos();
-        $photo = $photo->selectObj(array('id', $data));
-
+        $photo = $photo->selectObj(array('id', $data[0]));
         $photo->name = $this->request->get('new_photo_name');
-        $photo->update('id', $data);
 
+        $photo->update('id', $data[0]);
+
+        $this->session->set('collapse', $data[1]);
         $this->session->setFlash('Photo name has been updated successfully', 'success');
-        $this->response->redirect('/albums/'.$user->id);
+
+        $this->response->redirect('/albums');
     }
 
     public function photo_deleteAction($data)
     {
-        $user = $this->auth->getUser();
-        $this->redirectGet($user->id);
+        $this->redirectPost();
+
+        $data = explode('.', $data);
 
         $photo = new Photos();
-        $photo->delete($data);
+        $photo->delete($data[0]);
 
+        $this->session->set('collapse', $data[1]);
         $this->session->setFlash('Photo has been deleted successfully', 'success');
-        $this->response->redirect('/albums/'.$user->id);
+        $this->response->redirect('/albums');
     }
 
-    public function createAction($data = null){
-        $user = $this->auth->getUser();
-        $this->redirectGet($user->id);
+    public function createAction(){
 
+        $user = $this->auth->getUser();
+        $this->redirectPost();
 
         $album = new Albums();
         $album->name = $this->request->get('create_album_name');
@@ -116,7 +130,7 @@ class AlbumsController extends Controller implements _ControllerInterface
         $album->insert();
 
         $this->session->setFlash('Album has been added successfully', 'success');
-        $this->response->redirect('/albums/'.$user->id);
+        $this->response->redirect('/albums');
 
     }
 

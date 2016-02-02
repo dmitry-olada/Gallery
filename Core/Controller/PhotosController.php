@@ -12,16 +12,15 @@ use Core\Controller;
 use Core\Model\Models\Albums;
 use Core\Model\Models\Photos;
 
-class PhotosController extends Controller implements _ControllerInterface
+class PhotosController extends Controller
 {
     public function __construct($di)
     {
         parent::__construct($di);
     }
 
-    public function DefaultAction($data = null)
+    public function defaultAction($data = null)
     {
-        //TODO: Хозяин альбома, взять с бд. Сделать юзера.
         $data = explode('.', $data);
         $layout = $this->makeLayout($data[0]);
         $photos = new Photos();
@@ -35,8 +34,4 @@ class PhotosController extends Controller implements _ControllerInterface
         return $this->view->render('views::gallery.html', $data);
     }
 
-    public function Edit($id, $number)
-    {
-
-    }
 }

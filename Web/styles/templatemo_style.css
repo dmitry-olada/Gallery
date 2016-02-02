@@ -168,7 +168,7 @@ a.menu-toggle-btn i { line-height: 60px; }
 .first-footer .social-footer ul li { display: inline; }
 .first-footer .social-footer ul li a { width: 40px; height: 20px; -webkit-border-radius: 3px; border-radius: 3px; background-clip: padding-box; /* stops bg color from leaking outside the border: */ background-color: #313639; text-align: center; line-height: 40px; color: white; }
 
-.bottom-footer { background-color: #4d4d4d; color: #949da2; padding: 10px 7% 0 7%; }
+.bottom-footer { background-color: #4d4d4d; color: #949da2; padding: 10px 7% 0 30%; height: 90% }
 .bottom-footer a { color: white; }
 .bottom-footer .credits { text-align: right; }
 

@@ -204,6 +204,21 @@
 }
 
 
+.bookmarks_table tbody tr td, .bookmarks_table tbody th td {
+	border: none;
+}
+
+.xx_table{
+	height: 250px;
+	width: 250px;
+	text-align: center;
+}
+
+
+.bookmarks_content{
+	margin: auto;
+}
+
 
 
 

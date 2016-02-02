@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?=$nick?> - <?=$site_title?></title>
+
+    <title><?php $this->output('title', $nick.' - '.$site_title) ?></title>
 
     <link rel="icon" href="../images/icon.png" type="image/png" />
 
@@ -43,15 +44,15 @@
         <ul class="main-menu">
             <li class="home"><a href='/'>Profile</a></li>
             <?php if($profile_owner) { ?>
-                <li class="about"><a href='/albums/<?=$main_id?>'>Manage Albums</a></li>
-                <li class="services"><a href=''>Bookmarks</a></li>
+                <li class="about"><a href='/albums'>Manage Albums</a></li>
+                <li class="services"><a href='/bookmarks'>Bookmarks</a></li>
             <?php }else{ ?>
                 <li class="about"><a data-toggle="modal" data-target="#infoModal" href=''>Show info</a></li>
                 <li class="services"><a href=''>Add to BM</a></li>
             <?php }
             //TODO: remove from friends;
             ?>
-            <li class="portfolio"><a href='/settings/<?=$main_id?>'>Settings</a></li>
+            <li class="portfolio"><a href='/settings'>Settings</a></li>
             <li class="contact"><a href='/auth/logout'>Logout</a></li>
         </ul>
     </div> <!-- /.navigation -->
@@ -69,7 +70,7 @@
                 <p>Bookmarks: <a target="_blank" href="#"><?=$bookmarks;?></a></p>
                 <p>Albums: <span><?=$albums?> </p>
                 <p>Photos: <span><?=$photos?> </p>
-                <?php if($owner) {
+                <?php if($profile_owner) {
                     echo "<p>Email: <span>" . $email . "</span></p>";
                 }else{
                     echo "<p>ID: <span>" . $id . "</span></p>";

@@ -25,7 +25,6 @@ class Controller implements InjectableInterface
     public function __construct($di)
     {
         $this->di = $di;
-        $this->view->addFolder('views', DOC_ROOT.'/views');
     }
 
     public function __get($service)
@@ -69,6 +68,7 @@ class Controller implements InjectableInterface
             $count_photos += $tmp[0];
             $count_albums++;
         }
+
 
         $alert = $this->session->getFlash();
 
