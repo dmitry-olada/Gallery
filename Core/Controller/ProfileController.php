@@ -27,8 +27,17 @@ class ProfileController extends Controller
         $user_albums = $user_albums->selectAll('albums_id', array('users_id', $layout['id']), \PDO::FETCH_NUM);
         $albums = array();
         foreach ($user_albums as $item){
-            $albums = array_merge($albums, $album->selectAll($album->getColumns(), array('id', $item[0])));
-            // albums[] создает в 2 вложенных массива, почему и нахуя - хз.
+            $curr_albums = $album->selectAll($album->getColumns(), array('id', $item[0]));
+            foreach ($curr_albums as $key => $value){
+                $curr_albums[$key]['isliked'] = false;
+                $buhlikes = json_decode($curr_albums[$key]['buhlikes']);
+                $buhlikes = explode(',', $buhlikes);
+                $curr_albums[$key]['buhlikes'] = count($buhlikes);
+                if(array_search($layout['main_id'], $buhlikes)){
+                    $curr_albums[$key]['isliked'] = true;
+                }
+            }
+            $albums = array_merge($albums, $curr_albums);
         }
 
         $albums = array('user_albums' => $albums);

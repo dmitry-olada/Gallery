@@ -12,14 +12,16 @@
 
         <table class="table bookmarks_table">
         <?php
-
-        for($i = 0; $i < count($bookmarks)-1; $i+=3) { ?>
+        for($i = 0; $i < count($bookmarks); $i+=3) { ?>
             <tr>
                 <td>
                     <div class="xx_table">
+                    <?php
+                    if(!empty($bookmarks[$i]['nick'])){ ?>
                         <a href="/profile/<?=$bookmarks[$i]['id']?>"><h4><?=$bookmarks[$i]['nick'] ?></h4>
                         <img src="<?=$bookmarks[$i]['avatar'] ?>" height="200"></a>
                         <br>
+                    <?php } ?>
                     </div>
                 </td>
                 <td>
@@ -27,7 +29,7 @@
                     <?php
                     if(!empty($bookmarks[$i + 1]['nick'])){ ?>
                         <a href="/profile/<?=$bookmarks[$i + 1]['id']?>"><h4><?=$bookmarks[$i + 1]['nick'] ?></h4>
-                        <img src="<?=$bookmarks[$i + 1]['avatar'] ?>" height="200"></a>
+                        <img src="<?=$bookmarks[$i + 1]['avatar'] ?>" height="200" ></a>
                         <br>
                     <?php } ?>
                     </div>

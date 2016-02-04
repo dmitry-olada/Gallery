@@ -33,7 +33,7 @@
 <!-- Main Menu -->
 <div id="main-sidebar" class="hidden-xs hidden-sm">
     <div class="nick">
-        <a href="<?='/profile/'.$id ?>"><h2 class=" text-center text-info"><?=$nick;?></h2></a>
+        <a href="<?='/profile/'.$id ?>"><h2 class=" text-center text-info"><?=$nick?></h2></a>
     </div>
     <div class="photo_profile">
         <img src="<?=$avatar?>" width="200" height="200" border="1">
@@ -47,8 +47,13 @@
                 <li class="about"><a href='/albums'>Manage Albums</a></li>
                 <li class="services"><a href='/bookmarks'>Bookmarks</a></li>
             <?php }else{ ?>
-                <li class="about"><a data-toggle="modal" data-target="#infoModal" href=''>Show info</a></li>
-                <li class="services"><a href=''>Add to BM</a></li>
+                <li class="about"><a data-toggle="modal" data-target="#infoModal" href='#'>Show info</a></li>
+                <?php if(!$bm_status){ ?>
+                    <li class="services"><a id="add_bookmark" href="#" onclick="return false;">Add to BM</a></li>
+                <?php } else { ?>
+                    <li class="services"><a id="add_bookmark" href="#" onclick="return false;">Remove from BM</a></li>
+                <?php } ?>
+                <input type="hidden" value="<?=$id?>" id="user_id">
             <?php }
             //TODO: remove from friends;
             ?>
@@ -64,12 +69,11 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
-                <h3 class="text-muted text-center"><span><?=$nick;?></span></h3>
+                <h3 class="text-muted text-center"><span><?=$nick?></span></h3>
             </div>
-            <div class="modal-body text-muted"><p>Signed by: <span><?=$date;?></span></p>
-                <p>Bookmarks: <a target="_blank" href="#"><?=$bookmarks;?></a></p>
-                <p>Albums: <span><?=$albums?> </p>
-                <p>Photos: <span><?=$photos?> </p>
+            <div class="modal-body text-muted"><p>Signed by: <span><?=$date?></span></p>
+                <p>Albums: <span><?=$albums?> </span></p>
+                <p>Photos: <span><?=$photos?> </span></p>
                 <?php if($profile_owner) {
                     echo "<p>Email: <span>" . $email . "</span></p>";
                 }else{

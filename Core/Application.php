@@ -26,13 +26,9 @@ class Application
 
     public function handle()
     {
-        //TODO: Добавить
+        //TODO: НОВЫЙ UPDATE. БЕЗ ВСЕХ КОЛОНОК.
 
         //TODO: Если после числа еще / и числа, то выкидывать notFound. Неправильные photos - тоже
-
-        //TODO: Переписать вьюхи - убрать слеши и идшники. Сделать collapse in
-
-        //TODO: Переформатировать дату в бд.
 
         $response = $this->di->get('response');
 
@@ -58,6 +54,7 @@ class Application
             if (method_exists($controller, $action)) {
                 if ($this->di->get('auth')->isAuthenticated()) {
                     $content = $controller->{$action}($components);
+//                    $content = $this->di->call(array($controller, $action), (array)$components );
                     return $response->setContent($content)->send();
                 } else {
                     $auth = new AuthController($this->di);

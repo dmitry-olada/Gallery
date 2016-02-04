@@ -97,16 +97,15 @@
                                                         <div class="album_img">
                                                             <img src="<?=$new_item['link']?>" height="52px">
                                                             <div class="hov_block">
-                                                                <form action="/albums/photo_delete/<?=$new_item['id'].'.'.$count?>" method="post">
-                                                                    <input type="submit" value="Delete">
-                                                                </form>
+
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td><form role="form" action="/albums/photo_change/<?=$new_item['id'].'.'.$count?>" method="POST">
-                                                            <input type="text" name="new_photo_name" value="<?php echo (null !== $new_item['name'])?$new_item['name']:''?>">
-                                                            <div><input type="submit" value="Change Name"></div>
-                                                        </form></td>
+                                                    <td>
+                                                        <input type="text" class="photo_change_name" value="<?php echo (null !== $new_item['name'])?$new_item['name']:''?>"/>
+                                                        <a class="btn btn-default ajax_btn1" href="/albums/photo_change/<?=$new_item['id']?>">Change Name </a>
+                                                        <a class="btn btn-default ajax_btn" href="/albums/photo_delete/<?=$new_item['id']?>">Del</a>
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                         </table>

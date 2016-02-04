@@ -12,6 +12,7 @@ namespace Core\Controller;
 use Core\Controller;
 use Core\Model\Models\Albums;
 use Core\Model\Models\Photos;
+use Core\Model\Models\Users;
 
 class AlbumsController extends Controller
 {
@@ -19,15 +20,6 @@ class AlbumsController extends Controller
     {
         parent::__construct($di);
     }
-
-    private function redirectPost(){
-        if(!$this->request->isPost()){
-            $this->response->redirect('/albums');
-        }
-    }
-
-    //TODO: СДЕЛАТЬ СКРЫТИЕ ВСЕХ ЭЛЕМЕНТОВ ПР ОТКРЫТИИ ЛЮБОЙ ВКЛАДКИ НА ФОТКАХ. Album/changeAction().
-    //TODO: Удалить audacious если не загрузиться.
 
     public function defaultAction()
     {
@@ -57,13 +49,9 @@ class AlbumsController extends Controller
 
     public function changeAction($data)
     {
-        $this->redirectPost();
+        $this->redirectPost('albums');
 
         $data = explode('.', $data);
-
-        //Возможно ли подделать POST запрос, чтоб изменить не свои фотки?
-
-        //TODO: Сделать редактирование инфы без перезагрузки страницы.
 
         $album = new Albums();
         $album = $album->selectObj(array('id', $data[0]));
@@ -84,40 +72,28 @@ class AlbumsController extends Controller
 
     public function photo_changeAction($data)
     {
-        $this->redirectPost();
-
-        $data = explode('.', $data);
+        $this->redirectPost('albums');
 
         $photo = new Photos();
-        $photo = $photo->selectObj(array('id', $data[0]));
-        $photo->name = $this->request->get('new_photo_name');
+        $photo = $photo->selectObj(array('id', $data), \PDO::FETCH_OBJ);
 
-        $photo->update('id', $data[0]);
-
-        $this->session->set('collapse', $data[1]);
-        $this->session->setFlash('Photo name has been updated successfully', 'success');
-
-        $this->response->redirect('/albums');
+        $photo->name = $this->request->get('data');
+        $photo->update('id', $data);
     }
 
     public function photo_deleteAction($data)
     {
-        $this->redirectPost();
-
-        $data = explode('.', $data);
+        $this->redirectPost('albums');
 
         $photo = new Photos();
-        $photo->delete($data[0]);
-
-        $this->session->set('collapse', $data[1]);
-        $this->session->setFlash('Photo has been deleted successfully', 'success');
-        $this->response->redirect('/albums');
+        $photo->delete($data);
     }
 
-    public function createAction(){
+    public function createAction()
+    {
+        $this->redirectPost('albums');
 
         $user = $this->auth->getUser();
-        $this->redirectPost();
 
         $album = new Albums();
         $album->name = $this->request->get('create_album_name');
@@ -131,7 +107,32 @@ class AlbumsController extends Controller
 
         $this->session->setFlash('Album has been added successfully', 'success');
         $this->response->redirect('/albums');
+    }
 
+    public function buhlikeAction($data)
+    {
+        $this->redirectPost('albums');
+
+        $user = $this->auth->getUser();
+
+        $album = new Albums();
+        $album = $album->selectObj(array('id', $data), \PDO::FETCH_OBJ);
+
+        $bm = explode(',', json_decode($album->buhlikes));
+
+        $delete = false;
+        foreach ($bm as $key => $value){
+            if($user->id === $value){
+                unset($bm[$key]);
+                $delete = true;
+            }
+        }
+        if(!$delete){
+            $bm[] = $user->id;
+        }
+
+        $album->buhlikes = json_encode(trim(implode($bm, ','), ','));
+        $album->update('id', $data);
     }
 
 }

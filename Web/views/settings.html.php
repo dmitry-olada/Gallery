@@ -120,7 +120,7 @@
                 </tr>
                 <tr>
                     <td>Bookmarks: </td>
-                    <td class="text-center"><?=$bookmarks?></td>
+                    <td class="text-center"><?=$mybookmarks?></td>
                 </tr>
         </table>
 

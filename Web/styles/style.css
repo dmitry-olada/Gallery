@@ -214,6 +214,10 @@
 	text-align: center;
 }
 
+.xx_table img{
+	max-width: 100%;
+}
+
 
 .bookmarks_content{
 	margin: auto;

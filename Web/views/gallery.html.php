@@ -25,8 +25,8 @@
     <div id="links">
 
         <?php foreach($photo as $item){ ?>
-            <a href="<?=$item['link']?>" title="<?=$item['id']?>" data-gallery>
-                <img src="<?=$item['link']?>" height="75" alt="<?=$item['id']?>">
+            <a href="<?=$item['link']?>" title="<?=$item['name']?>" data-gallery>
+                <img src="<?=$item['link']?>" height="75" alt="<?=$item['name']?>">
             </a>
         <?php } ?>
 

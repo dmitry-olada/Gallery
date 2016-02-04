@@ -87,8 +87,13 @@
 
 						<a href="#" ><h5 class="text-left">Show comments</h5></a>
 						<div class="descr">
-							<h3 class="text-right">10
-								<img src="../images/2.jpg" height="24" width="15" >
+							<h3 class="text-right"><a href="/albums/buhlike/<?=$item['id']?>" class="ajax_buhlikes"><?=$item['buhlikes']?>
+								<?php if($item['isliked']){?>
+								<img src="../images/2.jpg">
+								<?php } else {?>
+								<img src="../images/empty.jpg">
+								<?php } ?>
+								</a>
 							</h3>
 						</div>
 					</div>

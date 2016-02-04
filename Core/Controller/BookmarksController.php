@@ -28,7 +28,7 @@ class BookmarksController extends Controller
         $bookmarks = $users->select('bookmarks', array('id', $user->id));
 
         $bookmarks_id = json_decode($bookmarks['bookmarks'], true);
-        $bookmarks_id = explode(',', $bookmarks_id['id']);
+        $bookmarks_id = explode(',', $bookmarks_id);
 
         $myBookmarks = array();
         foreach ($bookmarks_id as $item){
@@ -36,5 +36,34 @@ class BookmarksController extends Controller
         }
 
         return $this->view->set('bookmarks', $myBookmarks)->render('views::bookmarks.html', $layout);
+    }
+
+    public function addAction()
+    {
+        $this->redirectPost('bookmarks');
+
+        $id = $this->request->get('user_id');
+
+        $user = $this->auth->getUser();
+
+        $users = new Users();
+        $curr_user = $users->selectObj(array('id', $user->id), \PDO::FETCH_OBJ);
+
+        $bookmarks_id = json_decode($curr_user->bookmarks, true);
+        $bookmarks_id = explode(',', $bookmarks_id);
+
+        $delete = false;
+
+        foreach ($bookmarks_id as $key => $value){
+            if((string)$id === $value){
+                unset($bookmarks_id[$key]);
+                $delete = true;
+            }
+        }
+        if(!$delete) {
+            $bookmarks_id[] = $id;
+        }
+        $curr_user->bookmarks = json_encode(trim(implode($bookmarks_id, ','), ','));
+        $curr_user->update('id', $user->id);
     }
 }

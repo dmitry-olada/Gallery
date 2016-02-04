@@ -8,8 +8,11 @@
 
 namespace Core\Controller;
 
+use Core\Auth\Auth;
 use Core\Controller;
+use Core\Http\RequestInterface;
 use Core\Model\Models\Users;
+use Lebran\Container;
 
 class SettingsController extends Controller
 {
@@ -24,7 +27,10 @@ class SettingsController extends Controller
         $user = $this->auth->getUser();
         $layout = $this->makeLayout($user->id);
 
-        return $this->view->render('views::settings.html', $layout);
+        $users = new Users();
+        $users = $users->selectObj(array('id', $user->id));
+        $bm = substr_count(json_decode($users->bookmarks), ',') + 1;
+        return $this->view->set('mybookmarks', $bm)->render('views::settings.html', $layout);
     }
 
     public function allAction()

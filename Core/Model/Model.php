@@ -51,7 +51,8 @@ class Model implements ModelsInterface
         $this->connection->setQueryGrammar(new Mysql());
     }
 
-    public function selectAll($fields, $where = array(), $opt = null){
+    public function selectAll($fields, $where = array(), $opt = null)
+    {
         if(empty($where)){
             return $this->connection->query()->table($this->getTable())->fields($fields)->get()->fetchAll($opt);
         }else{
@@ -70,7 +71,8 @@ class Model implements ModelsInterface
         return $auth ? $sql->fetch($opt) : $sql->fetchObject(static::class);
     }
 
-    public function insert(){
+    public function insert()
+    {
         foreach ($this->getColumns() as $key) {
             $values[] = $this->$key;
         }
@@ -78,7 +80,8 @@ class Model implements ModelsInterface
         $this->connection->query()->table($this->getTable())->insert($data);
     }
 
-    public function update($field, $value){
+    public function update($field, $value)
+    {
         foreach ($this->getColumns() as $key) {
             $values[] = $this->$key;
         }
@@ -87,7 +90,8 @@ class Model implements ModelsInterface
         $this->connection->query()->table($this->getTable())->where($field, '=', $value)->update($data);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $this->connection->query()->table($this->getTable())->where($this->getId(), '=', $id)->delete();
     }
 

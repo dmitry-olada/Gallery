@@ -12,8 +12,9 @@
 		setTimeout(function(){$('.box').fadeOut(1000)},3000);
 	</script>
 </head>
-<body>
 
+
+  <body bgcolor=”grey”>
 
 <div class="row" >
 	<div class="col-lg-3"></div>
@@ -50,7 +51,7 @@
 
  	<div class="row" >
 			<div class="col-lg-1"></div>
- 			<div class="col-lg-10">	
+ 			<div class="col-lg-10">
  				<div class = "text-primary text-center head_login">
  					<h2>Login</h2>
  				</div>
@@ -71,7 +72,7 @@
 				</form>
 
  			</div>
-			
+
 		</div>
 
  	</div>
@@ -99,7 +100,7 @@
 				</form>
 
  			</div>
-			
+
 		</div>
 
 
@@ -110,9 +111,7 @@
 </div>
 
 
-
-
-
+	
 
 
 

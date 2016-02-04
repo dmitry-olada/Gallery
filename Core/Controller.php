@@ -47,8 +47,8 @@ class Controller implements InjectableInterface
 
         $keys =
             [
-            'nick', 'id', 'email', 'avatar', 'date', 'bookmarks', 'my_albums',
-            'albums', 'photos', 'profile_owner', 'main_id', 'site_title', 'alert'
+            'nick', 'id', 'email', 'avatar', 'date', 'my_albums',
+            'albums', 'photos', 'profile_owner', 'main_id', 'site_title', 'alert', 'bm_status'
             ];
 
         $album = new Users_has_Albums();
@@ -57,9 +57,19 @@ class Controller implements InjectableInterface
         $my_albums = new Albums();
         $count_my_albums = $my_albums->select('count(id)', array('owner', $user->id), \PDO::FETCH_NUM);
 
+        $user_bookmarks = 0;
+        $bm_status = false;
+        if(!$profile_owner) {
+            $bookmarks = $user->select('bookmarks', array('id', $main_id));
+            $bookmarks = json_decode($bookmarks['bookmarks'], true);
+            $bookmarks = explode(',', $bookmarks);
+            foreach($bookmarks as $key => $value){
+                if($user->id === $value) $bm_status = true;
+            }
+        }
+
         $user_photos = new Photos();
 
-        $user_bookmarks = 0;
         $count_albums = 0;
         $count_photos = 0;
 
@@ -69,16 +79,21 @@ class Controller implements InjectableInterface
             $count_albums++;
         }
 
-
         $alert = $this->session->getFlash();
 
         $values =
             [
-                ucfirst($user->nick), $user->id, $user->email, $user->avatar, $user->reg_date, $user_bookmarks, $count_my_albums[0],
-                $count_albums, $count_photos, $profile_owner, $main_id, Controller::SITE_TITLE, $alert
+                ucfirst($user->nick), $user->id, $user->email, $user->avatar, $user->reg_date, $count_my_albums[0],
+                $count_albums, $count_photos, $profile_owner, $main_id, Controller::SITE_TITLE, $alert, $bm_status
             ];
 
         return array_combine($keys, $values);
+    }
+
+    protected function redirectPost($where = ''){
+        if(!$this->request->isPost()){
+            $this->response->redirect('/'.$where);
+        }
     }
 
 }
