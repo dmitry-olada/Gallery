@@ -2,46 +2,61 @@
 
 <?php $this->block('content') ?>
 
-<div class="gal_desc">
-    <p> .</p>
-    <h3 class="text-center"><?=$album[0]['name']?></h3>
-    <div class="row">
-        <div class="col-lg-9 gal_p">
-            <p><?=$album[0]['description']?></p>
-        </div>
-        <div class="col-lg-2 gal_buh" >
-            <h3 class="text-right">10
-                <img src="../images/2.jpg" height="24" width="15" >
-            </h3>
-        </div>
-    </div>
+<div class="gallery_title"><h3 class="text-center"><?=$album[0]['name']?></h3><span class="gallery_date"><?=$album[0]['date']?></span></div>
 
-</div>
+<div class="gallery_delimiter"></div>
 
-
-<div class="container">
-    <br>
+<div class="gallery_container">
     <!-- The container for the list of example images -->
-    <div id="links">
 
-        <?php foreach($photo as $item){ ?>
-            <a href="<?=$item['link']?>" title="<?=$item['name']?>" data-gallery>
-                <img src="<?=$item['link']?>" height="75" alt="<?=$item['name']?>">
-            </a>
-        <?php } ?>
+    <div class="row">
 
-        <!--
-        <a href="http://www.cinemablend.com/images/sections/62870/_1395179465.jpg" title="Dimonchik" data-gallery>
-            <img src="http://www.cinemablend.com/images/sections/62870/_1395179465.jpg" height="75" alt="Dimonchik">
-        -->
+        <div class="col-lg-7 photo_container">
+            <div id="links">
+
+                <?php foreach($photo as $item){ ?>
+                    <a href="<?=$item['link']?>" title="<?=$item['name']?>" data-gallery>
+                        <img src="<?=$item['link']?>" height="75" alt="<?=$item['name']?>">
+                    </a>
+                <?php } ?>
+
+                <!--
+                <a href="http://www.cinemablend.com/images/sections/62870/_1395179465.jpg" title="Dimonchik" data-gallery>
+                    <img src="http://www.cinemablend.com/images/sections/62870/_1395179465.jpg" height="75" alt="Dimonchik">
+                -->
+
+            </div>
+        </div>
+        <div class="col-lg-4 comment_container">
+                <div class="comment_display"></div>
+            <div class="comment_input">
+                <input type="text" id="text_comment"/>
+                <input type="submit" id="add_comment" value="Enter" href="/photos/addcomment/<?=$album[0]['id']?>">
+            </div>
+        </div>
 
     </div>
-    <br>
+
+</div> <!-- /.container -->
+
+<div class="gallery_delimiter"></div>
+
+<div class="gallery_description">
+
+     <div class="row">
+         <div class="col-lg-8 gallery_description_block">
+             <h4 class="text-center"> Description </h4>
+             <?=$album[0]['description']?>
+             <div style="margin-top: 20px"></div>
+         </div>
+         <div class="col-lg-3 gallery_buhlikes">
+             <h4 class="text-center"> Likes </h4>
+         </div>
+     </div>
+
 </div>
 
-<div class="row coment">
-    <h3 class="text-center">Coments</h3>
-</div>
+
 
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery">
@@ -79,27 +94,11 @@
 </div>
 
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Bootstrap JS is not required, but included for the responsive demo navigation and button states -->
 <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 <script src="../js/bootstrap-image-gallery.min.js"></script>
-<script>
-
-    document.getElementById('links').onclick = function (event) {
-        var borderless = true;
-        $('#blueimp-gallery').data('useBootstrapModal', !borderless);
-        $('#blueimp-gallery').toggleClass('blueimp-gallery-controls', borderless);
-        event = event || window.event;
-        var target = event.target || event.srcElement,
-            link = target.src ? target.parentNode : target,
-            options = {index: link, event: event},
-            links = this.getElementsByTagName('a');
-        blueimp.Gallery(links, options);
-    };
-
-</script>
-
-
-
+<script src="../js/gallery_script.js"></script>
 
 <?php $this->endblock() ?>

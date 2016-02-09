@@ -89,22 +89,19 @@
                                         </form>
                                     </div>
                                     <div class="col-lg-1"></div>
-                                    <div class="col-lg-6">
+                                    <div style="overflow: auto; height: 370px;" class="col-lg-6">
                                         <table class="table table-hover">
                                             <?php foreach($all_photos[(integer)$count-1] as $new_item) { ?>
                                                 <tr>
                                                     <td>
                                                         <div class="album_img">
                                                             <img src="<?=$new_item['link']?>" height="52px">
-                                                            <div class="hov_block">
-
-                                                            </div>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <input type="text" class="photo_change_name" value="<?php echo (null !== $new_item['name'])?$new_item['name']:''?>"/>
                                                         <a class="btn btn-default ajax_btn1" href="/albums/photo_change/<?=$new_item['id']?>">Change Name </a>
-                                                        <a class="btn btn-default ajax_btn" href="/albums/photo_delete/<?=$new_item['id']?>">Del</a>
+                                                        <a class="btn btn-default ajax_btn" href="<?=$new_item['id'].'.'.$count?>" >Del</a>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

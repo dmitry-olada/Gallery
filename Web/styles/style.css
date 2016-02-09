@@ -3,6 +3,10 @@
 	min-height: calc(100vh - 80px);
 }*/
 
+html{
+	overflow: auto;
+}
+
 .ccenter{
 	margin: auto;
 }
@@ -53,7 +57,6 @@
 
 .photo_profile{
 	margin-top: 30px;
-	margin-left: 49px;
 	margin-bottom: 42px;
 }
 
@@ -96,33 +99,83 @@
 }
 
 
-.gal_desc{
-	margin-top: -20px;
-	background-color: #908d8d;
-	height: 150px;
-	width: auto;
-	color: white;
+/*-----------------------  Gallery ------------------ */
 
-}
-
-.gal_desc h3{
+.gallery_title{
+	color: dodgerblue;
 	margin-top: 10px;
+	margin-left: 30px;
 }
 
-.gal_p{
-	margin-left: 40px;
+.gallery_date{
+	float: right;
+	margin-top: -30px;
+	margin-right: 30px;
 }
 
-.gal_buh{
-	margin: auto;
-}
-
-.container{
-	background-color: #bababa;
-	height: 350px;
+.gallery_container{
+	height: 500px;
 	width: auto;
-	border: 1px solid black;
 }
+
+.photo_container{
+	margin-left: 40px;
+	height: 500px;
+	border-radius: 10px;
+	background-color: #9d9d9d;
+	padding: 20px;
+	overflow: auto;
+}
+
+.comment_container{
+	height: 500px;
+	border-radius: 10px;
+	background-color: #9d9d9d;
+	float: right;
+	margin-right: 40px;
+	padding: 20px;
+}
+
+.comment_display{
+	color: black;
+	height: 400px;
+	overflow: auto;
+	margin-bottom: 20px;
+	border-bottom: 1px solid white;
+}
+
+.comment_input{
+	text-align: center;
+}
+
+.gallery_delimiter{
+	border-top: 1px solid #9d9d9d;
+	margin: 20px 30px;
+}
+
+.gallery_description{
+	height: 200px;
+	margin-bottom: 30px;
+}
+
+.gallery_description_block{
+	padding: 10px 20px;
+	margin-left: 40px;
+	height: 200px;
+	border-radius: 10px;
+	background-color: #9d9d9d;
+	overflow: auto;
+}
+
+.gallery_buhlikes{
+	height: 200px;
+	padding: 10px 20px;
+	border-radius: 10px;
+	background-color: #9d9d9d;
+	float: right;
+	margin-right: 40px;
+}
+/*-----------------------  Album ------------------ */
 
 .coment{
 	background-color: #908d8d;
@@ -191,14 +244,6 @@
 	padding-right: 100px;
 }
 
-.hov_block{
-	display: none;
-	text-align: left;
-}
-.album_img:hover .hov_block{
-	display: block;
-}
-
 .form_indent{
 	margin-bottom: 5px;
 }
@@ -218,10 +263,11 @@
 	max-width: 100%;
 }
 
-
 .bookmarks_content{
 	margin: auto;
 }
+
+
 
 
 
