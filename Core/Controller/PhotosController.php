@@ -10,6 +10,7 @@ namespace Core\Controller;
 
 use Core\Controller;
 use Core\Model\Models\Albums;
+use Core\Model\Models\Comments;
 use Core\Model\Models\Photos;
 
 class PhotosController extends Controller
@@ -23,15 +24,51 @@ class PhotosController extends Controller
     {
         $data = explode('.', $data);
         $layout = $this->makeLayout($data[0]);
+
         $photos = new Photos();
         $photos = $photos->selectAll($photos->getColumns(), array('albums_id', $data[1]));
         $photos = array('photo' => $photos);
+
         $albums = new Albums();
         $albums = $albums->selectAll($albums->getColumns(), array('id', $data[1]));
         $albums = array('album' => $albums);
+
+        /*$comments = new Comments();
+        $sql = "SELECT `comm`.`users_id`, `comm`.`comment`, `comm`.`date`, `usr`.`nick` FROM `comments` AS `comm` join `users` AS `usr` ON `comm`.`users_id` = `usr`.`id` WHERE `comm`.`albums_id` = ".$data[1]." ORDER BY `comm`.`date` DESC;";
+        $comments = $comments->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        $comments = array('comments' => $comments);*/
+
         $data = array_merge_recursive($layout, $albums, $photos);
 
         return $this->view->render('views::gallery.html', $data);
+    }
+
+    public function addCommentAction($data)
+    {
+        $this->redirectPost();
+
+        if($this->request->get('data') === ''){
+            return;
+        }
+
+        $user = $this->auth->getUser();
+
+        $comment = new Comments();
+
+        $comment->users_id = $user->id;
+        $comment->albums_id = $data;
+        $comment->comment = $this->request->get('data');
+        $date = new \DateTime(null, new \DateTimeZone('Europe/Kiev'));
+        $comment->date = $date->format('Y-m-d H:i:s');
+        $comment->insert();
+    }
+
+    public function commentAction($data)
+    {
+        $comments = new Comments();
+        $sql = "SELECT `comm`.`users_id`, `comm`.`comment`, `comm`.`date`, `usr`.`nick` FROM `comments` AS `comm` join `users` AS `usr` ON `comm`.`users_id` = `usr`.`id` WHERE `comm`.`albums_id` = ".$data." ORDER BY `comm`.`date` DESC;";
+        $comments = $comments->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        return json_encode($comments);
     }
 
 }
