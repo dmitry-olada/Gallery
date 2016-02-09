@@ -92,6 +92,7 @@ class Controller implements InjectableInterface
 
     protected function redirectPost($where = ''){
         if(!$this->request->isPost()){
+            $this->session->setFlash('Unknown error', 'danger');
             $this->response->redirect('/'.$where);
         }
     }

@@ -18,7 +18,7 @@ class Albums extends Model implements ModelsInterface
     public $description;
     public $date;
     public $buhlikes;
-    public $comments;
+    public $available;
     public $owner;
 
     public function getId()
@@ -33,7 +33,7 @@ class Albums extends Model implements ModelsInterface
 
     public function getColumns()
     {
-        return array('id', 'name', 'description', 'comments', 'date', 'buhlikes', 'owner');
+        return array('id', 'name', 'description', 'available', 'date', 'buhlikes', 'owner');
     }
 
 

@@ -95,4 +95,8 @@ class Model implements ModelsInterface
         $this->connection->query()->table($this->getTable())->where($this->getId(), '=', $id)->delete();
     }
 
+    public function makeQuery($sql){
+        return $this->connection->raw($sql);
+    }
+
 }

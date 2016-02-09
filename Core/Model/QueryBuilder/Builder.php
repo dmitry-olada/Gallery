@@ -156,7 +156,6 @@ class Builder
             return ($value instanceof Closure)?$this->subQuery($value):$value;
         }, $values);
         $sql = $this->grammar->buildUpdate(array_merge($this->getParts(), ['sets' => $values]));
-        var_dump($sql);
         return $this->db->query($sql);
     }
     protected function subQuery(Closure $closure)

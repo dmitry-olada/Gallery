@@ -12,7 +12,6 @@ namespace Core\Controller;
 use Core\Controller;
 use Core\Model\Models\Albums;
 use Core\Model\Models\Photos;
-use Core\Model\Models\Users;
 
 class AlbumsController extends Controller
 {
@@ -81,12 +80,17 @@ class AlbumsController extends Controller
         $photo->update('id', $data);
     }
 
-    public function photo_deleteAction($data)
+    public function photo_deleteAction()
     {
         $this->redirectPost('albums');
 
+        $data = explode('.', $this->request->get('data'));
+
         $photo = new Photos();
-        $photo->delete($data);
+        $photo->delete($data[0]);
+
+        $this->session->set('collapse', $data[1]);
+        $this->session->setFlash('Photo has been deleted', 'success');
     }
 
     public function createAction()
@@ -133,6 +137,7 @@ class AlbumsController extends Controller
 
         $album->buhlikes = json_encode(trim(implode($bm, ','), ','));
         $album->update('id', $data);
+        return count($bm);
     }
 
 }
