@@ -58,12 +58,14 @@ class BookmarksController extends Controller
             if((string)$id === $value){
                 unset($bookmarks_id[$key]);
                 $delete = true;
+                break;
             }
         }
-        if(!$delete) {
+        if(!$delete){
             $bookmarks_id[] = $id;
         }
         $curr_user->bookmarks = json_encode(trim(implode($bookmarks_id, ','), ','));
         $curr_user->update('id', $user->id);
+        return $delete?1:0; //без этого никак
     }
 }

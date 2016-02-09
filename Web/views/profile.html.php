@@ -85,14 +85,21 @@
 							<textarea readonly class="textarea"><?=$item['description']?></textarea>
 						</div>
 
-						<a href="#" ><h5 class="text-left">Show comments</h5></a>
 						<div class="descr">
-							<h3 class="text-right"><a href="/albums/buhlike/<?=$item['id']?>" class="ajax_buhlikes"><?=$item['buhlikes']?>
-								<?php if($item['isliked']){?>
-								<img src="../images/2.jpg">
-								<?php } else {?>
-								<img src="../images/empty.jpg">
-								<?php } ?>
+							<h3 class="text-right">
+								<a href="/albums/buhlike/<?=$item['id']?>" class="ajax_buhlikes" id="ajax_replace_<?=$item['id']?>">
+
+									<div class="buh_text"><?=$item['buhlikes']?></div>
+
+									<div class="buh_image_1"
+										<?php if(!$item['isliked']) {
+											echo 'style = "display:none"';
+										} ?> ><img src="../images/2.jpg">
+									</div>
+									<div class="buh_image_2"<?php if($item['isliked']) {
+											echo 'style = "display:none"';
+										} ?> ><img src="../images/empty2.png">
+									</div>
 								</a>
 							</h3>
 						</div>

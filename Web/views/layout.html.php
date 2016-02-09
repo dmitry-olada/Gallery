@@ -35,7 +35,7 @@
     <div class="nick">
         <a href="<?='/profile/'.$id ?>"><h2 class=" text-center text-info"><?=$nick?></h2></a>
     </div>
-    <div class="photo_profile">
+    <div class="photo_profile text-center">
         <img src="<?=$avatar?>" width="200" height="200" border="1">
     </div>
 
@@ -49,14 +49,12 @@
             <?php }else{ ?>
                 <li class="about"><a data-toggle="modal" data-target="#infoModal" href='#'>Show info</a></li>
                 <?php if(!$bm_status){ ?>
-                    <li class="services"><a id="add_bookmark" href="#" onclick="return false;">Add to BM</a></li>
+                    <li class="services"><a id="add_bookmark" href="#">Add to BM</a></li>
                 <?php } else { ?>
-                    <li class="services"><a id="add_bookmark" href="#" onclick="return false;">Remove from BM</a></li>
+                    <li class="services"><a id="add_bookmark" href="#">Remove from BM</a></li>
                 <?php } ?>
                 <input type="hidden" value="<?=$id?>" id="user_id">
-            <?php }
-            //TODO: remove from friends;
-            ?>
+            <?php } ?>
             <li class="portfolio"><a href='/settings'>Settings</a></li>
             <li class="contact"><a href='/auth/logout'>Logout</a></li>
         </ul>
@@ -117,22 +115,7 @@
 
 <!-- /Content  -->
 
-    <div class="layout_footer"
-        <div class="site-footer">
-            <div class="bottom-footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p class="copyright">Buhlogram © 2016 </p>
-                        </div> <!-- /.col-md-6 -->
-                        <div class="col-md-6 credits">
-                            <a rel="nofollow" href="#" target="_parent">Contact Us</a>
-                        </div> <!-- /.col-md-6 -->
-                    </div> <!-- /.row -->
-                </div> <!-- /.container-fluid -->
-            </div> <!-- /.bottom-footer -->
-        </div> <!-- /.site-footer -->
-    </div> <!-- /.layout-footer -->
+
 
 </div>
 
