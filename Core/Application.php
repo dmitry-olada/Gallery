@@ -26,10 +26,6 @@ class Application
 
     public function handle()
     {
-        //TODO: НОВЫЙ UPDATE. БЕЗ ВСЕХ КОЛОНОК.
-
-        //TODO: Bookmarks сделать замену блоков. как с бухлайками.
-
         //TODO: Если после числа еще / и числа, то выкидывать notFound. Неправильные photos - тоже
 
         $response = $this->di->get('response');

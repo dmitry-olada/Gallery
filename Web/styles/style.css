@@ -64,38 +64,29 @@ html{
 	margin-top: 30px;
 }
 
-.dir{
-	margin-bottom: 30px;
-	margin-left: 15px;
+/*----------------------- Profile ------------------- */
+
+.profile_albums{
+	height: 300px;
+	border-radius: 10px;
+	background-color: #9d9d9d;
+	padding: 10px 20px;
+	margin-bottom: 20px;
 }
 
-.dir h3{
+.profile_folder{
+	margin-top: -30px;
+}
+
+.profile_date{
 	text-align: center;
-	margin-top: -10px;
-	margin-bottom: 5px;
+	margin-top: 20px;
+	font-size: small;
+	color: black;
 }
 
-.descr{
-	margin-top: -10px;
-}
-
-.descr p{
-	margin-top: -10px;
-}
-
-.descr_1{
-	margin-left: 20px;
-}
-
-.comments{
-	height: 280px;
-}
-
-.textarea{
-	resize: none;
-	border: none;
-	width: 435px;
-	height: 150px;
+.profile_buhlikes{
+	margin-top: 120px;
 }
 
 
@@ -167,13 +158,17 @@ html{
 	overflow: auto;
 }
 
-.gallery_buhlikes{
+.gallery_buhlikes_container{
 	height: 200px;
 	padding: 10px 20px;
 	border-radius: 10px;
 	background-color: #9d9d9d;
 	float: right;
 	margin-right: 40px;
+}
+
+.gallery_buhlikes{
+	/*TODO: Смотреть кто поставил бухлайк*/
 }
 /*-----------------------  Album ------------------ */
 

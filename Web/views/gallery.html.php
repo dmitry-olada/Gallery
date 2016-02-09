@@ -49,8 +49,23 @@
              <?=$album[0]['description']?>
              <div style="margin-top: 20px"></div>
          </div>
-         <div class="col-lg-3 gallery_buhlikes">
+         <div class="col-lg-3 gallery_buhlikes_container">
              <h4 class="text-center"> Likes </h4>
+             <h3 class="text-center">
+                 <?php if($album[0]['isliked']) { ?>
+                     <div class="gallery_buhlikes">
+                         <a href="/albums/buhlike/<?=$album[0]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$album[0]['id']?>">
+                             <?=$album[0]['buhlikes']?>&nbsp<img src="../images/vine2.png" height="50px" width="20px">
+                         </a>
+                     </div>
+                 <?php } else {?>
+                     <div class="gallery_buhlikes">
+                         <a href="/albums/buhlike/<?=$album[0]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$album[0]['id']?>">
+                             <?=$album[0]['buhlikes']?>&nbsp<img src="../images/vine3.png" height="50px" width="20px">
+                         </a>
+                     </div>
+                 <?php } ?>
+             </h3>
          </div>
      </div>
 

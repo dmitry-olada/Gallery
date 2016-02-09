@@ -45,21 +45,17 @@ jQuery(document).ready(function($){
         }else{
             e.preventDefault();
         }
-        //$.post($(this).attr('href'));
     });
 
     $('.ajax_buhlikes').click(function(e){
         e.preventDefault();
-        $.post($(this).attr('href'), function(data){
-            if($('.buh_text',$(this)).html() > data){
-                $('.buh_image_1',$(this)).hide();
-                $('.buh_image_2',$(this)).show();
+        $.post($(this).attr('href'), function(data) {
+            if(data[0] == 1){
+                $('#buh_link_' + data[2]).html(data[1] + "&nbsp<img src=../images/vine2.png height='50px' width='20px'>");
             }else{
-                $('.buh_image_2',$(this)).hide();
-                $('.buh_image_1',$(this)).show();
+                $('#buh_link_' + data[2]).html(data[1] + "&nbsp<img src=../images/vine3.png height='50px' width='20px'>");
             }
-            $('.buh_text',$(this)).html(data);
-        }.bind(this));
+        }, 'json');
     });
 
 });

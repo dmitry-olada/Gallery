@@ -44,69 +44,79 @@
 
 	<div class="container-fluid">
 
-		<?php foreach($user_albums as $item){ ?>
+		<?php for($i = 0; $i<count($user_albums); $i+=2){ ?>
 
-		<div id="about" class="section-content">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="section-title">
-							<div class="col-md-12 text-center">
-								<a href="/photos/<?= $id.'.'.$item['id']?>"><h2><?=$item['name']?></h2></a>
-								<p class="text-right"><?=$item['date']?></p>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10 profile_albums">
+						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><h2><?=$user_albums[$i]['name']?></h2></a>
+						<div class="row">
+							<div class="col-lg-9 text-center">
+								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
+							</div>
+							<div class="col-lg-3">
+								<span class="profile_date"><p><?=$user_albums[$i]['date']?></p></span>
+								<h3 class="text-center">
+									<?php if($user_albums[$i]['isliked']) { ?>
+										<div class="profile_buhlikes">
+											<a href="/albums/buhlike/<?=$user_albums[$i]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$user_albums[$i]['id']?>">
+												<?=$user_albums[$i]['buhlikes']?>&nbsp<img src="../images/vine2.png" height="50px" width="20px">
+											</a>
+										</div>
+									<?php } else {?>
+										<div class="profile_buhlikes">
+											<a href="/albums/buhlike/<?=$user_albums[$i]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$user_albums[$i]['id']?>">
+												<?=$user_albums[$i]['buhlikes']?>&nbsp<img src="../images/vine3.png" height="50px" width="20px">
+											</a>
+										</div>
+									<?php } ?>
+								</h3>
 							</div>
 						</div>
+						<div class="col-lg-1"></div>
 					</div>
 				</div>
+			</div>
 
-				<div class="row our-story">
-					<div class="col-md-5 dir">
-						<a href="/photos/<?= $id.'.'.$item['id']?>"><h3>Album</h3></a>
-						<a href="#"><img src="../images/1.jpg" height="186" width="315"></a>
-						<!--
-						<div class="comments panel-group">
-							<div class="panel panel-default">
-								<p>Dimonchik : Random text</p>
+			<?php if($i+1 < count($user_albums)){?>
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10 profile_albums">
+						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><h2><?=$user_albums[$i+1]['name']?></h2></a>
+						<div class="row">
+							<div class="col-lg-9">
+								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
 							</div>
-							<div class="panel panel-default">
-								<p>Vitek : Random text</p>
+							<div class="col-lg-3">
+								<span class="profile_date"><p><?=$user_albums[$i+1]['date']?></p></span>
+								<h3 class="text-center">
+									<?php if($user_albums[$i+1]['isliked']) { ?>
+										<div class="profile_buhlikes">
+											<a href="/albums/buhlike/<?=$user_albums[$i+1]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$user_albums[$i+1]['id']?>">
+												<?=$user_albums[$i+1]['buhlikes']?>&nbsp<img src="../images/vine2.png" height="50px" width="20px">
+											</a>
+										</div>
+									<?php } else {?>
+										<div class="profile_buhlikes">
+											<a href="/albums/buhlike/<?=$user_albums[$i+1]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$user_albums[$i+1]['id']?>">
+												<?=$user_albums[$i+1]['buhlikes']?>&nbsp<img src="../images/vine3.png" height="50px" width="20px">
+											</a>
+										</div>
+									<?php } ?>
+								</h3>
 							</div>
-							<div class="panel panel-default">
-								<p>Roman : Random text</p>
-							</div>
-						</div>
-						-->
-					</div>
-
-					<div class="col-md-1"></div>
-					<div class="col-md-6 descr_1">
-						<div class="descr">
-							<h3 class="text-center">Description</h3>
-							<textarea readonly class="textarea"><?=$item['description']?></textarea>
-						</div>
-
-						<div class="descr">
-							<h3 class="text-right">
-								<a href="/albums/buhlike/<?=$item['id']?>" class="ajax_buhlikes" id="ajax_replace_<?=$item['id']?>">
-
-									<div class="buh_text"><?=$item['buhlikes']?></div>
-
-									<div class="buh_image_1"
-										<?php if(!$item['isliked']) {
-											echo 'style = "display:none"';
-										} ?> ><img src="../images/2.jpg">
-									</div>
-									<div class="buh_image_2"<?php if($item['isliked']) {
-											echo 'style = "display:none"';
-										} ?> ><img src="../images/empty2.png">
-									</div>
-								</a>
-							</h3>
 						</div>
 					</div>
+					<div class="col-lg-1"></div>
 				</div>
-			</div> <!-- /.row -->
-		</div> <!-- /#about -->
+			<?php } ?>
+			</div>
+		</div>
+
+
 
 		<?php } ?>
 

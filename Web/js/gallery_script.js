@@ -5,8 +5,9 @@ $('#add_comment').click(function(e){
 });
 
 var show = function (){
+    var index = document.location.href.substr(document.location.href.lastIndexOf('.')+1);
     $.ajax({
-        url: 'comment/1',
+        url: 'comment/'+index,
         method: 'post',
         cache: false,
         success: function(html){

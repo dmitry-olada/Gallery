@@ -137,7 +137,7 @@ class AlbumsController extends Controller
 
         $album->buhlikes = json_encode(trim(implode($bm, ','), ','));
         $album->update('id', $data);
-        return count($bm);
+        return json_encode(array($delete?0:1, count($bm), $data));
     }
 
 }
