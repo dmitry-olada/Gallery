@@ -113,6 +113,23 @@ class AlbumsController extends Controller
         $this->response->redirect('/albums');
     }
 
+    public function addPhotoAction($data)
+    {
+        $this->redirectPost('albums');
+
+        $data = explode('.', $data);
+
+        $photo = new Photos();
+        $photo->link = $this->request->get('link_add_photo');
+        $photo->name = $this->request->get('name_add_photo')?$this->request->get('name_add_photo'):'';
+        $photo->albums_id = $data[0];
+        $photo->insert();
+
+        $this->session->set('collapse', $data[1]);
+        $this->session->setFlash('Photo has been added successfully', 'success');
+        $this->response->redirect('/albums');
+    }
+
     public function buhlikeAction($data)
     {
         $this->redirectPost('albums');

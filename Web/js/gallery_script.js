@@ -15,7 +15,7 @@ var show = function (){
             $('.comment_display').empty();
             $(json).each(function(index, data){
                 $(data).each(function(index, data){
-                    $('.comment_display').append("<a href='/photos/deleteComment/" + data.users_id  + "." + data.id + "' class='gallery_comment_deleter'>x&nbsp</a>" +
+                    $('.comment_display').append("<a href='/photos/deleteComment/" + data.users_id  + "." + data.id + "' class='gallery_comment_deleter'>×&nbsp</a>" +
                         "<a style='float: left' href='/profile/" + data.users_id + "'>" + data.nick + ":&nbsp</a><p>" + data.comment + "</p>");
                 });
             });

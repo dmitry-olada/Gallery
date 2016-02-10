@@ -16,6 +16,7 @@ class Photos extends Model implements ModelsInterface
     public $id;
     public $link;
     public $albums_id;
+    public $name;
 
     public function getId()
     {

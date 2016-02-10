@@ -61,7 +61,9 @@
                         <div class="col-lg-3"></div>
                         <div class="col-lg-6">
                             <div class="settings_changer albums_counter">
-                                <p><strong><?=$item['name']?></strong><button class="btn-primary settings_button" data-toggle="collapse" data-target="#change_album_<?=$count?>">Manage</button><button class="btn-success album_upload">Upload</button></p>
+                                <p><strong><?=$item['name']?></strong>
+                                    <button class="btn-primary settings_button" data-toggle="collapse" data-target="#change_album_<?=$count?>">Manage</button>
+                                    <button class="btn-success album_upload" data-toggle="modal" data-target="#upload_album_<?=$count?>">Upload</button></p>
                             </div>
                         </div>
                         <div class="col-lg-3"></div>
@@ -123,11 +125,46 @@
                         <div class="col-lg-4"></div>
                     </div>
 
+                    <div id="upload_album_<?=$count?>" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title text-center">Upload photo</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="active"><a href="#link" aria-controls="link" role="tab" data-toggle="tab">Link</a></li>
+                                            <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">From PC</a></li>
+                                            </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="link">
+                                                <br/>
+                                                <form role="form" action="/albums/addPhoto/<?=$item['id'].'.'.$count?>" method="post">
+                                                    <div class="inputs">
+                                                        <label> Name: </label> <input type="text" name="name_add_photo" class="field">
+                                                        <label> &nbsp; &nbsp; Link: </label> <input type="text" required name="link_add_photo" class="field">
+                                                    </div><br/>
+                                                    <div class="text-center"><input name="submit" type="submit"></div>
+                                                </form>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                <h4 class="text-center">This functional isn't available now =( </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Close</button></div>
+                            </div>
+                        </div>
+                    </div>
+
 
                 <?php } ;
             } ?>
         </div>
     </div><!--/row-->
+
 
 <div style="height: 500px"></div>
 
