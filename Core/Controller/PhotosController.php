@@ -40,6 +40,8 @@ class PhotosController extends Controller
             $albums[0]['isliked'] = true;
         }
 
+        $albums[0]['owner'] =  ($layout['main_id'] === $albums[0]['owner'])?true:false;
+
         $albums = array('album' => $albums);
 
         $data = array_merge_recursive($layout, $albums, $photos);
@@ -67,10 +69,24 @@ class PhotosController extends Controller
         $comment->insert();
     }
 
+    public function deleteCommentAction($data)
+    {
+        $data = explode('.', $data);
+        $user = $this->auth->getUser();
+
+        if($data[0] === $user->id){
+            $comment = new Comments();
+            $comment->delete($data[1]);
+        }else{
+            $this->session->setFlash('not today =)', 'danger');
+        }
+        $this->response->redirect('/photos/'.substr($_SERVER['HTTP_REFERER'], strlen($_SERVER['HTTP_REFERER']) - 3));
+    }
+
     public function commentAction($data)
     {
         $comments = new Comments();
-        $sql = "SELECT `comm`.`users_id`, `comm`.`comment`, `comm`.`date`, `usr`.`nick` FROM `comments` AS `comm` join `users` AS `usr` ON `comm`.`users_id` = `usr`.`id` WHERE `comm`.`albums_id` = ".$data." ORDER BY `comm`.`date` DESC;";
+        $sql = "SELECT `comm`.`id`, `comm`.`users_id`, `comm`.`comment`, `comm`.`date`, `usr`.`nick` FROM `comments` AS `comm` join `users` AS `usr` ON `comm`.`users_id` = `usr`.`id` WHERE `comm`.`albums_id` = ".$data." ORDER BY `comm`.`date` DESC;";
         $comments = $comments->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return json_encode($comments);
     }

@@ -22,10 +22,6 @@ class Router implements InjectableInterface
         return explode('/', $this->uri);
     }
 
-    public function returnUrl(){
-        return $this->uri;
-    }
-
     public function getUserUri(){
         return $_SERVER['REQUEST_URI'];
     }
