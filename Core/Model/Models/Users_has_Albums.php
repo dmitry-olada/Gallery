@@ -28,7 +28,7 @@ class Users_has_Albums extends Model implements ModelsInterface
 
     public function getColumns()
     {
-        return array('id', 'email', 'password', 'nick', 'avatar', 'reg_date', 'friends');
+        return array('users_id', 'albums_id');
     }
 
 }

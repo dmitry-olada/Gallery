@@ -8,7 +8,6 @@
 
 namespace Core;
 
-
 use Core\Controller\AuthController;
 use Core\Controller\NotFoundController;
 
@@ -30,8 +29,10 @@ class Application
         //TODO: Удаление коментов post-om и без перезагрузки страницы.
         //TODO: Вставка фото с компа, без ссылки + создание новых полей для добавлене фоток через кнопку.
         //TODO: Редизайн layout + new footer.
-        //TODO: !!! Владелец выбирает для кого открыть альбом.
         //TODO: Что-то придумать с обложной профиля.
+        //TODO: Регистрация с мылом. Проверить смену пароля.
+        //TODO: Собрать коменты в контроллере.
+
 
         $response = $this->di->get('response');
 

@@ -16,9 +16,9 @@ class Request
     public function __construct()
     {
         if ($this->isPost()) {
-            $this->global = array_map('stripslashes', $_POST);
+            $this->global = is_array($_POST)?$_POST:array_map('stripslashes', $_POST);
         } else {
-            $this->global = array_map('stripslashes', $_GET);
+            $this->global = is_array($_GET)?$_GET:array_map('stripslashes', $_GET);
         }
     }
 

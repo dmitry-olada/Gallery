@@ -58,4 +58,15 @@ jQuery(document).ready(function($){
         }, 'json');
     });
 
+    $('.share_button').click(function(e){
+        e.preventDefault();
+        $.post($(this).attr('href'), {js_data: $(".share_input", $(this).parent()).val()}, function(data){
+            $('.share_container').append(data);
+        }, 'json');
+    });
+
+
+
+
+
 });

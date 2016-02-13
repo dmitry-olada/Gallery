@@ -178,6 +178,56 @@ html{
 }
 /*-----------------------  Album ------------------ */
 
+#album_description{
+	resize: none;
+	margin-bottom: 10px;
+}
+
+.album_photos_show{
+	height: 80px;
+	width: 70px;
+	float: right;
+}
+
+.photos_changer{
+	padding: 5px;
+	height: 400px;
+	width: auto;
+	overflow: auto;
+	border-bottom: 1px solid #dddddd;
+}
+
+.album_upload{
+	float: right;
+	margin-right: 5px;
+}
+
+.albums_ph_delimiter{
+	border-bottom: 1px solid #dddddd;
+}
+
+.albums_counter{
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+.album_available{
+	float: right;
+	margin-right: 5px;
+}
+
+.share_deleter{
+	float: right;
+	color: red;
+}
+
+
+
+
+
+/*-----------------------  Settings ------------------ */
+
+
 .coment{
 	background-color: #908d8d;
 	height: 130px;
@@ -212,38 +262,9 @@ html{
 	margin-left: 30px;
 }
 
-#album_description{
-	resize: none;
-	margin-bottom: 10px;
-}
 
-.album_photos_show{
-	height: 80px;
-	width: 70px;
-	float: right;
-}
 
-.photos_changer{
-	padding: 5px;
-	height: 400px;
-	width: auto;
-	overflow: auto;
-	border-bottom: 1px solid #dddddd;
-}
 
-.album_upload{
-	float: right;
-	margin-right: 5px;
-}
-
-.albums_ph_delimiter{
-	border-bottom: 1px solid #dddddd;
-}
-
-.albums_counter{
-	padding-left: 100px;
-	padding-right: 100px;
-}
 
 .form_indent{
 	margin-bottom: 5px;
@@ -266,6 +287,10 @@ html{
 
 .bookmarks_content{
 	margin: auto;
+}
+
+#link_sample{
+	display: none;
 }
 
 
