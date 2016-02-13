@@ -213,23 +213,6 @@
                                                 <div class="row">
                                                     <div class="col-lg-7">
                                                         <h6 class="text-center">Select friends which seems in the album</h6>
-
-                                                            <?php /* ?><select class="example-getting" multiple="multiple" name="shares[]">
-                                                                <?php foreach($all_users as $user_item){
-                                                                    if($user_item['id'] === $item['owner']){
-                                                                        continue;
-                                                                    } ?>
-                                                                    <option
-                                                                        <?php
-                                                                        if($item['available']){
-                                                                            if(array_key_exists($user_item['id'], $item['share'])) {
-                                                                                echo 'selected';
-                                                                            }
-                                                                        }?>
-                                                                        value="<?=$user_item['id']?>"><?=$user_item['nick']?></option>
-                                                                <?php }?>
-                                                            </select>
-                                                            <?php */ ?>
                                                             <label>Enter ID: &nbsp;</label><input type="text" class="share_input" height="100">
                                                             <button href="/albums/share/<?=$item['id']?>" style="float: right" class="btn btn-default share_button">Share</button>
                                                     </div>
@@ -242,6 +225,9 @@
                                                                 <?php foreach($all_users as $user_item){
                                                                     if(!empty($item['share'])) {
                                                                         foreach ($item['share'] as $share_item) {
+                                                                            if($share_item === $item['owner']){
+                                                                                continue;
+                                                                            }
                                                                             if ($share_item === $user_item['id']) { ?>
                                                                                     <div>
                                                                                         <a href="/profile/<?= $user_item['id'] ?>"><?= $user_item['nick'] ?></a>

@@ -29,6 +29,15 @@ class ProfileController extends Controller
         foreach ($user_albums as $item){
             $curr_albums = $album->selectAll($album->getColumns(), array('id', $item[0]));
             foreach ($curr_albums as $key => $value){
+                if(!$layout['profile_owner'] && $layout['main_id'] !== $curr_albums[$key]['owner']){
+                    if(!empty($json = json_decode($curr_albums[$key]['available']))){
+                        $available = explode(',', $json);
+                        if(false === array_search($layout['main_id'], $available)){
+                            unset($curr_albums[$key]);
+                            continue;
+                        }
+                    }
+                }
                 $curr_albums[$key]['isliked'] = false;
                 $buhlikes = json_decode($curr_albums[$key]['buhlikes']);
                 $buhlikes = explode(',', $buhlikes);
