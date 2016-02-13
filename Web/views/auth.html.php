@@ -77,7 +77,7 @@
 
  	</div>
 
- 	<div class="col-lg-3" id="border">
+ 	<div class="col-lg-3" id="auth_border">
  		<div class="row" >
  			<div class="col-lg-1"></div>
  			<div class="col-lg-10">

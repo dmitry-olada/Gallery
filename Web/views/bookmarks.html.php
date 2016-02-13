@@ -55,7 +55,4 @@
 </div>
 
 
-    <div style="height: 500px"></div>
-
-
 <?php $this->endblock() ?>

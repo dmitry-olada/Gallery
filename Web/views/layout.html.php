@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 
     <title><?php $this->output('title', $nick.' - '.$site_title) ?></title>
@@ -29,16 +29,14 @@
 </head>
 <body>
 
-
 <!-- Main Menu -->
 <div id="main-sidebar" class="hidden-xs hidden-sm">
     <div class="nick">
-        <a href="<?='/profile/'.$id ?>"><h2 class=" text-center text-info"><?=$nick?></h2></a>
+        <a href="<?='/profile/'.$id ?>"><h2 class=" text-center"><?=$nick?></h2></a>
     </div>
     <div class="photo_profile text-center">
         <img src="<?=$avatar?>" width="200" height="200" border="1">
     </div>
-
 
     <div class="navigation">
         <ul class="main-menu">
@@ -59,7 +57,6 @@
             <li class="contact"><a href='/auth/logout'>Logout</a></li>
         </ul>
     </div> <!-- /.navigation -->
-
 </div> <!-- /#main-sidebar -->
 
 <!-- InfoModal  -->
@@ -78,33 +75,30 @@
                     echo "<p>ID: <span>" . $id . "</span></p>";
                 }
                 ?>
-                <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрыть</button></div>
+                <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Close</button></div>
             </div>
         </div>
     </div>
 </div><!-- /InfoModal  -->
 
-
 <div id="main-content">
-
-<!--Flash -->
-<div class="row">
-    <div class="col-lg-3"></div>
-    <div class="col-lg-6 box">
-        <?php
-        if (null !== $alert) {
-            foreach($alert as $key => $value) { ?>
-                <div class="alert alert-<?=$key?> alert-dismissible " role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p class="text-center"><strong><?php echo $value ?></strong></p>
-                </div>
-            <?php }
-        }
-        ?>
+    <!--Flash -->
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6 box">
+            <?php
+            if (null !== $alert) {
+                foreach($alert as $key => $value) { ?>
+                    <div class="alert alert-<?=$key?> alert-dismissible " role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p class="text-center"><strong><?php echo $value ?></strong></p>
+                    </div>
+                <?php }
+            }
+            ?>
+        </div>
+        <div class="col-lg-3"></div>
     </div>
-    <div class="col-lg-3"></div>
-</div>
-
 <!--/Flash -->
 
 
@@ -115,9 +109,7 @@
 
 <!-- /Content  -->
 
-
-
-</div>
+</div> <!-- /main-content -->
 
 </body>
 </html>

@@ -66,7 +66,7 @@
                         <div class="col-lg-6">
                             <div class="settings_changer albums_counter">
                                 <p><strong><?=$item['name']?></strong>
-                                    <button class="btn btn-primary settings_button" data-toggle="collapse" data-target="#change_album_<?=$count?>">Manage</button>
+                                    <button class="btn btn-primary albums_button" data-toggle="collapse" data-target="#change_album_<?=$count?>">Manage</button>
                                     <button class="btn btn-default album_available" data-toggle="modal" data-target="#available_album_<?=$count?>">Permissions</button>
                                 <button class="btn btn-default album_upload" data-toggle="modal" data-target="#upload_album_<?=$count?>">Upload</button></p>
                             </div>
@@ -258,7 +258,6 @@
         </div>
     </div><!--/row-->
 
-<div style="height: 500px"></div>
 
     <div class="inputs" id="link_sample">
         <label> Name: </label> <input type="text" name="name_add_photo[]" class="field">

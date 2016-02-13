@@ -49,8 +49,8 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="row">
-					<div class="col-lg-1"></div>
-					<div class="col-lg-10 profile_albums">
+					<div class="col-lg-2"></div>
+					<div class="col-lg-9 profile_albums">
 						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><h2><?=$user_albums[$i]['name']?></h2></a>
 						<div class="row">
 							<div class="col-lg-9 text-center">
@@ -84,10 +84,10 @@
 			<div class="col-lg-6">
 				<div class="row">
 					<div class="col-lg-1"></div>
-					<div class="col-lg-10 profile_albums">
+					<div class="col-lg-9 profile_albums">
 						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><h2><?=$user_albums[$i+1]['name']?></h2></a>
 						<div class="row">
-							<div class="col-lg-9">
+							<div class="col-lg-9 text-center">
 								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
 							</div>
 							<div class="col-lg-3">
@@ -110,7 +110,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-1"></div>
+					<div class="col-lg-2"></div>
 				</div>
 			<?php } ?>
 			</div>

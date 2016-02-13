@@ -1,22 +1,12 @@
-/*.layout_footer{
-	position: inherit;
-	min-height: calc(100vh - 80px);
-}*/
-
-html{
-	overflow: auto;
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
-.ccenter{
-	margin: auto;
-}
+/*----------------------- Auth ------------------- */
 
-.div_center{
-	display: block;
-	margin: auto;
-}
-
-#border{
+#auth_border{
 	border-left: 2px solid black;
 }
 
@@ -32,28 +22,7 @@ html{
 	margin-bottom: 10px; 
 }
 
-.reg_ot{
-	margin-bottom: 5px;
-}
-
-.photo{
-	height: 135px;
-	width: 135px;
-	margin: 10px 0 0 10px;
-	border: 1px solid #808080;
-}
-
-.info{
-	margin: 1px;
-}
-
-.line{
-	border-top: 2px solid #808080;
-}
-
-.a{
-	border: 1px solid red;
-}
+/*----------------------- Layout ------------------- */
 
 .photo_profile{
 	margin-top: 30px;
@@ -69,7 +38,7 @@ html{
 .profile_albums{
 	height: 300px;
 	border-radius: 10px;
-	background-color: #9d9d9d;
+	background-color: #f7f7f7;
 	padding: 10px 20px;
 	margin-bottom: 20px;
 }
@@ -113,7 +82,7 @@ html{
 	margin-left: 40px;
 	height: 500px;
 	border-radius: 10px;
-	background-color: #9d9d9d;
+	background-color: #f7f7f7;
 	padding: 20px;
 	overflow: auto;
 }
@@ -121,7 +90,7 @@ html{
 .comment_container{
 	height: 500px;
 	border-radius: 10px;
-	background-color: #9d9d9d;
+	background-color: #f7f7f7;
 	float: right;
 	margin-right: 40px;
 	padding: 20px;
@@ -146,7 +115,7 @@ html{
 }
 
 .gallery_delimiter{
-	border-top: 1px solid #9d9d9d;
+	border-top: 1px solid #f7f7f7;
 	margin: 20px 30px;
 }
 
@@ -160,7 +129,7 @@ html{
 	margin-left: 40px;
 	height: 200px;
 	border-radius: 10px;
-	background-color: #9d9d9d;
+	background-color: #f7f7f7;
 	overflow: auto;
 }
 
@@ -168,7 +137,7 @@ html{
 	height: 200px;
 	padding: 10px 20px;
 	border-radius: 10px;
-	background-color: #9d9d9d;
+	background-color: #f7f7f7;
 	float: right;
 	margin-right: 40px;
 }
@@ -221,17 +190,28 @@ html{
 	color: red;
 }
 
-
-
-
+.albums_button{
+	width: 100px;
+	float: right;
+}
 
 /*-----------------------  Settings ------------------ */
 
+.settings_delimiter{
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #dddddd;
+}
 
-.coment{
-	background-color: #908d8d;
-	height: 130px;
-	color: white;
+.settings_button{
+	margin-top: -4px;
+	width: 100px;
+	float: right;
+}
+
+.settings_changer{
+	padding-left: 30px;
+	padding-right: 30px;
 }
 
 .allusers_table{
@@ -242,34 +222,13 @@ html{
 .allusers_table th {
 	text-align: center;
 }
-.settings_delimiter{
-	margin-top: 5px;
-	margin-bottom: 10px;
-	border-bottom: 1px solid #dddddd;
-}
 
-.settings_button{
-	width: 100px;
-	float: right;
-}
-
-.settings_changer{
-	padding-left: 30px;
-	padding-right: 30px;
-}
-
-#ds{
-	margin-left: 30px;
+#about_show{
+	margin-top: 50px;
 }
 
 
-
-
-
-.form_indent{
-	margin-bottom: 5px;
-}
-
+/*-----------------------  Bookmarks ------------------ */
 
 .bookmarks_table tbody tr td, .bookmarks_table tbody th td {
 	border: none;
@@ -289,11 +248,33 @@ html{
 	margin: auto;
 }
 
+/*-----------------------  Other ------------------ */
+
+.form_indent{
+	margin-bottom: 5px;
+}
+
 #link_sample{
 	display: none;
 }
 
+.info{
+	margin: 1px;
+}
 
+.line{
+	border-top: 2px solid #808080;
+}
+
+.coment{
+	background-color: #908d8d;
+	height: 130px;
+	color: white;
+}
+
+#ds{
+	margin-left: 30px;
+}
 
 
 
