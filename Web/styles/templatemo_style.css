@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Open Sans', Arial, Helvetice Neue, sans-s
 
 #main-content, .full-width-slider { float: right; width: 77%; }
 
-#main-sidebar { float: left; width: 23%; height: 100%; position: fixed; background-color: #f7f7f7; color: white; }
+#main-sidebar { border-top: 4px solid #dcdcdc; border-top-right-radius:15px; border-top-left-radius:15px; float: left; width: 23%; height: 100%; position: fixed; background-color: #f7f7f7; color: white; }
 
 .main-menu { text-align: center; }
 .main-menu li { margin-bottom: 1px; }

@@ -12,6 +12,7 @@ use Core\Controller;
 use Core\Model\Models\Albums;
 use Core\Model\Models\Comments;
 use Core\Model\Models\Photos;
+use Core\Model\Models\Users;
 
 class PhotosController extends Controller
 {
@@ -30,17 +31,16 @@ class PhotosController extends Controller
         $photos = array('photo' => $photos);
 
         $albums = new Albums();
-        $albums = $albums->selectAll($albums->getColumns(), array('id', $data[1]));
+        $sql = "select a.id, a.name, a.description, a.available, a.date, a.buhlikes, a.owner, u.nick from albums a join users u on (u.id = a.owner) where a.id = ".$data[1].";";
+        $albums = $albums->makeQuery($sql)->fetch();
 
-        $albums[0]['isliked'] = false;
-        $buhlikes = json_decode($albums[0]['buhlikes']);
+        $albums['isliked'] = false;
+        $buhlikes = json_decode($albums['buhlikes']);
         $buhlikes = explode(',', $buhlikes);
-        $albums[0]['buhlikes'] = count($buhlikes);
+        $albums['buhlikes'] = count($buhlikes);
         if(array_search($layout['main_id'], $buhlikes)){
-            $albums[0]['isliked'] = true;
+            $albums['isliked'] = true;
         }
-
-        $albums[0]['owner'] =  ($layout['main_id'] === $albums[0]['owner'])?true:false;
 
         $albums = array('album' => $albums);
 
@@ -86,7 +86,7 @@ class PhotosController extends Controller
     public function commentAction($data)
     {
         $comments = new Comments();
-        $sql = "SELECT `comm`.`id`, `comm`.`users_id`, `comm`.`comment`, `comm`.`date`, `usr`.`nick` FROM `comments` AS `comm` join `users` AS `usr` ON `comm`.`users_id` = `usr`.`id` WHERE `comm`.`albums_id` = ".$data." ORDER BY `comm`.`date` DESC;";
+        $sql = "select comm.id, comm.users_id, comm.comment, comm.date, usr.nick from comments comm join users usr on comm.users_id = usr.id where comm.albums_id = ".$data." order by comm.date DESC;";
         $comments = $comments->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return json_encode($comments);
     }

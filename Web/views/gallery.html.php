@@ -2,7 +2,7 @@
 
 <?php $this->block('content') ?>
 
-<div class="gallery_title"><h3 class="text-center"><?=$album[0]['name']?></h3><span class="gallery_date"><?=$album[0]['date']?></span></div>
+<div class="gallery_title"><h3 class="text-center"><?=$album['name']?></h3><span class="gallery_date"><?=$album['date']?></span></div>
 
 <div class="gallery_delimiter"></div>
 
@@ -31,7 +31,7 @@
                 <div class="comment_display"></div>
             <div class="comment_input">
                 <input type="text" id="text_comment"/>
-                <input type="submit" id="add_comment" value="Enter" href="/photos/addcomment/<?=$album[0]['id']?>">
+                <input type="submit" id="add_comment" value="Enter" href="/photos/addcomment/<?=$album['id']?>">
             </div>
         </div>
 
@@ -46,26 +46,30 @@
      <div class="row">
          <div class="col-lg-8 gallery_description_block">
              <h4 class="text-center"> Description </h4>
-             <?=$album[0]['description']?>
+             <?=$album['description']?>
              <div style="margin-top: 20px"></div>
          </div>
          <div class="col-lg-3 gallery_buhlikes_container">
              <h4 class="text-center"> Likes </h4>
              <h3 class="text-center">
-                 <?php if($album[0]['isliked']) { ?>
+                 <?php if($album['isliked']) { ?>
                      <div class="gallery_buhlikes">
-                         <a href="/albums/buhlike/<?=$album[0]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$album[0]['id']?>">
-                             <?=$album[0]['buhlikes']?>&nbsp<img src="../images/vine2.png" height="50px" width="20px">
+                         <a href="/albums/buhlike/<?=$album['id']?>" class="ajax_buhlikes" id="buh_link_<?=$album['id']?>">
+                             <?=$album['buhlikes']?>&nbsp<img src="../images/vine2.png" height="50px" width="20px">
                          </a>
                      </div>
                  <?php } else {?>
                      <div class="gallery_buhlikes">
-                         <a href="/albums/buhlike/<?=$album[0]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$album[0]['id']?>">
-                             <?=$album[0]['buhlikes']?>&nbsp<img src="../images/vine3.png" height="50px" width="20px">
+                         <a href="/albums/buhlike/<?=$album['id']?>" class="ajax_buhlikes" id="buh_link_<?=$album['id']?>">
+                             <?=$album['buhlikes']?>&nbsp<img src="../images/vine3.png" height="50px" width="20px">
                          </a>
                      </div>
                  <?php } ?>
              </h3>
+
+             <div class="gallery_owner text-center">
+                 <h5>Owner: <a href="/profile/<?=$album['owner']?>"><?=$album['nick']?></a></h5>
+             </div>
          </div>
      </div>
 
@@ -107,8 +111,6 @@
         </div>
     </div>
 </div>
-
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Bootstrap JS is not required, but included for the responsive demo navigation and button states -->

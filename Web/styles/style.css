@@ -110,7 +110,7 @@ html, body {
 
 .gallery_comment_deleter{
 	float: left;
-	color: red;
+	color: #a1a1a1;
 	font-size: x-small;
 }
 
@@ -140,6 +140,10 @@ html, body {
 	background-color: #f7f7f7;
 	float: right;
 	margin-right: 40px;
+}
+
+.gallery_owner{
+	margin-top: 40px;
 }
 
 .gallery_buhlikes{

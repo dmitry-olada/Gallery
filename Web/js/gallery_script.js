@@ -1,6 +1,7 @@
 $('#add_comment').click(function(e){
     e.preventDefault();
     $.post($(this).attr('href'), {data : $("#text_comment").val()});
+    $('#text_comment').val('');
     show();
 });
 

@@ -159,7 +159,7 @@
                                                 </form>
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h4 class="text-center">This functional isn't available now =( </h4>
+                                                <h4 class="text-center">Coming soon...</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -221,7 +221,7 @@
                                                             <div class="col-lg-2"></div>
                                                             <div class="col-lg-8">
                                                                 <div class="text-center share_container">
-                                                                <h6 class="text-center">Shared</h6>
+                                                                <h6 class="text-center">Shared for:</h6>
                                                                 <?php foreach($all_users as $user_item){
                                                                     if(!empty($item['share'])) {
                                                                         foreach ($item['share'] as $share_item) {
