@@ -11,6 +11,7 @@ namespace Core\Controller;
 use Core\Auth\Auth;
 use Core\Controller;
 use Core\Http\RequestInterface;
+use Core\Model\Models\Issues;
 use Core\Model\Models\Users;
 use Lebran\Container;
 
@@ -41,13 +42,20 @@ class SettingsController extends Controller
         return $this->view->set('info', $user)->render('views::all_users.html', $layout);
     }
 
+    public function issuesAction()
+    {
+        $layout = $this->makeLayout();
+        $issues = new Issues();
+        $issues = $issues->selectAll($issues->getColumns());
+
+        return $this->view->set('issues', $issues)->render('views::issues.html', $layout);
+    }
+
     public function changeAction($param){
 
         $curr_user = $this->auth->getUser();
 
-        if($this->request->isGet()){
-            $this->response->redirect('/settings/'.$curr_user->id);
-        }
+        $this->redirectPost('/settings');
 
         $user = new Users();
         $user = $user->selectObj(array('id', $curr_user->id));
@@ -88,6 +96,31 @@ class SettingsController extends Controller
         $user->update('id', $curr_user->id);
         $this->session->setFlash($property.' has been changed successfully', 'success');
         $this->response->redirect('/settings/'.$curr_user->id);
+    }
+
+    public function addIssuesAction()
+    {
+        $curr_user = $this->auth->getUser();
+
+        $issue = new Issues();
+        $issue->users_id = $curr_user->id;
+        $issue->nick = $curr_user->nick;
+        $issue->text = $this->request->get('comment');
+        $issue->type = $this->request->get('rad');
+        $issue->insert();
+        $this->response->redirect('/settings/issues');
+    }
+
+    public function deleteIssueAction($data)
+    {
+        $this->redirectPost('settings/issues');
+
+        $curr_user = $this->auth->getUser();
+
+        $issues = new Issues();
+        $user = $issues->select('users_id', array('id', $data));
+
+        $user['users_id'] !== $curr_user->id?:$issues->delete($data);
     }
 
 }

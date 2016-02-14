@@ -22,8 +22,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Open Sans', Arial, Helvetice Neue, sans-s
 
 .main-menu { text-align: center; }
 .main-menu li { margin-bottom: 1px; }
-.main-menu li a { color: blue; text-transform: uppercase; display: block; padding: 15px 30px; border-radius: 10px; background-color: #d5d5d5; -webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in; }
-.main-menu li a:hover { background-color: #9e9e9e; }
+.main-menu li a { color: blue; text-transform: uppercase; display: block; padding: 15px 30px; border-radius: 10px; background-color: #dcdcdc; -webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in; }
+.main-menu li a:hover { background-color: #cacaca; }
 
 .main-slider { width: 100%; height: 170px; margin-bottom: 25px;}
 

@@ -248,6 +248,12 @@ html, body {
 	margin: auto;
 }
 
+/*-----------------------  Issues ------------------ */
+
+.issues_container{
+	overflow: auto;
+}
+
 /*-----------------------  Other ------------------ */
 
 .form_indent{

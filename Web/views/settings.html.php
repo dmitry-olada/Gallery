@@ -23,7 +23,7 @@
                     <div class="col-lg-9">
                         <form role="form" action="/settings/change/1" method="POST">
                              <input type="text" required name="new_nick">
-                             <button type="submit" class="btn btn-warning">Select</button>
+                             <button type="submit" class="btn btn-default">Select</button>
                         </form>
                     </div>
                     <div class="col-lg-1"></div>
@@ -42,7 +42,7 @@
                     <div class="col-lg-9">
                         <form role="form" action="/settings/change/2" method="POST">
                             <input type="text" required name="new_avatar">
-                            <button type="submit" class="btn btn-warning">Select</button>
+                            <button type="submit" class="btn btn-default">Select</button>
                         </form>
                     </div>
                     <div class="col-lg-1"></div>
@@ -61,7 +61,7 @@
                 <div class="col-lg-9">
                     <form role="form" action="/settings/change/3" method="POST">
                         <input type="text required name="new_email">
-                        <button type="submit" class="btn btn-warning">Select</button>
+                        <button type="submit" class="btn btn-default">Select</button>
                     </form>
                 </div>
                 <div class="col-lg-1"></div>
@@ -83,7 +83,7 @@
                             <p>Enter new password: <input style="float: right" type="password" required name="new_password"></p>
                             <p>Confirm new password: <input style="float: right" type="password" required name="conf_new_password"></p>
                             <p></p>
-                            <div style="text-align: center"><button type="submit" class="btn btn-warning">Select</button></div>
+                            <div style="text-align: center"><button type="submit" class="btn btn-default">Select</button></div>
                         </form>
                     </div>
                     <div class="col-lg-1"></div>
@@ -137,7 +137,7 @@
 
         <div class="about_me">
             <button data-toggle="collapse" data-target="#about_show" class="btn btn-default" style="float: right">About</button>
-            <a class="btn btn-default" style="float: right; margin-right: 5px">Issues</a>
+            <a class="btn btn-default" style="float: right; margin-right: 5px" href="/settings/issues">Issues</a>
         </div>
             <div id="about_show" class="collapse">
                 <h4 class="text-center">About</h4>
