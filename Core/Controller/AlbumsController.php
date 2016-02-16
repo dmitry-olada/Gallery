@@ -149,11 +149,16 @@ class AlbumsController extends Controller
 
         $data = explode('.', $data);
 
-        $photo = new Photos();
-        $photo->link = $this->request->get('link_add_photo');
-        $photo->name = $this->request->get('name_add_photo')?$this->request->get('name_add_photo'):'';
-        $photo->albums_id = $data[0];
-        $photo->insert();
+        $links = $this->request->get('link_add_photo');
+        $names = $this->request->get('name_add_photo');
+
+        for($i = 0; $i<count($links); $i++){
+            $photo = new Photos();
+            $photo->link = $links[$i];
+            $photo->name = $names[$i]?$names[$i]:'';
+            $photo->albums_id = $data[0];
+            $photo->insert();
+        }
 
         $this->session->set('collapse', $data[1]);
         $this->session->setFlash('Photo has been added successfully', 'success');
@@ -176,15 +181,23 @@ class AlbumsController extends Controller
             if($user->id === $value){
                 unset($bm[$key]);
                 $delete = true;
+                break;
             }
         }
-        if(!$delete){
-            $bm[] = $user->id;
-        }
+
+        $delete?:$bm[] = $user->id;
 
         $album->buhlikes = json_encode(trim(implode($bm, ','), ','));
         $album->update('id', $data);
-        return json_encode(array($delete?0:1, count($bm), $data));
+
+        $count = count($bm);
+        if(isset($bm[0])){
+            if($bm[0] === ""){
+                $count--;
+            }
+        }
+
+        return json_encode(array($delete?0:1, $count, $data));
     }
 
     public function availableAction($data)

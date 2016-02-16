@@ -24,7 +24,10 @@ class ProfileController extends Controller
         $layout = $this->makeLayout($data);
         $album = new Albums();
         $user_albums = new Users_has_Albums();
-        $user_albums = $user_albums->selectAll('albums_id', array('users_id', $layout['id']), \PDO::FETCH_NUM);
+
+        $sql = "select u.albums_id from users_has_albums u join albums a on (a.id = u.albums_id) where u.users_id = ".$layout['id']." order by a.date DESC ";
+        $user_albums = $user_albums->makeQuery($sql)->fetchAll(\PDO::FETCH_NUM);
+
         $albums = array();
         foreach ($user_albums as $item){
             $curr_albums = $album->selectAll($album->getColumns(), array('id', $item[0]));
@@ -41,12 +44,13 @@ class ProfileController extends Controller
                 $curr_albums[$key]['isliked'] = false;
                 $buhlikes = json_decode($curr_albums[$key]['buhlikes']);
                 $buhlikes = explode(',', $buhlikes);
-                $curr_albums[$key]['buhlikes'] = count($buhlikes);
-                if(array_search($layout['main_id'], $buhlikes)){
+                $curr_albums[$key]['buhlikes'] = ($buhlikes[0] !== "")?count($buhlikes):0;
+                if(array_search($layout['main_id'], $buhlikes) || $buhlikes[0] === $layout['main_id']){
                     $curr_albums[$key]['isliked'] = true;
                 }
             }
             $albums = array_merge($albums, $curr_albums);
+
         }
 
         $albums = array('user_albums' => $albums);

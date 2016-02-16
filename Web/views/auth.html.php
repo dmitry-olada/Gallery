@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 	<meta charset="UTF-8">
 	<title>Welcome - <?=\Core\Controller::SITE_TITLE?></title>
@@ -89,12 +89,12 @@
 
  				<form role="form" action="/Auth/auth" method="post">
 				 <div class="form-group">
-				  <label for="email">Email</label>
-				  <input type="email" class="form-control" name="email" placeholder="Enter an email" required>
-				  <label for="pass">Password</label>
-				  <input type="password" class="form-control" name="password" placeholder="Make up your password" required>
-				  <label for="pass">Nick</label>
-				  <input type="text" class="form-control" name="nick" placeholder="Select a nick" required>
+				 <label for="email">Email</label>
+				 <input type="email" class="form-control" name="email" placeholder="Enter an email" required>
+				 <label for="pass">Password</label>
+				 <input type="password" class="form-control" name="password" placeholder="Make up your password" required>
+				 <label for="pass">Nick</label>
+				 <input type="text" class="form-control" name="nick" placeholder="Select a nick" required>
 				 </div>
 				 <button type="submit" class="btn btn-success">Register</button>
 				</form>
@@ -111,7 +111,9 @@
 </div>
 
 
-	
+<script>
+
+</script>
 
 
 

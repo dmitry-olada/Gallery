@@ -42,9 +42,9 @@
                                     <div class="col-lg-8">
                                         <input type="text" required name="create_album_name">
                                         <div class="form_indent"></div>
-                                        <input class="change_album_date" type="text" required name="create_album_date">
+                                        <input class="change_album_date" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" required name="create_album_date">
                                         <div class="form_indent"></div>
-                                        <textarea style="resize: none" cols="45" rows="6" name="change_album_description"></textarea>
+                                        <textarea style="resize: none" cols="45" rows="6" name="create_album_description"></textarea>
                                     </div>
                                     <div class="col-lg-2"></div>
                                 </div>
@@ -85,14 +85,14 @@
                                     <div class="col-lg-5">
                                         <form role="form" action="/albums/change/<?=$item['id'].'.'.$count?>" method="POST">
                                             <p>Name: <input style="width:250px" type="text" name="new_name" value="<?=$item['name']?>"></p>
-                                            <p>Date: &nbsp <input class="change_album_date" style="width:249px" type="text" name="new_date" value="<?=$item['date']?>"> </p>
+                                            <p>Date: &nbsp <input class="change_album_date" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" style="width:249px" type="text" name="new_date" value="<?=$item['date']?>"> </p>
                                             <p>Description: </p><p><textarea id="album_description" cols="45" rows="6" name="new_description"
                                                 <?php
                                                     if($item['description'] !== ''){
                                                         echo "style='border: none'";
                                                     }?>
                                                 ><?=$item['description']?></textarea></p>
-                                            <div style="text-align: center" ><input type="submit" value="Change" class="btn btn-warning"></div>
+                                            <div style="text-align: center" ><input type="submit" value="Change" class="btn btn-default"></div>
                                         </form>
                                     </div>
                                     <div class="col-lg-1"></div>

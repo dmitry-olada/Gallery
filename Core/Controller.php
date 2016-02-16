@@ -8,8 +8,6 @@
 
 namespace Core;
 
-use Core\Model\Models\Albums;
-use Core\Model\Models\Photos;
 use Core\Model\Models\Users;
 use Core\Model\Models\Users_has_Albums;
 use Lebran\Container;
@@ -20,7 +18,7 @@ class Controller implements InjectableInterface
 {
     use InjectableTrait;
 
-    const SITE_TITLE = 'Gallery';
+    const SITE_TITLE = 'Buhlogram';
 
     public function __construct($di)
     {
@@ -51,13 +49,11 @@ class Controller implements InjectableInterface
             'albums', 'photos', 'profile_owner', 'main_id', 'site_title', 'alert', 'bm_status'
             ];
 
-        $album = new Users_has_Albums();
-        $user_albums = $album->selectAll('albums_id', array('users_id', $user->id));
 
-        $my_albums = new Albums();
-        $count_my_albums = $my_albums->select('count(id)', array('owner', $user->id), \PDO::FETCH_NUM);
+        $albums = new Users_has_Albums();
+        $sql = "select count(u.users_id), (select count(a.id) from albums a where a.owner = ".$user->id.") from users_has_albums u where u.users_id = ".$user->id.";";
+        $album = $albums->makeQuery($sql)->fetch(\PDO::FETCH_NUM);
 
-        $user_bookmarks = 0;
         $bm_status = false;
         if(!$profile_owner) {
             $bookmarks = $user->select('bookmarks', array('id', $main_id));
@@ -68,23 +64,23 @@ class Controller implements InjectableInterface
             }
         }
 
+        $count_photos = "Disabled";
+
+        /*
         $user_photos = new Photos();
-
-        $count_albums = 0;
-        $count_photos = 0;
-
         foreach($user_albums as $item){
             $tmp = $user_photos->select('count(id)', array('albums_id', $item['albums_id']), \PDO::FETCH_NUM);
             $count_photos += $tmp[0];
             $count_albums++;
         }
+        */
 
         $alert = $this->session->getFlash();
 
         $values =
             [
-                ucfirst($user->nick), $user->id, $user->email, $user->avatar, $user->reg_date, $count_my_albums[0],
-                $count_albums, $count_photos, $profile_owner, $main_id, Controller::SITE_TITLE, $alert, $bm_status
+                ucfirst($user->nick), $user->id, $user->email, $user->avatar, $user->reg_date, $album[1],
+                $album[0], $count_photos, $profile_owner, $main_id, Controller::SITE_TITLE, $alert, $bm_status
             ];
 
         return array_combine($keys, $values);
