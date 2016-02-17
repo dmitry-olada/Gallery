@@ -7,14 +7,14 @@
 
 
 <div class="row">
-    <div class="col-lg-1"></div>
+    <div class="col-lg-1 col-xs-1"></div>
 
-    <div class="col-lg-5">
+    <div class="col-lg-5 col-xs-10">
 
         <div>
             <div class="settings_delimiter"></div>
             <div class="settings_changer">
-                <p> Nick: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <?=$nick?><button class="btn btn-default settings_button" data-toggle="collapse" data-target="#change_nick">Change</button></p>
+                <p> Nick: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <span class="hidden-sm hidden-xs"><?=$nick?></span><button class="btn btn-default settings_button" data-toggle="collapse" data-target="#change_nick">Change</button></p>
             </div>
             <div id="change_nick" class="collapse">
                 <h4 class="text-center">Enter new nick</h4>
@@ -52,7 +52,7 @@
             <div class="settings_delimiter"></div>
 
             <div class="settings_changer">
-                <p> Email: &nbsp &nbsp &nbsp &nbsp &nbsp <?=$email?> <button class="btn btn-default settings_button" data-toggle="collapse" data-target="#change_email">Change</button></p>
+                <p> Email: &nbsp &nbsp &nbsp &nbsp &nbsp <span class="hidden-sm hidden-xs"><?=$email?></span><button class="btn btn-default settings_button" data-toggle="collapse" data-target="#change_email">Change</button></p>
             </div>
             <div id="change_email" class="collapse">
             <h4 class="text-center">Enter new email</h4>
@@ -79,9 +79,9 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
                         <form role="form" action="/settings/change/4" method="POST">
-                            <p>Enter old password: <input style="float: right" type="password" required name="old_password"></p>
-                            <p>Enter new password: <input style="float: right" type="password" required name="new_password"></p>
-                            <p>Confirm new password: <input style="float: right" type="password" required name="conf_new_password"></p>
+                            <p><span class="hidden-sm hidden-xs">Enter</span> Old password: <input style="float: right" type="password" required name="old_password"></p>
+                            <p><span class="hidden-sm hidden-xs">Enter</span> New password: <input style="float: right" type="password" required name="new_password"></p>
+                            <p>Confirm<span class="hidden-sm hidden-xs"> New password</span>: <input style="float: right" type="password" required name="conf_new_password"></p>
                             <p></p>
                             <div style="text-align: center"><button type="submit" class="btn btn-default">Select</button></div>
                         </form>
@@ -94,9 +94,11 @@
         </div>
     </div>
 
-    <div class="col-lg-1"></div>
+    <div class="col-lg-1 col-xs-1"></div>
+    <div class="hidden-lg col-xs-2"></div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 col-xs-8">
+        <h3 class="hidden-lg text-center">My info</h3>
         <table class="table">
                 <tr>
                     <td>Identifier: </td>
@@ -126,11 +128,11 @@
 
 
         <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
+            <div class="col-lg-3 col-xs-3"></div>
+            <div class="col-lg-6 col-xs-6">
                 <a class="btn btn-primary" href="/settings/all">Show All Users</a>
             </div>
-            <div class="col-lg-3"></div>
+            <div class="col-lg-3 col-xs-3"></div>
         <br>
         <br>
         <br>
@@ -146,10 +148,12 @@
                 <h5> Created by <a target="_blank" href="https://vk.com/dmitry_evg">Dmitry</a></h5>
                 <div style="border: 1px solid #777777"></div>
             </div>
-
         </div>
 
+        <div class="hidden-lg" style="height: 10px"></div>
+
     </div>
+    <div class="hidden-lg col-xs-2"></div>
 
 </div>
 

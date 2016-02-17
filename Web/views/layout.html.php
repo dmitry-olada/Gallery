@@ -29,6 +29,35 @@
 </head>
 <body>
 
+<div class="row hidden-lg">
+    <div class="col-xs-5">
+        <h4 class="text-center" style="margin-left: 60px"><?=$nick?></h4>
+        <div style="text-align: center; margin-left: 60px"><img src="<?=$avatar?>" width="80" height="80" border="1"></div>
+    </div>
+    <div class="col-xs-7">
+        <ul style="list-style: none">
+            <li class="phone_menu"><a href="/">Profile</a></li>
+            <?php if($profile_owner) { ?>
+                <li class="phone_menu"><a href='/albums'>Manage Albums</a></li>
+                <li class="phone_menu"><a href='/bookmarks'>Bookmarks</a></li>
+            <?php }else{ ?>
+                <li class="phone_menu"><a data-toggle="modal" data-target="#infoModal" href='#'>Show info</a></li>
+                <?php if(!$bm_status){ ?>
+                    <li class="phone_menu"><a class="add_bookmark" href="#">Add to BM</a></li>
+                <?php } else { ?>
+                    <li class="phone_menu"><a class="add_bookmark" href="#">Remove from BM</a></li>
+                <?php } ?>
+                <input type="hidden" value="<?=$id?>" id="user_id">
+            <?php } ?>
+            <li class="phone_menu"><a href='/settings'>Settings</a></li>
+            <li class="phone_menu"><a href='/auth/logout'>Logout</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<div class="hidden-lg" style="border-top: 1px solid #f7f7f7; margin-top: 5px;"></div>
+
 <!-- Main Menu -->
 <div id="main-sidebar" class="hidden-xs hidden-sm">
     <div class="nick">
@@ -40,21 +69,21 @@
 
     <div class="navigation">
         <ul class="main-menu">
-            <li class="home"><a href='/'>Profile</a></li>
+            <li><a href='/'>Profile</a></li>
             <?php if($profile_owner) { ?>
-                <li class="about"><a href='/albums'>Manage Albums</a></li>
-                <li class="services"><a href='/bookmarks'>Bookmarks</a></li>
+                <li><a href='/albums'>Manage Albums</a></li>
+                <li><a href='/bookmarks'>Bookmarks</a></li>
             <?php }else{ ?>
-                <li class="about"><a data-toggle="modal" data-target="#infoModal" href='#'>Show info</a></li>
+                <li><a data-toggle="modal" data-target="#infoModal" href='#'>Show info</a></li>
                 <?php if(!$bm_status){ ?>
-                    <li class="services"><a id="add_bookmark" href="#">Add to BM</a></li>
+                    <li><a class="add_bookmark" href="#">Add to BM</a></li>
                 <?php } else { ?>
-                    <li class="services"><a id="add_bookmark" href="#">Remove from BM</a></li>
+                    <li><a class="add_bookmark" href="#">Remove from BM</a></li>
                 <?php } ?>
                 <input type="hidden" value="<?=$id?>" id="user_id">
             <?php } ?>
-            <li class="portfolio"><a href='/settings'>Settings</a></li>
-            <li class="contact"><a href='/auth/logout'>Logout</a></li>
+            <li><a href='/settings'>Settings</a></li>
+            <li><a href='/auth/logout'>Logout</a></li>
         </ul>
     </div> <!-- /.navigation -->
 </div> <!-- /#main-sidebar -->
@@ -84,8 +113,8 @@
 <div id="main-content">
     <!--Flash -->
     <div class="row">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6 box">
+        <div class="col-lg-3 col-xs-1"></div>
+        <div class="col-lg-6 col-xs-10 box">
             <?php
             if (null !== $alert) {
                 foreach($alert as $key => $value) { ?>
@@ -97,7 +126,7 @@
             }
             ?>
         </div>
-        <div class="col-lg-3"></div>
+        <div class="col-lg-3 col-xs-1"></div>
     </div>
 <!--/Flash -->
 

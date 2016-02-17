@@ -5,12 +5,12 @@
 <button data-toggle="modal" data-target="#addIssue" class="btn btn-default" style="margin: 5px 0 -15px 20px; background-color: #f7f7f7">&nbsp;+&nbsp;</button>
 
 <div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10 issues_container">
+    <div class="col-lg-1 col-xs-2"></div>
+    <div class="col-lg-10 col-xs-8 issues_container">
 
         <div class="row">
         <?php for($i=0; $i<count($issues); $i+=3){ ?>
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 col-xs-12 text-center">
                 <div class="panel panel-<?=$issues[$i]['type']?> ss">
                     <div class="panel-heading issues_panel_head">
                         <a href="/profile/<?=$issues[$i]['id']?>"><?=$issues[$i]['nick']?></a>
@@ -23,7 +23,7 @@
             </div>
 
         <?php if(isset($issues[$i+1])){ ?>
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 col-xs-12 text-center">
                 <div class="panel panel-<?=$issues[$i+1]['type']?> ss">
                     <div class="panel-heading">
                         <a href="/profile/<?=$issues[$i+1]['id']?>"><?=$issues[$i+1]['nick']?></a>
@@ -37,7 +37,7 @@
         </div>
         <?php }
         if(isset($issues[$i+2])){ ?>
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-4 col-xs-12 text-center">
                 <div class="panel panel-<?=$issues[$i+2]['type']?> ss">
                     <div class="panel-heading">
                         <a href="/profile/<?=$issues[$i+2]['id']?>"><?=$issues[$i+2]['nick']?></a>
@@ -53,7 +53,7 @@
         </div>
 
     </div>
-    <div class="col-lg-1"></div>
+    <div class="col-lg-1 col-xs-2"></div>
 </div>
 
 <div id="addIssue" class="modal fade">

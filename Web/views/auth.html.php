@@ -17,8 +17,8 @@
   <body bgcolor=”grey”>
 
 <div class="row" >
-	<div class="col-lg-3"></div>
-	<div class="col-lg-6 box">
+	<div class="col-lg-3 col-xs-3"></div>
+	<div class="col-lg-6 col-xs-6 box">
 		<?php
 		if (null !== $alert) {
 			foreach($alert as $key => $value) { ?>
@@ -31,7 +31,7 @@
 		}
 		?>
 	</div>
-	<div class="col-lg-3"></div>
+	<div class="col-lg-3 col-xs-3"></div>
 
 
 
@@ -45,13 +45,13 @@
 
 
 <div class="row" >
-	<div class="col-lg-3"></div>
+	<div class="col-lg-3 col-xs-3"></div>
 
- 	<div class="col-lg-3">
+ 	<div class="col-lg-3 col-xs-3">
 
  	<div class="row" >
-			<div class="col-lg-1"></div>
- 			<div class="col-lg-10">
+			<div class="col-lg-1 col-xs-1"></div>
+ 			<div class="col-lg-10 col-xs-10">
  				<div class = "text-primary text-center head_login">
  					<h2>Login</h2>
  				</div>
@@ -77,10 +77,10 @@
 
  	</div>
 
- 	<div class="col-lg-3" id="auth_border">
+ 	<div class="col-lg-3 col-xs-3" id="auth_border">
  		<div class="row" >
- 			<div class="col-lg-1"></div>
- 			<div class="col-lg-10">
+ 			<div class="col-lg-1 col-xs-1"></div>
+ 			<div class="col-lg-10 col-xs-10">
 
  				<div class = "text-success text-center head_reg">
  					<h2>Register</h2>
@@ -107,7 +107,7 @@
 
 
  	</div>
- 	<div class="col-lg-3"></div>
+ 	<div class="col-lg-3 col-xs-3"></div>
 </div>
 
 

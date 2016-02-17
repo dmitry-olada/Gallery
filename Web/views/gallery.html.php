@@ -2,7 +2,9 @@
 
 <?php $this->block('content') ?>
 
-<div class="gallery_title"><h3 class="text-center"><?=$album['name']?></h3><span class="gallery_date"><?=$album['date']?></span></div>
+<div class="gallery_title"><h3 class="text-center"><?=$album['name']?></h3><span class="gallery_date hidden-sm hidden-xs"><?=$album['date']?></span></div>
+
+<div style="margin-top: 10px" class="gallery_date hidden-lg"><?=$album['date']?></div>
 
 <div class="gallery_delimiter"></div>
 
@@ -11,7 +13,7 @@
 
     <div class="row">
 
-        <div class="col-lg-7 photo_container">
+        <div class="col-lg-7 col-xs-10 photo_container">
             <div id="links">
 
                 <?php foreach($photo as $item){ ?>
@@ -27,7 +29,7 @@
 
             </div>
         </div>
-        <div class="col-lg-4 comment_container">
+        <div class="col-lg-4 hidden-sm hidden-xs comment_container">
                 <div class="comment_display"></div>
             <div class="comment_input">
                 <input type="text" id="text_comment"/>
@@ -44,12 +46,12 @@
 <div class="gallery_description">
 
      <div class="row">
-         <div class="col-lg-8 gallery_description_block">
+         <div class="col-lg-8 col-xs-6 gallery_description_block">
              <h4 class="text-center"> Description </h4>
              <?=$album['description']?>
              <div style="margin-top: 20px"></div>
          </div>
-         <div class="col-lg-3 gallery_buhlikes_container">
+         <div class="col-lg-3 col-xs-3 gallery_buhlikes_container">
              <h4 class="text-center"> Likes </h4>
              <h3 class="text-center">
                  <?php if($album['isliked']) { ?>

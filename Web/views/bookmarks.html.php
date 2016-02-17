@@ -7,10 +7,10 @@
 <br>
 
 <div class="row bookmarks_content">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-9">
+    <div class="col-lg-1 col-xs-2"></div>
+    <div class="col-lg-9 col-xs-8">
 
-        <table class="table bookmarks_table">
+        <table class="table bookmarks_table hidden-xs hidden-sm">
         <?php
         for($i = 0; $i < count($bookmarks); $i+=3) { ?>
             <tr>
@@ -50,7 +50,21 @@
         } ?>
         </table>
 
+        <div class="col-xs-8 hidden-lg"
+            <?php
+                foreach ($bookmarks as $item){ ?>
+                <div class="col-xs-12 text-center">
+                   <a href="/profile/<?=$item['id']?>"><h4 style="float: left"><?=$item['nick'] ?></h4>
+                       <img src="<?=$item['avatar'] ?>" height="200"></a>
+                    <br>
+                </div>
+
+            <?php } ?>
+        </div>
+
     </div>
+
+    <div class="hidden-lg col-xs-2"></div>
 
 </div>
 

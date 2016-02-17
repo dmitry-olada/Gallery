@@ -13,15 +13,16 @@
 
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-xs-12">
 
             <div class="row">
                 <h3 class="text-center">Manage Albums</h3>
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1 "></div>
                 <div class="col-lg-11">
                     <button class="btn btn-default" type="button" data-toggle="modal" data-target="#create_album_modal">Create Album</button>
                 </div>
             </div>
+            <div class="hidden-lg" style="height: 10px"></div>
 
             <div id="create_album_modal" class="modal fade">
                 <div class="modal-dialog">
@@ -32,25 +33,28 @@
                         <div class="modal-body">
                             <form action="/albums/create" method="post">
                                 <div class="row">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 col-xs-2">
                                         <p>Name:</p>
                                         <div class="form_indent"></div>
                                         <p>Date:</p>
                                         <div class="form_indent"></div>
                                         <p>Description:</p>
                                     </div>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-8 col-xs-8">
                                         <input type="text" required name="create_album_name">
                                         <div class="form_indent"></div>
                                         <input class="change_album_date" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" required name="create_album_date">
                                         <div class="form_indent"></div>
-                                        <textarea style="resize: none" cols="45" rows="6" name="create_album_description"></textarea>
+                                        <div class="hidden-lg" style="height: 20px"></div>
+                                        <textarea class="hidden-sm hidden-xs" style="resize: none" cols="45" rows="6" name="create_album_description"></textarea>
+                                        <textarea class="hidden-lg" style="resize: none" cols="30" rows="6" name="create_album_description"></textarea>
                                     </div>
-                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-2 col-xs-2"></div>
                                 </div>
                                 <div style="text-align: center"><input type="submit" value="Create"></div>
                             </form>
                         </div>
+                        <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Close</button></div>
                     </div>
                 </div>
             </div>
@@ -62,16 +66,17 @@
                     $count++;
                 ?>
                     <div class="row">
-                        <div class="col-lg-3"></div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-3 hidden-xs"></div>
+                        <div class="col-lg-6 col-xs-12">
                             <div class="settings_changer albums_counter">
                                 <p><strong><?=$item['name']?></strong>
+                                    <div class="hidden-lg"></div>
                                     <button class="btn btn-primary albums_button" data-toggle="collapse" data-target="#change_album_<?=$count?>">Manage</button>
                                     <button class="btn btn-default album_available" data-toggle="modal" data-target="#available_album_<?=$count?>">Permissions</button>
                                 <button class="btn btn-default album_upload" data-toggle="modal" data-target="#upload_album_<?=$count?>">Upload</button></p>
                             </div>
                         </div>
-                        <div class="col-lg-3"></div>
+                        <div class="col-lg-3 hidden-xs"></div>
                     </div>
 
                     <div class="row">
@@ -101,7 +106,8 @@
                                             <?php foreach($all_photos[(integer)$count-1] as $new_item) { ?>
                                                 <tr>
                                                     <td>
-                                                        <div>
+                                                        <div class="col-xs-2 hidden-lg"></div>
+                                                        <div class="col-xs-10">
                                                             <img src="<?=$new_item['link']?>" height="52px">
                                                         </div>
                                                     </td>
@@ -152,7 +158,7 @@
                                                         <br/><br>
                                                         <div class="inputs notd">
                                                             <label> Name: </label> <input type="text" name="name_add_photo[]" class="field">
-                                                            <label> &nbsp; &nbsp; Link: </label> <input type="text" name="link_add_photo[]" class="field">
+                                                            <div class="hidden-lg"></div><label> &nbsp; &nbsp;  Link: </label> <input type="text" name="link_add_photo[]" class="field">
                                                         </div>
                                                     </div><br/>
                                                     <div class="text-center"><input name="submit" type="submit"></div>
@@ -261,7 +267,7 @@
 
     <div class="inputs" id="link_sample">
         <label> Name: </label> <input type="text" name="name_add_photo[]" class="field">
-        <label> &nbsp; &nbsp; Link: </label> <input type="text" name="link_add_photo[]" class="field">
+        <div class="hidden-lg"></div><label> &nbsp; &nbsp; Link: </label> <input type="text" name="link_add_photo[]" class="field">
     </div>
 
 

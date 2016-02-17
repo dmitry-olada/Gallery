@@ -2,7 +2,7 @@
 
 <?php $this->block('content') ?>
 
-	<div id="templatemo">
+	<div id="templatemo" class="hidden-sm hidden-xs">
 		<div class="main-slider">
 			<div class="flexslider">
 				<ul class="slides">
@@ -47,18 +47,22 @@
 		<?php for($i = 0; $i<count($user_albums); $i+=2){ ?>
 
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-xs-12">
 				<div class="row">
-					<div class="col-lg-2"></div>
-					<div class="col-lg-9 profile_albums">
+					<div class="col-lg-2 col-xs-1"></div>
+					<div class="col-lg-9 col-xs-10 profile_albums">
 						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><h2><?=$user_albums[$i]['name']?></h2></a>
 						<div class="row">
-							<div class="col-lg-9 text-center">
+							<div class="col-lg-9 hidden-xs hidden-sm text-center">
 								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-xs-7 hidden-lg">
+								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="115" width="140"></a>
+							</div>
+							<div class="col-lg-3 col-xs-5">
 								<span class="profile_date"><p><?=$user_albums[$i]['date']?></p></span>
 								<h3 class="text-center">
+									<div class="hidden-xs hidden-sm" style="height: 120px"></div>
 									<?php if($user_albums[$i]['isliked']) { ?>
 										<div class="profile_buhlikes">
 											<a href="/albums/buhlike/<?=$user_albums[$i]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$user_albums[$i]['id']?>">
@@ -75,24 +79,29 @@
 								</h3>
 							</div>
 						</div>
-						<div class="col-lg-1"></div>
+						<div class="col-lg-1 col-xs-1"></div>
 					</div>
 				</div>
 			</div>
 
+
 			<?php if($i+1 < count($user_albums)){?>
-			<div class="col-lg-6">
+			<div class="col-lg-6 col-xs-12">
 				<div class="row">
-					<div class="col-lg-1"></div>
-					<div class="col-lg-9 profile_albums">
+					<div class="col-lg-1 col-xs-1"></div>
+					<div class="col-lg-9 col-xs-10 profile_albums">
 						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><h2><?=$user_albums[$i+1]['name']?></h2></a>
 						<div class="row">
-							<div class="col-lg-9 text-center">
+							<div class="col-lg-9 hidden-sm hidden-xs text-center">
 								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
 							</div>
-							<div class="col-lg-3">
+							<div class="col-xs-7 hidden-lg">
+								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="115" width="140"></a>
+							</div>
+							<div class="col-lg-3 col-xs-5">
 								<span class="profile_date"><p><?=$user_albums[$i+1]['date']?></p></span>
 								<h3 class="text-center">
+									<div class="hidden-xs hidden-sm" style="height: 120px"></div>
 									<?php if($user_albums[$i+1]['isliked']) { ?>
 										<div class="profile_buhlikes">
 											<a href="/albums/buhlike/<?=$user_albums[$i+1]['id']?>" class="ajax_buhlikes" id="buh_link_<?=$user_albums[$i+1]['id']?>">
@@ -110,13 +119,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-2"></div>
+					<div class="col-lg-2 col-xs-1"></div>
 				</div>
-			<?php } ?>
 			</div>
+			<?php } ?>
 		</div>
-
-
 
 		<?php } ?>
 

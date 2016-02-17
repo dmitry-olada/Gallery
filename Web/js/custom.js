@@ -20,13 +20,13 @@ jQuery(document).ready(function($){
     });
 
 
-    $('#add_bookmark').click(function(e){
+    $('.add_bookmark').click(function(e){
         e.preventDefault();
         $.post( "/bookmarks/add", {user_id : $("#user_id").val()}, function(data){
             if(data == 1){
-                $('#add_bookmark').text('Add to BM');
+                $('.add_bookmark').text('Add to BM');
             }else{
-                $('#add_bookmark').text('Remove to BM');
+                $('.add_bookmark').text('Remove to BM');
             }
         }, "json");
     });

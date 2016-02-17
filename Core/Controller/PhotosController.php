@@ -37,8 +37,8 @@ class PhotosController extends Controller
         $albums['isliked'] = false;
         $buhlikes = json_decode($albums['buhlikes']);
         $buhlikes = explode(',', $buhlikes);
-        $albums['buhlikes'] = count($buhlikes);
-        if(array_search($layout['main_id'], $buhlikes)){
+        $albums['buhlikes'] = ($buhlikes[0] !== "")?count($buhlikes):0;
+        if(array_search($layout['main_id'], $buhlikes) || $buhlikes[0] === $layout['main_id']){
             $albums['isliked'] = true;
         }
 
