@@ -137,6 +137,12 @@
 		animation: "fade",
 		directionNav: false
 	});
+
+	empty_glass = new Image();
+	empty_glass.src = "../images/vine2.png";
+	full_glass = new Image();
+	full_glass.src = "../images/vine3.png";
+
 	</script>
 
 <?php $this->endblock() ?>

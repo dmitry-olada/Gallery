@@ -119,5 +119,13 @@
 <script src="https://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 <script src="../js/bootstrap-image-gallery.min.js"></script>
 <script src="../js/gallery_script.js"></script>
+<script type="text/javascript">
+    empty_glass = new Image();
+    empty_glass.src = "../images/vine2.png";
+    full_glass = new Image();
+    full_glass.src = "../images/vine3.png";
+</script>
 
 <?php $this->endblock() ?>
+
+

@@ -25,11 +25,6 @@ class Application
 
     public function handle()
     {
-        //TODO: Перед релизом:
-
-        //TODO: Регистрация с мылом.
-
-
         $response = $this->di->get('response');
 
         $components = $this->di->get('router')->execute();
