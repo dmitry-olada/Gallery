@@ -74,8 +74,11 @@ class PhotosController extends Controller
         $data = explode('.', $data);
         $user = $this->auth->getUser();
 
-        if($data[0] === $user->id){
-            $comment = new Comments();
+        $comment = new Comments();
+        $sql = "select a.owner from albums a join comments c on (a.id = c.albums_id) where c.id = ". $data[1] .";";
+        $owner = $comment->makeQuery($sql)->fetch(\PDO::FETCH_NUM);
+
+        if($data[0] === $user->id || $owner[0] === $user->id){
             $comment->delete($data[1]);
         }else{
             $this->session->setFlash('not today =)', 'danger');
