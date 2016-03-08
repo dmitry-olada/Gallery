@@ -120,7 +120,7 @@ class AlbumsController extends Controller
         $photo->delete($data[0]);
 
         $this->session->set('collapse', $data[1]);
-        $this->session->setFlash('Photo has been deleted', 'success');
+        $this->session->setFlash('Photo has been deleted', 'warning');
     }
 
     public function createAction()
@@ -130,9 +130,11 @@ class AlbumsController extends Controller
         $user = $this->auth->getUser();
 
         $album = new Albums();
-        $album->name = $this->request->get('create_album_name');
+        $album->name = htmlspecialchars($this->request->get('create_album_name'));
         $album->date = $this->request->get('create_album_date');
-        $album->description = (null === $this->request->get('create_album_description'))?'':$this->request->get('create_album_description');
+        $description = $this->request->get('create_album_description_1');
+        $description = isset($description)? $this->request->get('create_album_description_1'):$this->request->get('create_album_description_2');
+        $album->description = (isset($description))?$description:'';
         $album->owner = $user->id;
         $album->comments = '';
         $album->buhlikes = '';
@@ -141,6 +143,19 @@ class AlbumsController extends Controller
 
         $this->session->setFlash('Album has been added successfully', 'success');
         $this->response->redirect('/albums');
+    }
+
+    public function drop_albumAction($data)
+    {
+        $this->redirectPost('albums');
+        $album = new Albums();
+        $sql = "SET FOREIGN_KEY_CHECKS=0; ".
+        "delete from `albums` where `id` = ".$data."; ".
+        "SET FOREIGN_KEY_CHECKS=1;";
+
+        $album->makeQuery($sql);
+        $this->session->setFlash('Album has been deleted', 'warning');
+//        $this->response->redirect('/albums');
     }
 
     public function addPhotoAction($data)

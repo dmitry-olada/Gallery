@@ -37,7 +37,8 @@ class SettingsController extends Controller
     public function allAction()
     {
         $user = new Users();
-        $user = $user->selectAll(array('id', 'nick', 'reg_date'));
+        $sql = "select `id`, `nick`, `reg_date` from `users` order by `id`";
+        $user = $user->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
         $layout = $this->makeLayout();
         return $this->view->set('info', $user)->render('views::all_users.html', $layout);
     }

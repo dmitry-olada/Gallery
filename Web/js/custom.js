@@ -42,7 +42,7 @@ jQuery(document).ready(function($){
             e.preventDefault();
             $.post("/albums/photo_delete/", {data: $(this).attr('href')});
             location.reload();
-        }else{
+        }else {
             e.preventDefault();
         }
     });
@@ -64,6 +64,8 @@ jQuery(document).ready(function($){
             $('.share_container').append(data);
         }, 'json');
     });
+
+
 
 
 

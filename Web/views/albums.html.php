@@ -46,8 +46,8 @@
                                         <input class="change_album_date" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" required name="create_album_date">
                                         <div class="form_indent"></div>
                                         <div class="hidden-lg" style="height: 20px"></div>
-                                        <textarea class="hidden-sm hidden-xs" style="resize: none" cols="45" rows="6" name="create_album_description"></textarea>
-                                        <textarea class="hidden-lg" style="resize: none" cols="30" rows="6" name="create_album_description"></textarea>
+                                        <textarea class="hidden-sm hidden-xs" style="resize: none" cols="45" rows="6" name="create_album_description_1"></textarea>
+                                        <textarea class="hidden-lg" style="resize: none" cols="30" rows="6" name="create_album_description_2"></textarea>
                                     </div>
                                     <div class="col-lg-2 col-xs-2"></div>
                                 </div>
@@ -99,6 +99,9 @@
                                                 ><?=$item['description']?></textarea></p>
                                             <div style="text-align: center" ><input type="submit" value="Change" class="btn btn-default"></div>
                                         </form>
+                                        <div class="albums_ph_delimiter" style="margin-top: 10px"></div>
+                                        <div class="text-center"><a class="btn btn-danger drop_album_btn" href="/albums/drop_album/<?=$item['id']?>">Delete this album</a></div>
+                                        <div class="albums_ph_delimiter"></div>
                                     </div>
                                     <div class="col-lg-1"></div>
                                     <div style="overflow: auto; height: 370px;" class="col-lg-6">
@@ -302,6 +305,18 @@
         e.preventDefault();
         $.post($(this).attr('href'), 'json');
         $(this).parent().remove();
+    });
+
+    $('.drop_album_btn').click(function(e){
+        var del = confirm('Really delete?');
+        if(del){
+            e.preventDefault();
+            $.post($(this).attr('href'));
+            location.reload();
+        }else{
+            e.preventDefault();
+        }
+
     });
 
 </script>

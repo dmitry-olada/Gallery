@@ -53,7 +53,7 @@
         <div class="col-xs-8 hidden-lg"
             <?php
                 foreach ($bookmarks as $item){ ?>
-                <div class="col-xs-12 text-center">
+                <div class="col-xs-12 text-center hidden-lg">
                    <a href="/profile/<?=$item['id']?>"><h4 style="float: left"><?=$item['nick'] ?></h4>
                        <img src="<?=$item['avatar'] ?>" height="200"></a>
                     <br>

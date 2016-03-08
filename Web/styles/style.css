@@ -194,6 +194,11 @@ html, body {
 	float: right;
 }
 
+.drop_album_btn{
+	margin: 5px auto;
+	text-align: center;
+}
+
 /*-----------------------  Settings ------------------ */
 
 .settings_delimiter{
