@@ -37,6 +37,7 @@ class ServiceProvider implements ServiceProviderInterface
         }, true)
             ->set('router', new Router())
             ->set('request', new Request())
+            ->set('image', new Image())
 //            ->set('\Core\Http\RequestInterface', new Request())
             ->set('response', new Response())
             ->set('auth', new Auth(), true)

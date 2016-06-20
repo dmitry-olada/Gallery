@@ -19,6 +19,7 @@ class Auth implements InjectableInterface
 
     public function setUser($user)
     {
+        var_dump($user);
         $this->di->get('session')->set(self::SESSION_USER_NAME, serialize($user));
     }
 

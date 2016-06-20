@@ -11,6 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
 
+
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../styles/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/font-awesome.min.css">
@@ -23,6 +24,7 @@
     <!-- JavaScripts -->
     <script src="../js/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.file-input.js"></script>
     <script src="../js/jquery.maskedinput.js" type="text/javascript"></script>
     <script src="../js/custom.js"></script>
 
@@ -32,7 +34,7 @@
 <div class="row hidden-lg">
     <div class="col-xs-5">
         <h4 class="text-center" style="margin-left: 60px"><?=$nick?></h4>
-        <div style="text-align: center; margin-left: 60px"><img src="<?=$avatar?>" width="80" height="80" border="1"></div>
+        <div style="text-align: center; margin-left: 60px"><img src="<?='../uploads/'.$avatar?>border="1"></div>
     </div>
     <div class="col-xs-7">
         <ul style="list-style: none">
@@ -63,8 +65,8 @@
     <div class="nick">
         <a href="<?='/profile/'.$id ?>"><h2 class=" text-center"><?=$nick?></h2></a>
     </div>
-    <div class="photo_profile text-center">
-        <img src="<?=$avatar?>" width="200" height="200" border="1">
+    <div class="photo_profile text-center" style="height: 200px">
+        <img src="<?='../uploads/'.$avatar.'?no_cache=&'.rand(0, 100)?>" border="1">
     </div>
 
     <div class="navigation">

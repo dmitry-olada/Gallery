@@ -38,12 +38,20 @@
             <div id="change_avatar" class="collapse">
                 <h4 class="text-center">Enter link to new avatar</h4>
                 <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-9">
-                        <form role="form" action="/settings/change/2" method="POST">
-                            <input type="text" required name="new_avatar">
-                            <button type="submit" class="btn btn-default">Select</button>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-10 text-center">
+
+                        <form role="form" class="form-inline form-horizontal" action='settings/uploadAvatar' method='post' enctype='multipart/form-data'>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
+                            <input type='file' name='avatar' size='17' accept="image/*" />
+                            <input type='submit' class="btn btn-primary upload-avatar" name='addAvatar' value='Upload' />
+                            <div class="ajax-respond"></div>
                         </form>
+
+<!--                        <form role="form" action="/settings/change/2" method="POST">-->
+<!--                            <input type="text" required name="new_avatar">-->
+<!--                            <button type="submit" class="btn btn-default">Select</button>-->
+<!--                        </form>-->
                     </div>
                     <div class="col-lg-1"></div>
                 </div>
@@ -156,5 +164,8 @@
     <div class="hidden-lg col-xs-2"></div>
 
 </div>
+
+
+<!--<script src="../js/upload.js"></script>-->
 
 <?php $this->endblock() ?>

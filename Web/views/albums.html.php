@@ -148,8 +148,8 @@
                                 <div class="modal-body">
                                     <div>
                                         <ul class="nav nav-tabs" role="tablist">
-                                            <li class="active"><a href="#link" aria-controls="link" role="tab" data-toggle="tab">Link</a></li>
                                             <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">From PC</a></li>
+                                            <li class="active"><a href="#link" aria-controls="link" role="tab" data-toggle="tab">Link</a></li>
                                             </ul>
                                         <div class="tab-content">
                                             <div role="tabpanel" class="tab-pane fade in active" id="link">
@@ -164,11 +164,17 @@
                                                             <div class="hidden-lg"></div><label> &nbsp; &nbsp;  Link: </label> <input type="text" name="link_add_photo[]" class="field">
                                                         </div>
                                                     </div><br/>
-                                                    <div class="text-center"><input name="submit" type="submit"></div>
+                                                    <div class="text-center"><input name="submit" type="submit" value="Upload"></div>
                                                 </form>
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h4 class="text-center">Coming soon...</h4>
+                                            <div role="tabpanel" class="tab-pane fade text-center" id="profile">
+                                                <br/>
+                                                <form role="form" class="form-inline form-horizontal" action='albums/upload/<?=$item['id'].'.'.$count?>' method='post' enctype='multipart/form-data'>
+                                                    <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
+                                                    <input type='file' multiple name='photos[]' size='17' accept="image/*" />
+                                                    <input type='submit' class="upload-photos" name='uploadPhotos' value='Upload' />
+                                                    <div class="ajax-respond"></div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

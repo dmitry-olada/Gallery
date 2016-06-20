@@ -14,6 +14,7 @@ use Core\Model\Models\Albums;
 use Core\Model\Models\Photos;
 use Core\Model\Models\Users;
 use Core\Model\Models\Users_has_Albums;
+use Core\V;
 
 class AlbumsController extends Controller
 {
@@ -29,8 +30,6 @@ class AlbumsController extends Controller
 
         $albums = new Albums();
         $albums = $albums->selectAll(array('id', 'name', 'description', 'date', 'available', 'owner'), array('owner', $user->id));
-
-
 
         $photos = new Photos();
         $arr_photos = array();
@@ -155,7 +154,7 @@ class AlbumsController extends Controller
 
         $album->makeQuery($sql);
         $this->session->setFlash('Album has been deleted', 'warning');
-//        $this->response->redirect('/albums');
+        $this->response->redirect('/albums');
     }
 
     public function addPhotoAction($data)
@@ -163,20 +162,34 @@ class AlbumsController extends Controller
         $this->redirectPost('albums');
 
         $data = explode('.', $data);
+        $error = '';
 
         $links = $this->request->get('link_add_photo');
         $names = $this->request->get('name_add_photo');
 
         for($i = 0; $i<count($links); $i++){
+            $date = new \DateTime(null, new \DateTimeZone('Europe/Kiev'));
+            $filetype = strrchr($links[$i] ,'.');
+            $filename = md5($date->format('Y-m-d H:i:s')).$filetype;
+            $upload_path = DOC_ROOT.'/uploads/'.$filename;
+            if(!$this->image->setImageSize($links[$i], 1920, 1080, true, $upload_path)){
+                $error .= 'Can\'t upload photo: '.$links[$i].'<br/>';
+                continue;
+            }
             $photo = new Photos();
-            $photo->link = $links[$i];
+            $photo->link = '../uploads/'.$filename;
             $photo->name = $names[$i]?$names[$i]:'';
             $photo->albums_id = $data[0];
             $photo->insert();
         }
 
         $this->session->set('collapse', $data[1]);
-        $this->session->setFlash('Photo has been added successfully', 'success');
+
+        if(empty($error)){
+            $this->session->setFlash('Photos have uploaded successfully', 'success');
+        }else {
+            $this->session->setFlash($error, 'danger');
+        }
         $this->response->redirect('/albums');
     }
 
@@ -268,4 +281,40 @@ class AlbumsController extends Controller
         $users_h_albums->makeQuery($sql);
     }
 
+    public function uploadAction($data)
+    {
+        $this->redirectPost('albums');
+
+        $data = explode('.', $data);
+        $error = '';
+
+        for($i = 0; $i < sizeof($_FILES['photos']['name']); $i++){
+            $time = microtime(true);
+            $micro = sprintf("%06d",($time - floor($time)) * 1000000);
+            $date = new \DateTime(date('Y-m-d H:i:s.'.$micro,$time), new \DateTimeZone('Europe/Kiev'));
+            $currname = $_FILES['photos']['name'][$i];
+            $filetype = strrchr($currname,'.');
+            $filename = md5($date->format('Y-m-d H:i:s.u')).$filetype;
+            $upload_path = DOC_ROOT.'/uploads/'.$filename;
+            if (move_uploaded_file($_FILES['photos']['tmp_name'][$i], $upload_path)) {
+                $this->image->SetImageSize($upload_path, 1920, 1080, true);
+                $photo = new Photos();
+                $photo->name = substr($currname, 0, strrpos($currname, $filetype));
+                $photo->link = '../uploads/'.$filename;
+                $photo->albums_id = $data[0];
+                $photo->insert();
+            }else{
+                $error .= 'Photo #'.($i+1).'not uploaded with error '.$_FILES['avatar']['error'][$i].'<br/> ';
+            }
+        }
+
+        $this->session->set('collapse', $data[1]);
+        if(empty($error)){
+            $this->session->setFlash('Photos have uploaded successfully', 'success');
+        }else {
+            $this->session->setFlash($error, 'danger');
+        }
+
+        $this->response->redirect('/albums');
+    }
 }
