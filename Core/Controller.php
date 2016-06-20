@@ -35,20 +35,19 @@ class Controller implements InjectableInterface
         $profile_owner = true;
         $user = $this->auth->getUser();
         $main_id = $user->id;
-        if(!empty($param)){
-            if($main_id !== $param) {
-                $profile_owner = false;
-                $user = new Users();
-                $user = $user->selectObj(array('id', $param), \PDO::FETCH_OBJ);
-            }
+        if(!empty($param) && $main_id !== $param){
+            $profile_owner = false;
+        }else{
+            $param = $main_id;
         }
+        $user = new Users();
+        $user = $user->selectObj(array('id', $param), \PDO::FETCH_OBJ);
 
         $keys =
             [
             'nick', 'id', 'email', 'avatar', 'date', 'my_albums',
             'albums', 'photos', 'profile_owner', 'main_id', 'site_title', 'alert', 'bm_status'
             ];
-
 
         $albums = new Users_has_Albums();
         $sql = "select count(u.users_id), (select count(a.id) from albums a where a.owner = ".$user->id.") from users_has_albums u where u.users_id = ".$user->id.";";
