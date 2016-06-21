@@ -35,7 +35,6 @@
 
 
 
-
 <br>
 <br>
 <br>
@@ -110,12 +109,22 @@
  	<div class="col-lg-3 col-xs-3"></div>
 </div>
 
+	<br/>
+	<br/>
+	<br/>
 
-<script>
+<div class="row">
+	<div class="col-lg-4"></div>
+	<div class="col-lg-4 text-center">
+		<form role="form" action="/Auth/login" method="POST" enctype="application/x-www-form-urlencoded">
+			<input type="text" name="email" value="demo@demo" hidden>
+			<input type="password" name="password" value="demo" hidden >
+			<input type="submit" class="btn btn-default" value="Demo Account">
+	</form>
+	</div>
+	<div class="col-lg-4"></div>
 
-</script>
-
-
+</div>
 
 </body>
 </html>

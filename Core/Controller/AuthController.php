@@ -63,6 +63,7 @@ class AuthController extends Controller
         $user->email = strtolower($email);
         $user->password = $this->auth->hash($this->request->get('password'));
         $user->nick = $nick;
+        $user->avatar = 'user_200.png';
         $date = new \DateTime(null, new \DateTimeZone('Europe/Kiev'));
         $user->reg_date = $date->format('Y-m-d');
         $user->insert();
@@ -72,8 +73,6 @@ class AuthController extends Controller
 
     public function loginAction($reg_email = null, $reg_pass = null)
     {
-
-        $pass = $this->request->get('password');
         $user = new Users();
         $email = $reg_email?$reg_email:$this->request->get('email');
         $email = strtolower($email);
