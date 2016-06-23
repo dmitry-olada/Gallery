@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dmitry
- * Date: 07.01.16
- * Time: 21:12
- */
 
 namespace Core\Controller;
 
@@ -13,6 +7,7 @@ use Core\Model\Models\Albums;
 use Core\Model\Models\Comments;
 use Core\Model\Models\Photos;
 use Core\Model\Models\Users;
+use Core\V;
 
 class PhotosController extends Controller
 {
@@ -27,22 +22,31 @@ class PhotosController extends Controller
         $layout = $this->makeLayout($data[0]);
 
         $photos = new Photos();
-        $photos = $photos->selectAll($photos->getColumns(), array('albums_id', $data[1]));
+        $photos = $photos->setConnection($this->connection)->selectAll($photos->getColumns(), array('albums_id', $data[1]));
         $photos = array('photo' => $photos);
 
         $albums = new Albums();
-        $sql = "select a.id, a.name, a.description, a.available, a.date, a.buhlikes, a.owner, u.nick from albums a join users u on (u.id = a.owner) where a.id = ".$data[1].";";
-        $albums = $albums->makeQuery($sql)->fetch();
+        $albums = $albums->setConnection($this->connection)->selectAll($albums->getColumns(), array('id', $data[1]));
 
-        $albums['isliked'] = false;
-        $buhlikes = json_decode($albums['buhlikes']);
+//        $sql = "select a.id, a.name, a.description, a.available, a.date, a.buhlikes, a.owner, u.nick from albums a join users u on (u.id = a.owner) where a.id = ".$data[1].";";
+//        $albums = $albums->makeQuery($sql)->fetch();
+
+        $albums[0]['isliked'] = false;
+        $buhlikes = json_decode($albums[0]['buhlikes']);
         $buhlikes = explode(',', $buhlikes);
-        $albums['buhlikes'] = ($buhlikes[0] !== "")?count($buhlikes):0;
+        $albums[0]['buhlikes'] = ($buhlikes[0] !== "")?count($buhlikes):0;
         if(array_search($layout['main_id'], $buhlikes) || $buhlikes[0] === $layout['main_id']){
-            $albums['isliked'] = true;
+            $albums[0]['isliked'] = true;
         }
 
-        $albums = array('album' => $albums);
+        if($layout['main_id'] === $albums[0]['owner']){
+            $albums[0]['nick'] = $layout['nick'];
+        }else{
+            $user = new Users();
+            $albums[0]['nick'] = $user->setConnection($this->connection)->select('nick', array('id', $albums[0]['owner']))['nick'];
+        }
+
+        $albums = array('album' => $albums[0]);
 
         $data = array_merge_recursive($layout, $albums, $photos);
 
@@ -66,7 +70,7 @@ class PhotosController extends Controller
         $comment->comment = $this->request->get('data');
         $date = new \DateTime(null, new \DateTimeZone('Europe/Kiev'));
         $comment->date = $date->format('Y-m-d H:i:s');
-        $comment->insert();
+        $comment->setConnection($this->connection)->insert();
     }
 
     public function deleteCommentAction($data)
@@ -76,7 +80,7 @@ class PhotosController extends Controller
 
         $comment = new Comments();
         $sql = "select a.owner from albums a join comments c on (a.id = c.albums_id) where c.id = ". $data[1] .";";
-        $owner = $comment->makeQuery($sql)->fetch(\PDO::FETCH_NUM);
+        $owner = $comment->setConnection($this->connection)->makeQuery($sql)->fetch(\PDO::FETCH_NUM);
 
         if($data[0] === $user->id || $owner[0] === $user->id){
             $comment->delete($data[1]);
@@ -90,7 +94,7 @@ class PhotosController extends Controller
     {
         $comments = new Comments();
         $sql = "select comm.id, comm.users_id, comm.comment, comm.date, usr.nick from comments comm join users usr on comm.users_id = usr.id where comm.albums_id = ".$data." order by comm.date DESC;";
-        $comments = $comments->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        $comments = $comments->setConnection($this->connection)->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
         return json_encode($comments);
     }
 

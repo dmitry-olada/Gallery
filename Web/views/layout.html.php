@@ -21,11 +21,10 @@
     <link rel="stylesheet" href="https://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
     <link rel="stylesheet" href="../styles/bootstrap-image-gallery.min.css">
 
-    <!-- JavaScripts -->
     <script src="../js/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.maskedinput.js"></script>
     <script src="../js/bootstrap.file-input.js"></script>
-    <script src="../js/jquery.maskedinput.js" type="text/javascript"></script>
     <script src="../js/custom.js"></script>
 
 </head>
@@ -34,7 +33,7 @@
 <div class="row hidden-lg">
     <div class="col-xs-5">
         <h4 class="text-center" style="margin-left: 60px"><?=$nick?></h4>
-        <div style="text-align: center; margin-left: 60px"><img src="<?='../uploads/'.$avatar?>border="1"></div>
+        <div style="text-align: center; margin-left: 60px"><img src="<?='../uploads/'.$avatar?>" border="1"></div>
     </div>
     <div class="col-xs-7">
         <ul style="list-style: none">
@@ -66,7 +65,7 @@
         <a href="<?='/profile/'.$id ?>"><h2 class=" text-center"><?=$nick?></h2></a>
     </div>
     <div class="photo_profile text-center" style="height: 200px">
-        <img src="<?='../uploads/'.$avatar.'?no_cache=&'.rand(0, 100)?>" border="1">
+        <img src="<?='../uploads/'.$avatar?>" border="1">
     </div>
 
     <div class="navigation">

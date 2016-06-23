@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dmitry
- * Date: 10.01.16
- * Time: 19:33
- */
 
 namespace Core\Controller;
 
@@ -20,10 +14,10 @@ class AuthController extends Controller
     }
 
     public function authAction(){
-        if($this->request->isGet()) {
+        if($this->request->isGet()){
             if($this->cookie->hasCookie('email')){
                 $user = new Users();
-                $curr_user = $user->selectObj(array('email', $this->cookie->getCookie('email')), \PDO::FETCH_OBJ, true);
+                $curr_user = $user->setConnection($this->connection)->selectObj(array('email', $this->cookie->getCookie('email')), \PDO::FETCH_OBJ, true);
                 if($curr_user->password === $this->cookie->getCookie('password')){
                     $this->auth->setUser($curr_user);
                     $this->response->redirect('/');
@@ -35,13 +29,11 @@ class AuthController extends Controller
                 return $this->view->render('views::auth.html', [ 'alert' => $flash ]);
             }
         }else{
-            if($this->di->get('auth')->isAuthenticated()) {
+            if($this->di->get('auth')->isAuthenticated()){
                 $this->response->redirect('/');
-            }elseif($this->di->get('request')->has('nick')) {
-                //REGISTER
+            }elseif($this->di->get('request')->has('nick')){
                 $this->registerAction();
             }else{
-                //LOGIN
                 $this->loginAction();
             }
         }
@@ -49,6 +41,7 @@ class AuthController extends Controller
 
     public function registerAction(){
         $user = new Users();
+        $user->setConnection($this->connection);
         $email = $this->di->request->get('email');
         $nick = $this->request->get('nick');
 
@@ -63,7 +56,6 @@ class AuthController extends Controller
         $user->email = strtolower($email);
         $user->password = $this->auth->hash($this->request->get('password'));
         $user->nick = $nick;
-        $user->avatar = 'user_200.png';
         $date = new \DateTime(null, new \DateTimeZone('Europe/Kiev'));
         $user->reg_date = $date->format('Y-m-d');
         $user->insert();
@@ -74,6 +66,7 @@ class AuthController extends Controller
     public function loginAction($reg_email = null, $reg_pass = null)
     {
         $user = new Users();
+        $user->setConnection($this->connection);
         $email = $reg_email?$reg_email:$this->request->get('email');
         $email = strtolower($email);
         if ($curr_user = $user->selectObj(array('email', $email), \PDO::FETCH_OBJ, true)) {

@@ -31,7 +31,7 @@ class SettingsController extends Controller
         $layout = $this->makeLayout($user->id);
 
         $users = new Users();
-        $users = $users->selectObj(array('id', $user->id));
+        $users = $users->setConnection($this->connection)->selectObj(array('id', $user->id));
         $bm = substr_count(json_decode($users->bookmarks), ',') + 1;
         return $this->view->set('mybookmarks', $bm)->render('views::settings.html', $layout);
     }
@@ -40,7 +40,7 @@ class SettingsController extends Controller
     {
         $user = new Users();
         $sql = "select `id`, `nick`, `reg_date` from `users` order by `id`";
-        $user = $user->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
+        $user = $user->setConnection($this->connection)->makeQuery($sql)->fetchAll(\PDO::FETCH_ASSOC);
         $layout = $this->makeLayout();
         return $this->view->set('info', $user)->render('views::all_users.html', $layout);
     }
@@ -49,7 +49,7 @@ class SettingsController extends Controller
     {
         $layout = $this->makeLayout();
         $issues = new Issues();
-        $issues = $issues->selectAll($issues->getColumns());
+        $issues = $issues->setConnection($this->connection)->selectAll($issues->getColumns());
 
         return $this->view->set('issues', $issues)->render('views::issues.html', $layout);
     }
@@ -61,7 +61,7 @@ class SettingsController extends Controller
         $this->redirectPost('/settings');
 
         $user = new Users();
-        $user = $user->selectObj(array('id', $curr_user->id));
+        $user = $user->setConnection($this->connection)->selectObj(array('id', $curr_user->id));
         switch ($param){
             case 1:
                 $user->nick = $this->request->get('new_nick');
@@ -106,6 +106,7 @@ class SettingsController extends Controller
         $curr_user = $this->auth->getUser();
 
         $issue = new Issues();
+        $issue->setConnection($this->connection);
         $issue->users_id = $curr_user->id;
         $issue->nick = $curr_user->nick;
         $issue->text = $this->request->get('comment');
@@ -121,7 +122,7 @@ class SettingsController extends Controller
         $curr_user = $this->auth->getUser();
 
         $issues = new Issues();
-        $user = $issues->select('users_id', array('id', $data));
+        $user = $issues->setConnection($this->connection)->select('users_id', array('id', $data));
 
         $user['users_id'] !== $curr_user->id?:$issues->delete($data);
     }
@@ -146,7 +147,7 @@ class SettingsController extends Controller
             $this->image->SetImageSize($upload_path, 200, 200, true);
             $curr_user = $this->auth->getUser();
             $user = new Users();
-            $user = $user->selectObj(array('id', $curr_user->id));
+            $user = $user->setConnection($this->connection)->selectObj(array('id', $curr_user->id));
             $user->avatar = $filename;
             $user->update('id', $curr_user->id);
             $this->session->setFlash('Avatar has been changed successfully', 'success');

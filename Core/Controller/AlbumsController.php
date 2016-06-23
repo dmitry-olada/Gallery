@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dmitry
- * Date: 29.01.16
- * Time: 13:35
- */
 
 namespace Core\Controller;
-
 
 use Core\Controller;
 use Core\Model\Models\Albums;
@@ -29,12 +22,14 @@ class AlbumsController extends Controller
         $layout = $this->makeLayout($user->id);
 
         $albums = new Albums();
-        $albums = $albums->selectAll(array('id', 'name', 'description', 'date', 'available', 'owner'), array('owner', $user->id));
+        $albums = $albums->setConnection($this->connection)->selectAll(array('id', 'name', 'description', 'date', 'available', 'owner'), array('owner', $user->id));
 
         $photos = new Photos();
-        $arr_photos = array();
+        $photos->setConnection($this->connection);
         $user_albums = new Users_has_Albums();
-        $users = new Users();
+        $user_albums->setConnection($this->connection);
+
+        $arr_photos = [];
 
         foreach($albums as $key => $value){
             $arr_photos[] = $photos->selectAll($photos->getColumns(), array('albums_id', $albums[$key]['id']));
@@ -62,7 +57,8 @@ class AlbumsController extends Controller
             }
         }
 
-        $arr_users = $users->selectAll(array('id', 'nick'));
+        $users = new Users();
+        $arr_users = $users->setConnection($this->connection)->selectAll(array('id', 'nick'));
 
         if($this->session->has('collapse')){
             $collapse = $this->session->get('collapse');
@@ -82,12 +78,13 @@ class AlbumsController extends Controller
         $data = explode('.', $data);
 
         $album = new Albums();
-        $album = $album->selectObj(array('id', $data[0]));
+        $album = $album->setConnection($this->connection)->selectObj(array('id', $data[0]));
 
+        $album->setConnection($this->connection);
         $album->name = $this->request->get('new_name');
         $album->date = $this->request->get('new_date');
         $album->description = $this->request->get('new_description');
-        (null !== $album->comments)?:$album->comments = '';
+        //(null !== $album->comments)?:$album->comments = '';
         (null !== $album->buhlikes)?:$album->buhlikes = '';
 
         $album->update('id', $data[0]);
@@ -103,8 +100,9 @@ class AlbumsController extends Controller
         $this->redirectPost('albums');
 
         $photo = new Photos();
-        $photo = $photo->selectObj(array('id', $data), \PDO::FETCH_OBJ);
+        $photo = $photo->setConnection($this->connection)->selectObj(array('id', $data), \PDO::FETCH_OBJ);
 
+        $photo->setConnection($this->connection);
         $photo->name = $this->request->get('data');
         $photo->update('id', $data);
     }
@@ -116,7 +114,7 @@ class AlbumsController extends Controller
         $data = explode('.', $this->request->get('data'));
 
         $photo = new Photos();
-        $photo->delete($data[0]);
+        $photo->setConnection($this->connection)->delete($data[0]);
 
         $this->session->set('collapse', $data[1]);
         $this->session->setFlash('Photo has been deleted', 'warning');
@@ -129,6 +127,7 @@ class AlbumsController extends Controller
         $user = $this->auth->getUser();
 
         $album = new Albums();
+        $album->setConnection($this->connection);
         $album->name = htmlspecialchars($this->request->get('create_album_name'));
         $album->date = $this->request->get('create_album_date');
         $description = $this->request->get('create_album_description_1');
@@ -152,7 +151,7 @@ class AlbumsController extends Controller
         "delete from `albums` where `id` = ".$data."; ".
         "SET FOREIGN_KEY_CHECKS=1;";
 
-        $album->makeQuery($sql);
+        $album->setConnection($this->connection)->makeQuery($sql);
         $this->session->setFlash('Album has been deleted', 'warning');
         $this->response->redirect('/albums');
     }
@@ -177,6 +176,7 @@ class AlbumsController extends Controller
                 continue;
             }
             $photo = new Photos();
+            $photo->setConnection($this->connection);
             $photo->link = '../uploads/'.$filename;
             $photo->name = $names[$i]?$names[$i]:'';
             $photo->albums_id = $data[0];
@@ -200,7 +200,7 @@ class AlbumsController extends Controller
         $user = $this->auth->getUser();
 
         $album = new Albums();
-        $album = $album->selectObj(array('id', $data), \PDO::FETCH_OBJ);
+        $album = $album->setConnection($this->connection)->selectObj(array('id', $data), \PDO::FETCH_OBJ);
 
         $bm = explode(',', json_decode($album->buhlikes));
 
@@ -216,7 +216,7 @@ class AlbumsController extends Controller
         $delete?:$bm[] = $user->id;
 
         $album->buhlikes = json_encode(trim(implode($bm, ','), ','));
-        $album->update('id', $data);
+        $album->setConnection($this->connection)->update('id', $data);
 
         $count = count($bm);
         if(isset($bm[0])){
@@ -240,9 +240,9 @@ class AlbumsController extends Controller
         }
 
         $album = new Albums();
-        $album = $album->selectObj(array('id', $data), \PDO::FETCH_OBJ);
+        $album = $album->setConnection($this->connection)->selectObj(array('id', $data), \PDO::FETCH_OBJ);
         $album->available = json_encode(trim($json, ','));
-        $album->update('id', $data);
+        $album->setConnection($this->connection)->update('id', $data);
         $this->session->setFlash($album->name.' permissions has been updated', 'success');
         $this->response->redirect('/albums');
     }
@@ -251,14 +251,18 @@ class AlbumsController extends Controller
     {
         $this->redirectPost('albums');
 
+        $curr_user = $this->auth->getUser();
+
         $user_has_albums = new Users_has_Albums();
+        $user_has_albums->setConnection($this->connection);
 
         $user = new Users();
-        $users = $user->selectAll(array('id'));
+        $users = $user->setConnection($this->connection)->selectAll(array('id'));
 
         $id = $this->request->get('js_data');
 
         foreach($users as $item){
+            if($id === $curr_user->id) continue;
             $values = array_search($id, $item);
             if($values){
                 $user_has_albums->albums_id = $data;
@@ -278,7 +282,7 @@ class AlbumsController extends Controller
         $data = explode('.', $data);
         $users_h_albums = new Users_has_Albums();
         $sql = "DELETE FROM `users_has_albums` WHERE `users_id` = ".$data[0]." && `albums_id` = ".$data[1].";";
-        $users_h_albums->makeQuery($sql);
+        $users_h_albums->setConnection($this->connection)->makeQuery($sql);
     }
 
     public function uploadAction($data)
@@ -302,9 +306,9 @@ class AlbumsController extends Controller
                 $photo->name = substr($currname, 0, strrpos($currname, $filetype));
                 $photo->link = '../uploads/'.$filename;
                 $photo->albums_id = $data[0];
-                $photo->insert();
+                $photo->setConnection($this->connection)->insert();
             }else{
-                $error .= 'Photo #'.($i+1).'not uploaded with error '.$_FILES['avatar']['error'][$i].'<br/> ';
+                $error .= 'Photo #'.($i+1).' not uploaded with error '.$_FILES['photos']['error'][$i].'<br/> ';
             }
         }
 

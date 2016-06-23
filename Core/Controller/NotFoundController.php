@@ -13,8 +13,8 @@ use Core\Controller;
 
 class NotFoundController extends Controller
 {
-    //TODO: if param isNull
     public function defaultAction($param){
+        $param = (null === $param) ? 'Unknown error' : $param;
         return $this->view->render('views::404.html', array('subject' => $param));
     }
 }

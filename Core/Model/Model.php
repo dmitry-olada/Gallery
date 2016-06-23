@@ -11,12 +11,13 @@ namespace Core\Model;
 use Core\Controller;
 use Core\Model\QueryBuilder\Connection;
 use Core\Model\QueryBuilder\Grammar\Mysql;
+use Core\V;
 
 class Model implements ModelsInterface
 {
-    protected $connection;
+    public $connection;
 
-    protected $pdo;
+    public $pdo;
 
     /**
      * @return string
@@ -39,16 +40,11 @@ class Model implements ModelsInterface
     {
     }
 
-    public function __construct($pdo = null)
+    public function setConnection($connection)
     {
-        $opt = array(
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
-            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-        );
-        $this->pdo = $pdo ? $pdo : new \PDO('mysql:dbname=new_gallery;host=127.0.0.1', 'root', '', $opt);
-        $this->connection = new Connection($this->pdo);
+        $this->connection = $connection;
         $this->connection->setQueryGrammar(new Mysql());
+        return $this;
     }
 
     public function selectAll($fields, $where = array(), $opt = null)

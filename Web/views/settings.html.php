@@ -44,14 +44,9 @@
                         <form role="form" class="form-inline form-horizontal" action='settings/uploadAvatar' method='post' enctype='multipart/form-data'>
                             <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
                             <input type='file' name='avatar' size='17' accept="image/*" />
-                            <input type='submit' class="btn btn-primary upload-avatar" name='addAvatar' value='Upload' />
-                            <div class="ajax-respond"></div>
+                            <input type='submit' class="btn btn-primary upload-avatar uploader" name='addAvatar' value='Upload' />
                         </form>
 
-<!--                        <form role="form" action="/settings/change/2" method="POST">-->
-<!--                            <input type="text" required name="new_avatar">-->
-<!--                            <button type="submit" class="btn btn-default">Select</button>-->
-<!--                        </form>-->
                     </div>
                     <div class="col-lg-1"></div>
                 </div>
@@ -87,10 +82,19 @@
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10">
                         <form role="form" action="/settings/change/4" method="POST">
-                            <p><span class="hidden-sm hidden-xs">Enter</span> Old password: <input style="float: right" type="password" required name="old_password"></p>
-                            <p><span class="hidden-sm hidden-xs">Enter</span> New password: <input style="float: right" type="password" required name="new_password"></p>
-                            <p>Confirm<span class="hidden-sm hidden-xs"> New password</span>: <input style="float: right" type="password" required name="conf_new_password"></p>
-                            <p></p>
+                            <div class="form-group">
+                                <label for="old_password">Enter old pass:</label>
+                                <input class="settings_float_r form-control" type="password" required name="old_password">
+                            </div>
+                            <div class="form-group">
+                                <label for="new_password">Enter new pass:</label>
+                                <input class="settings_float_r form-control" type="password" required name="new_password">
+                            </div>
+                            <div class="form-group">
+                                <label for="conf_new_password">Confirm new pass:</label>
+                                <input class="settings_float_r form-control" type="password" required name="conf_new_password"></p>
+                            </div>
+                            <br/>
                             <div style="text-align: center"><button type="submit" class="btn btn-default">Select</button></div>
                         </form>
                     </div>
@@ -164,8 +168,5 @@
     <div class="hidden-lg col-xs-2"></div>
 
 </div>
-
-
-<!--<script src="../js/upload.js"></script>-->
 
 <?php $this->endblock() ?>

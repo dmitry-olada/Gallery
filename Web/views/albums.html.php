@@ -5,12 +5,10 @@
     <link rel="stylesheet" href="../styles/bootstrap-multiselect.css">
     <script src="../js/bootstrap-multiselect.js"></script>
     <script type="text/javascript">
-        jQuery(function($){
-            $(".change_album_date").mask("9999-99-99",{placeholder:"yyyy-mm-dd"});
+        jQuery(function ($) {
+            $(".change_album_date").mask("99-99-9999", {placeholder: "dd-mm-yyyy"});
         });
     </script>
-
-
 
     <div class="row">
         <div class="col-lg-12 col-xs-12">
@@ -43,7 +41,7 @@
                                     <div class="col-lg-8 col-xs-8">
                                         <input type="text" required name="create_album_name">
                                         <div class="form_indent"></div>
-                                        <input class="change_album_date" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" type="text" required name="create_album_date">
+                                        <input class="change_album_date" pattern="(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-(19[0-9]{2}|20[0-9]{2})" type="text" required name="create_album_date">
                                         <div class="form_indent"></div>
                                         <div class="hidden-lg" style="height: 20px"></div>
                                         <textarea class="hidden-sm hidden-xs" style="resize: none" cols="45" rows="6" name="create_album_description_1"></textarea>
@@ -90,7 +88,7 @@
                                     <div class="col-lg-5">
                                         <form role="form" action="/albums/change/<?=$item['id'].'.'.$count?>" method="POST">
                                             <p>Name: <input style="width:250px" type="text" name="new_name" value="<?=$item['name']?>"></p>
-                                            <p>Date: &nbsp <input class="change_album_date" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])" style="width:249px" type="text" name="new_date" value="<?=$item['date']?>"> </p>
+                                            <p>Date: &nbsp <input class="change_album_date" pattern="(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-(19[0-9]{2}|20[0-9]{2})" style="width:249px" type="text" name="new_date" value="<?=$item['date']?>"> </p>
                                             <p>Description: </p><p><textarea id="album_description" cols="45" rows="6" name="new_description"
                                                 <?php
                                                     if($item['description'] !== ''){

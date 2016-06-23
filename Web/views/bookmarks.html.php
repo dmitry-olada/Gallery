@@ -19,7 +19,7 @@
                     <?php
                     if(!empty($bookmarks[$i]['nick'])){ ?>
                         <a href="/profile/<?=$bookmarks[$i]['id']?>"><h4><?=$bookmarks[$i]['nick'] ?></h4>
-                        <img src="<?=$bookmarks[$i]['avatar'] ?>" height="200"></a>
+                        <img src="../uploads/<?=$bookmarks[$i]['avatar'] ?>" height="200"></a>
                         <br>
                     <?php } ?>
                     </div>
@@ -29,7 +29,7 @@
                     <?php
                     if(!empty($bookmarks[$i + 1]['nick'])){ ?>
                         <a href="/profile/<?=$bookmarks[$i + 1]['id']?>"><h4><?=$bookmarks[$i + 1]['nick'] ?></h4>
-                        <img src="<?=$bookmarks[$i + 1]['avatar'] ?>" height="200" ></a>
+                        <img src="../uploads/<?=$bookmarks[$i + 1]['avatar'] ?>" height="200" ></a>
                         <br>
                     <?php } ?>
                     </div>
@@ -39,7 +39,7 @@
                     <?php
                     if(!empty($bookmarks[$i + 2]['nick'])){ ?>
                         <a href="/profile/<?=$bookmarks[$i + 2]['id']?>"><h4><?=$bookmarks[$i + 2]['nick'] ?></h4>
-                        <img src="<?=$bookmarks[$i + 2]['avatar'] ?>" height="200"></a>
+                        <img src="../uploads/<?=$bookmarks[$i + 2]['avatar'] ?>" height="200"></a>
                         <br>
                     <?php } ?>
                     </div>

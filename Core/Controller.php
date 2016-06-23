@@ -1,13 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dmitry
- * Date: 07.01.16
- * Time: 21:15
- */
 
 namespace Core;
 
+use Core\Model\Models\Albums;
+use Core\Model\Models\Photos;
 use Core\Model\Models\Users;
 use Core\Model\Models\Users_has_Albums;
 use Lebran\Container;
@@ -18,7 +14,7 @@ class Controller implements InjectableInterface
 {
     use InjectableTrait;
 
-    const SITE_TITLE = 'Buhlogram';
+    const SITE_TITLE = 'Gallery';
 
     public function __construct($di)
     {
@@ -40,8 +36,10 @@ class Controller implements InjectableInterface
         }else{
             $param = $main_id;
         }
+
         $user = new Users();
-        $user = $user->selectObj(array('id', $param), \PDO::FETCH_OBJ);
+        $user = $user->setConnection($this->connection)->selectObj(array('id', $param), \PDO::FETCH_OBJ);
+        $user->setConnection($this->connection);
 
         $keys =
             [
@@ -49,9 +47,11 @@ class Controller implements InjectableInterface
             'albums', 'photos', 'profile_owner', 'main_id', 'site_title', 'alert', 'bm_status'
             ];
 
-        $albums = new Users_has_Albums();
-        $sql = "select count(u.users_id), (select count(a.id) from albums a where a.owner = ".$user->id.") from users_has_albums u where u.users_id = ".$user->id.";";
-        $album = $albums->makeQuery($sql)->fetch(\PDO::FETCH_NUM);
+        $album = new Users_has_Albums();
+        $user_albums = $album->setConnection($this->connection)->selectAll('albums_id', array('users_id', $user->id));
+
+        $my_albums = new Albums();
+        $count_my_albums = $my_albums->setConnection($this->connection)->select('count(id)', array('owner', $user->id), \PDO::FETCH_NUM)[0];
 
         $bm_status = false;
         if(!$profile_owner) {
@@ -63,23 +63,23 @@ class Controller implements InjectableInterface
             }
         }
 
-        $count_photos = "Disabled";
+        $count_albums = 0;
+        $count_photos = 0;
 
-        /*
         $user_photos = new Photos();
+        $user_photos->setConnection($this->connection);
         foreach($user_albums as $item){
             $tmp = $user_photos->select('count(id)', array('albums_id', $item['albums_id']), \PDO::FETCH_NUM);
             $count_photos += $tmp[0];
             $count_albums++;
         }
-        */
 
         $alert = $this->session->getFlash();
 
         $values =
             [
-                ucfirst($user->nick), $user->id, $user->email, $user->avatar, $user->reg_date, $album[1],
-                $album[0], $count_photos, $profile_owner, $main_id, Controller::SITE_TITLE, $alert, $bm_status
+                ucfirst($user->nick), $user->id, $user->email, $user->avatar, $user->reg_date, $count_my_albums,
+                $count_albums, $count_photos, $profile_owner, $main_id, Controller::SITE_TITLE, $alert, $bm_status
             ];
 
         return array_combine($keys, $values);

@@ -22,11 +22,6 @@
                     </a>
                 <?php } ?>
 
-                <!--
-                <a href="http://www.cinemablend.com/images/sections/62870/_1395179465.jpg" title="Dimonchik" data-gallery>
-                    <img src="http://www.cinemablend.com/images/sections/62870/_1395179465.jpg" height="75" alt="Dimonchik">
-                -->
-
             </div>
         </div>
         <div class="col-lg-4 hidden-sm hidden-xs comment_container">

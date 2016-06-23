@@ -25,7 +25,7 @@ class BookmarksController extends Controller
         $layout = $this->makeLayout($user->id);
 
         $users = new Users();
-        $bookmarks = $users->select('bookmarks', array('id', $user->id));
+        $bookmarks = $users->setConnection($this->connection)->select('bookmarks', array('id', $user->id));
 
         $bookmarks_id = json_decode($bookmarks['bookmarks'], true);
         $bookmarks_id = explode(',', $bookmarks_id);
@@ -47,7 +47,7 @@ class BookmarksController extends Controller
         $user = $this->auth->getUser();
 
         $users = new Users();
-        $curr_user = $users->selectObj(array('id', $user->id), \PDO::FETCH_OBJ);
+        $curr_user = $users->setConnection($this->connection)->selectObj(array('id', $user->id), \PDO::FETCH_OBJ);
 
         $bookmarks_id = json_decode($curr_user->bookmarks, true);
         $bookmarks_id = explode(',', $bookmarks_id);
@@ -65,7 +65,7 @@ class BookmarksController extends Controller
             $bookmarks_id[] = $id;
         }
         $curr_user->bookmarks = json_encode(trim(implode($bookmarks_id, ','), ','));
-        $curr_user->update('id', $user->id);
+        $curr_user->setConnection($this->connection)->update('id', $user->id);
         return $delete?1:0; //без этого никак
     }
 }

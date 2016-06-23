@@ -23,10 +23,9 @@ class ProfileController extends Controller
     {
         $layout = $this->makeLayout($data);
         $album = new Albums();
+        $album->setConnection($this->connection);
         $user_albums = new Users_has_Albums();
-
-        $sql = "select u.albums_id from users_has_albums u join albums a on (a.id = u.albums_id) where u.users_id = ".$layout['id']." order by a.date DESC ";
-        $user_albums = $user_albums->makeQuery($sql)->fetchAll(\PDO::FETCH_NUM);
+        $user_albums = $user_albums->setConnection($this->connection)->selectAll('albums_id', array('users_id', $layout['id']), \PDO::FETCH_NUM);
 
         $albums = array();
         foreach ($user_albums as $item){
@@ -41,6 +40,7 @@ class ProfileController extends Controller
                         }
                     }
                 }
+                $curr_albums[$key]['date'] = substr_replace($curr_albums[$key]['date'], '', 6, -2);
                 $curr_albums[$key]['isliked'] = false;
                 $buhlikes = json_decode($curr_albums[$key]['buhlikes']);
                 $buhlikes = explode(',', $buhlikes);
