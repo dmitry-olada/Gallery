@@ -56,6 +56,7 @@ class AuthController extends Controller
         $user->email = strtolower($email);
         $user->password = $this->auth->hash($this->request->get('password'));
         $user->nick = $nick;
+        $user->avatar = 'user_200.png';
         $date = new \DateTime(null, new \DateTimeZone('Europe/Kiev'));
         $user->reg_date = $date->format('Y-m-d');
         $user->insert();

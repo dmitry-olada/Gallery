@@ -31,8 +31,10 @@ class SettingsController extends Controller
         $layout = $this->makeLayout($user->id);
 
         $users = new Users();
-        $users = $users->setConnection($this->connection)->selectObj(array('id', $user->id));
-        $bm = substr_count(json_decode($users->bookmarks), ',') + 1;
+        $users = $users->setConnection($this->connection)->select('bookmarks', ['id', $user->id]);
+
+        $bm = (empty($users['bookmarks']) || $users['bookmarks']{1} === "\"") ? 0 : substr_count(json_decode($users['bookmarks']), ',') + 1;
+
         return $this->view->set('mybookmarks', $bm)->render('views::settings.html', $layout);
     }
 
@@ -67,10 +69,10 @@ class SettingsController extends Controller
                 $user->nick = $this->request->get('new_nick');
                 $property = 'Nick';
                 break;
-            case 2:
-                $user->avatar = $this->request->get('new_avatar');
-                $property = 'Avatar';
-                break;
+//            case 2:
+//                $user->avatar = $this->request->get('new_avatar');
+//                $property = 'Avatar';
+//                break;
             case 3:
                 $user->email = $this->request->get('new_email');
                 $property = 'Email';
@@ -96,7 +98,7 @@ class SettingsController extends Controller
                 $this->response->redirect('/settings');
                 break;
         }
-        $user->update('id', $curr_user->id);
+        $user->setConnection($this->connection)->update('id', $curr_user->id);
         $this->session->setFlash($property.' has been changed successfully', 'success');
         $this->response->redirect('/settings');
     }
@@ -144,12 +146,16 @@ class SettingsController extends Controller
         $upload_path = DOC_ROOT.'/uploads/'.$filename;
 
         if (move_uploaded_file($_FILES['avatar']['tmp_name'], $upload_path)){
-            $this->image->SetImageSize($upload_path, 200, 200, true);
+            $img_err = $this->image->SetImageSize($upload_path, 200, 200, true);
+            if(!$img_err){
+                $this->session->setFlash('Incorrect image, try another please', 'danger');
+                $this->response->redirect('/settings');
+            }
             $curr_user = $this->auth->getUser();
             $user = new Users();
             $user = $user->setConnection($this->connection)->selectObj(array('id', $curr_user->id));
             $user->avatar = $filename;
-            $user->update('id', $curr_user->id);
+            $user->setConnection($this->connection)->update('id', $curr_user->id);
             $this->session->setFlash('Avatar has been changed successfully', 'success');
         } else {
             $this->session->setFlash('Upload error '.$_FILES['avatar']['error'], 'danger');

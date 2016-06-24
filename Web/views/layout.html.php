@@ -32,10 +32,11 @@
 
 <div class="row hidden-lg">
     <div class="col-xs-5">
-        <h4 class="text-center" style="margin-left: 60px"><?=$nick?></h4>
-        <div style="text-align: center; margin-left: 60px"><img src="<?='../uploads/'.$avatar?>" border="1"></div>
+        <br/>
+        <div style="text-align: center; margin-left: 10px"><img src="<?='../uploads/'.$avatar?>" border="1"></div>
     </div>
     <div class="col-xs-7">
+        <h4 class="text-center" style="margin-left: 35px"><?=$nick?></h4>
         <ul style="list-style: none">
             <li class="phone_menu"><a href="/">Profile</a></li>
             <?php if($profile_owner) { ?>
@@ -60,7 +61,7 @@
 <div class="hidden-lg" style="border-top: 1px solid #f7f7f7; margin-top: 5px;"></div>
 
 <!-- Main Menu -->
-<div id="main-sidebar" class="hidden-xs hidden-sm">
+<div id="main-sidebar" class="hidden-xs hidden-sm hidden-md">
     <div class="nick">
         <a href="<?='/profile/'.$id ?>"><h2 class=" text-center"><?=$nick?></h2></a>
     </div>

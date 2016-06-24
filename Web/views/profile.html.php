@@ -2,7 +2,7 @@
 
 <?php $this->block('content') ?>
 
-	<div id="templatemo" class="hidden-sm hidden-xs">
+	<div id="templatemo" class="hidden-sm hidden-xs hidden-md">
 		<div class="main-slider">
 			<div class="flexslider">
 				<ul class="slides">
@@ -53,11 +53,11 @@
 					<div class="col-lg-9 col-xs-10 profile_albums">
 						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><h2><?=$user_albums[$i]['name']?></h2></a>
 						<div class="row">
-							<div class="col-lg-9 hidden-xs hidden-sm text-center">
+							<div class="col-lg-9 hidden-xs hidden-sm hidden-md text-center">
 								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
 							</div>
 							<div class="col-xs-7 hidden-lg">
-								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="115" width="140"></a>
+								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i]['id']?>"><img src="../images/folder.png" height="115" width="140"></a>
 							</div>
 							<div class="col-lg-3 col-xs-5">
 								<span class="profile_date"><p><?=$user_albums[$i]['date']?></p></span>
@@ -92,7 +92,7 @@
 					<div class="col-lg-9 col-xs-10 profile_albums">
 						<a class="text-center " href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><h2><?=$user_albums[$i+1]['name']?></h2></a>
 						<div class="row">
-							<div class="col-lg-9 hidden-sm hidden-xs text-center">
+							<div class="col-lg-9 hidden-sm hidden-xs hidden-md text-center">
 								<a class="profile_folder" href="/photos/<?= $id.'.'.$user_albums[$i+1]['id']?>"><img src="../images/folder.png" height="230" width="280"></a>
 							</div>
 							<div class="col-xs-7 hidden-lg">

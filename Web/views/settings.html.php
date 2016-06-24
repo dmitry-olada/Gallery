@@ -58,18 +58,18 @@
                 <p> Email: &nbsp &nbsp &nbsp &nbsp &nbsp <span class="hidden-sm hidden-xs"><?=$email?></span><button class="btn btn-default settings_button" data-toggle="collapse" data-target="#change_email">Change</button></p>
             </div>
             <div id="change_email" class="collapse">
-            <h4 class="text-center">Enter new email</h4>
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-9">
-                    <form role="form" action="/settings/change/3" method="POST">
-                        <input type="text required name="new_email">
-                        <button type="submit" class="btn btn-default">Select</button>
-                    </form>
+                <h4 class="text-center">Enter new email</h4>
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-9">
+                        <form role="form" action="/settings/change/3" method="POST">
+                            <input type="email" required  name="new_email">
+                            <button type="submit" class="btn btn-default">Select</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-1"></div>
                 </div>
-                <div class="col-lg-1"></div>
-            </div>
-            <br>
+                <br>
             </div>
             <div class="settings_delimiter"></div>
 

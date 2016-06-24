@@ -7,7 +7,7 @@ class Image
     public  function SetImageSize($img, $width, $height, $AspectRatio = true, $name = false)
     {
         $file_type = trim(strtolower(strrchr($img, '.')),'.');
-        $file_type = !stristr($file_type, '?') ?: $file_type = substr($file_type, 0, strrpos($file_type, '?'));
+        $file_type = !stristr($file_type, '?') ? $file_type : substr($file_type, 0, strrpos($file_type, '?'));
 
         switch ($file_type){
             case "jpg":
