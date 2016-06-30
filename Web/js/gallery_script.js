@@ -23,11 +23,16 @@ var show = function (){
         },
         type: 'json'
     });
+
+    if($('#blueimp-gallery').css('display') == 'none'){
+        $('body').css('overflow', 'visible');
+    }
 };
+
 
 $(document).ready(function(){
     show();
-    window.setInterval(show, 10000);
+    window.setInterval(show, 8000);
 });
 
 document.getElementById('links').onclick = function (event) {

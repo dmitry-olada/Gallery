@@ -146,11 +146,22 @@
                                 <div class="modal-body">
                                     <div>
                                         <ul class="nav nav-tabs" role="tablist">
-                                            <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">From PC</a></li>
-                                            <li class="active"><a href="#link" aria-controls="link" role="tab" data-toggle="tab">Link</a></li>
-                                            </ul>
+                                            <li class="active"><a href="#profile_<?=$count?>" aria-controls="profile_<?=$count?>" role="tab" data-toggle="tab">From PC</a></li>
+                                            <li><a href="#link_<?=$count?>" aria-controls="link_<?=$count?>" role="tab" data-toggle="tab">Link</a></li>
+                                        </ul>
                                         <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="link">
+
+                                            <div role="tabpanel" class="tab-pane fade text-center in active" id="profile_<?=$count?>">
+                                                <br/>
+                                                <form role="form" class="form-inline form-horizontal" action='albums/upload/<?=$item['id'].'.'.$count?>' method='post' enctype='multipart/form-data'>
+                                                    <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
+                                                    <input type='file' multiple name='photos[]' size='17' accept="image/*" />
+                                                    <input type='submit' class="upload-photos" name='uploadPhotos' value='Upload' />
+                                                    <div class="ajax-respond"></div>
+                                                </form>
+                                            </div>
+
+                                            <div role="tabpanel" class="tab-pane fade" id="link_<?=$count?>">
                                                 <br/>
                                                 <form role="form" action="/albums/addPhoto/<?=$item['id'].'.'.$count?>" method="post">
                                                     <div class="inputs_container text-center">
@@ -163,15 +174,6 @@
                                                         </div>
                                                     </div><br/>
                                                     <div class="text-center"><input name="submit" type="submit" value="Upload"></div>
-                                                </form>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane fade text-center" id="profile">
-                                                <br/>
-                                                <form role="form" class="form-inline form-horizontal" action='albums/upload/<?=$item['id'].'.'.$count?>' method='post' enctype='multipart/form-data'>
-                                                    <input type="hidden" name="MAX_FILE_SIZE" value="5242880" />
-                                                    <input type='file' multiple name='photos[]' size='17' accept="image/*" />
-                                                    <input type='submit' class="upload-photos" name='uploadPhotos' value='Upload' />
-                                                    <div class="ajax-respond"></div>
                                                 </form>
                                             </div>
                                         </div>
