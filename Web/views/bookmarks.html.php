@@ -10,7 +10,7 @@
     <div class="col-lg-1 col-xs-2"></div>
     <div class="col-lg-9 col-xs-8">
 
-        <table class="table bookmarks_table hidden-xs hidden-sm">
+        <table class="table bookmarks_table hidden-xs hidden-sm hidden-md">
         <?php
         for($i = 0; $i < count($bookmarks); $i+=3) { ?>
             <tr>
@@ -55,7 +55,7 @@
                 foreach ($bookmarks as $item){ ?>
                 <div class="col-xs-12 text-center hidden-lg">
                    <a href="/profile/<?=$item['id']?>"><h4 style="float: left"><?=$item['nick'] ?></h4>
-                       <img src="<?=$item['avatar'] ?>" height="200"></a>
+                       <img src="../uploads/<?=$item['avatar'] ?>" height="200"></a>
                     <br>
                 </div>
 
